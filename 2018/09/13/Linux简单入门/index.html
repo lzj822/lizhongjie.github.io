@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="本博文仅作为个人复习使用, 并没有清楚的描述问题的细节, 主要是为了构建Linux知识体系,熟悉Linux简单操作.  目录结构从Windows系统向Linux系统转变的时候,最不是习惯的就是目录结构,如果Windows不分区,全部东西都放C盘那感觉跟Linux也差不多(手动狗头)   / 根目录有且只有一个根目录,Linux目录结构是一个树的结构,所有的东西都从这里开始.   /home用户">
+  <meta name="description" content="本博文仅作为个人复习使用, 并没有清楚的描述问题的细节, 主要是为了构建Linux知识体系,熟悉Linux简单操作.  目录结构从Windows系统向Linux系统转变的时候,最不是习惯的就是目录结构,如果Windows不分区,全部东西都放C盘那感觉跟Linux也差不多(手动狗头)      目录名 说明     / 根目录；有且只有一个根目录,Linux目录结构是一个树的结构,所有的东西都从">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux简单入门">
 <meta property="og:url" content="http://lizhongjie.com/2018/09/13/Linux简单入门/index.html">
 <meta property="og:site_name" content="Liam Li">
-<meta property="og:description" content="本博文仅作为个人复习使用, 并没有清楚的描述问题的细节, 主要是为了构建Linux知识体系,熟悉Linux简单操作.  目录结构从Windows系统向Linux系统转变的时候,最不是习惯的就是目录结构,如果Windows不分区,全部东西都放C盘那感觉跟Linux也差不多(手动狗头)   / 根目录有且只有一个根目录,Linux目录结构是一个树的结构,所有的东西都从这里开始.   /home用户">
+<meta property="og:description" content="本博文仅作为个人复习使用, 并没有清楚的描述问题的细节, 主要是为了构建Linux知识体系,熟悉Linux简单操作.  目录结构从Windows系统向Linux系统转变的时候,最不是习惯的就是目录结构,如果Windows不分区,全部东西都放C盘那感觉跟Linux也差不多(手动狗头)      目录名 说明     / 根目录；有且只有一个根目录,Linux目录结构是一个树的结构,所有的东西都从">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-14T07:48:23.172Z">
+<meta property="og:updated_time" content="2020-02-12T08:30:01.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux简单入门">
-<meta name="twitter:description" content="本博文仅作为个人复习使用, 并没有清楚的描述问题的细节, 主要是为了构建Linux知识体系,熟悉Linux简单操作.  目录结构从Windows系统向Linux系统转变的时候,最不是习惯的就是目录结构,如果Windows不分区,全部东西都放C盘那感觉跟Linux也差不多(手动狗头)   / 根目录有且只有一个根目录,Linux目录结构是一个树的结构,所有的东西都从这里开始.   /home用户">
+<meta name="twitter:description" content="本博文仅作为个人复习使用, 并没有清楚的描述问题的细节, 主要是为了构建Linux知识体系,熟悉Linux简单操作.  目录结构从Windows系统向Linux系统转变的时候,最不是习惯的就是目录结构,如果Windows不分区,全部东西都放C盘那感觉跟Linux也差不多(手动狗头)      目录名 说明     / 根目录；有且只有一个根目录,Linux目录结构是一个树的结构,所有的东西都从">
 
 
 
@@ -372,7 +372,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-09-14 15:48:23" itemprop="dateModified" datetime="2018-09-14T15:48:23+08:00">2018-09-14</time>
+                <time title="修改时间：2020-02-12 16:30:01" itemprop="dateModified" datetime="2020-02-12T16:30:01+08:00">2020-02-12</time>
               
             
           </span>
@@ -427,18 +427,64 @@
 <p>本博文仅作为个人<linux>复习使用, 并没有清楚的描述问题的细节, 主要是为了构建Linux知识体系,熟悉Linux简单操作.</linux></p>
 </blockquote>
 <h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>从Windows系统向Linux系统转变的时候,最不是习惯的就是目录结构,如果Windows不分区,全部东西都放C盘那感觉跟Linux也差不多(手动狗头)  </p>
-<p><strong>/</strong> 根目录<br>有且只有一个根目录,Linux目录结构是一个树的结构,所有的东西都从这里开始.  </p>
-<p><strong>/home</strong><br>用户的主目录, 每个用户都有一个自己的目录, 一般都是以用户的账号命名, 主要存放个人数据  </p>
-<p><strong>/bin</strong><br>存放最经常使用命令, 如: cat, cp, ls, mkdir, rm等</p>
-<p><strong>/sbin</strong><br>存放管理员的系统管理指令, 如: shutdown, reboot, 命令通常只有管理员才可以运行  </p>
-<p><strong>/usr</strong><br>包含绝大多数的(多)用户工具和应用程序。  </p>
-<p><strong>/usr/bin</strong><br>下面的都是系统预装的可执行程序，会随着系统升级而改变。</p>
-<p><strong>/usr/local/bin</strong><br>目录是给用户放置自己的可执行程序的地方，推荐放在这里，不会被系统升级而覆盖同名文件。 </p>
-<p><strong>/usr/sbin</strong><br>存放超级用户才能使用的应用程序   </p>
-<p><strong>/boot</strong><br>Linux的内核及引导系统程序所需要的文件目录  </p>
-<p><strong>/tmp</strong><br>这个目录存放一些临时文件. 对于某些程序来说, 有些文件被用了一次两次之后，就不会再被用到，像这样的文件就放在这里. 有些Linux系统会定期自动对这个目录进行清理.  </p>
-<p><strong>/opt</strong><br>这是给主机额外安装软件所摆放的目录。  </p>
-<p><strong>/etc</strong><br>这个目录用来存放所有的系统管理所需要的配置文件和子目录.  </p>
+<table>
+<thead>
+<tr>
+<th>目录名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>/</strong></td>
+<td>根目录；有且只有一个根目录,Linux目录结构是一个树的结构,所有的东西都从这里开始。</td>
+</tr>
+<tr>
+<td><strong>/home</strong></td>
+<td>用户的主目录, 每个用户都有一个自己的目录, 一般都是以用户的账号命名, 主要存放个人数据。</td>
+</tr>
+<tr>
+<td><strong>/bin</strong></td>
+<td>存放最经常使用命令, 如: cat, cp, ls, mkdir, rm等。</td>
+</tr>
+<tr>
+<td><strong>/sbin</strong></td>
+<td>存放管理员的系统管理指令, 如: shutdown, reboot, 命令通常只有管理员才可以运行  </td>
+</tr>
+<tr>
+<td><strong>/usr</strong></td>
+<td>包含绝大多数的(多)用户工具和应用程序。  </td>
+</tr>
+<tr>
+<td><strong>/usr/bin</strong></td>
+<td>下面的都是系统预装的可执行程序，会随着系统升级而改变。</td>
+</tr>
+<tr>
+<td><strong>/usr/local/bin</strong></td>
+<td>目录是给用户放置自己的可执行程序的地方，推荐放在这里，不会被系统升级而覆盖同名文件。 </td>
+</tr>
+<tr>
+<td><strong>/usr/sbin</strong></td>
+<td>存放超级用户才能使用的应用程序   </td>
+</tr>
+<tr>
+<td><strong>/boot</strong></td>
+<td>Linux的内核及引导系统程序所需要的文件目录  </td>
+</tr>
+<tr>
+<td><strong>/tmp</strong></td>
+<td>这个目录存放一些临时文件. 对于某些程序来说, 有些文件被用了一次两次之后，就不会再被用到，像这样的文件就放在这里. 有些Linux系统会定期自动对这个目录进行清理.  </td>
+</tr>
+<tr>
+<td><strong>/opt</strong></td>
+<td>这是给主机额外安装软件所摆放的目录。  </td>
+</tr>
+<tr>
+<td><strong>/etc</strong></td>
+<td>这个目录用来存放所有的系统管理所需要的配置文件和子目录.  </td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
