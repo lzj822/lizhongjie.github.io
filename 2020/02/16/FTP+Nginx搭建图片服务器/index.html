@@ -108,20 +108,24 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Liam Li">
-<meta property="og:url" content="http://lizhongjie.com/archives/2020/02/index.html">
+  <meta name="description" content="由于写blog需要插入一些图片，之前用七牛云，由于七牛云需要备案，又没找到合适的（免费的）OSS。就决定先用FTP+Nginx自己搭一个。  FTP介绍在搭建之前我们先简单了解一下FTP协议。    主动模式  被动模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FTP+Nginx搭建图片服务器">
+<meta property="og:url" content="http://lizhongjie.com/2020/02/16/FTP+Nginx搭建图片服务器/index.html">
 <meta property="og:site_name" content="Liam Li">
+<meta property="og:description" content="由于写blog需要插入一些图片，之前用七牛云，由于七牛云需要备案，又没找到合适的（免费的）OSS。就决定先用FTP+Nginx自己搭一个。  FTP介绍在搭建之前我们先简单了解一下FTP协议。    主动模式  被动模式">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-16T14:21:49.482Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Liam Li">
+<meta name="twitter:title" content="FTP+Nginx搭建图片服务器">
+<meta name="twitter:description" content="由于写blog需要插入一些图片，之前用七牛云，由于七牛云需要备案，又没找到合适的（免费的）OSS。就决定先用FTP+Nginx自己搭一个。  FTP介绍在搭建之前我们先简单了解一下FTP协议。    主动模式  被动模式">
 
 
 
 
 
 
-  <link rel="canonical" href="http://lizhongjie.com/archives/2020/02/">
+  <link rel="canonical" href="http://lizhongjie.com/2020/02/16/FTP+Nginx搭建图片服务器/">
 
 
 
@@ -131,7 +135,7 @@
   };
 </script>
 
-  <title>归档 | Liam Li</title>
+  <title>FTP+Nginx搭建图片服务器 | Liam Li</title>
   
 
 
@@ -178,7 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -247,7 +251,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
   </li>
@@ -267,31 +271,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -317,113 +296,167 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 5 篇日志。 继续努力。
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2020">2020</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/02/16/FTP+Nginx搭建图片服务器/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2020/02/16/FTP+Nginx搭建图片服务器/" itemprop="url">
-              
-                <span itemprop="name">FTP+Nginx搭建图片服务器</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">FTP+Nginx搭建图片服务器
+              
+            
+          </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-02-16T21:52:24+08:00" content="2020-02-16">
-          02-16
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
 
+              
+                
+              
+
+              <time title="创建时间：2020-02-16 21:52:24 / 修改时间：22:21:49" itemprop="dateCreated datePublished" datetime="2020-02-16T21:52:24+08:00">2020-02-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/02/14/【组成原理回顾】计算机发展史/" itemprop="url">
-              
-                <span itemprop="name">【组成原理回顾】一、计算机发展史</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-02-14T15:40:20+08:00" content="2020-02-14">
-          02-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <blockquote>
+<p>由于写blog需要插入一些图片，之前用七牛云，由于七牛云需要备案，又没找到合适的（免费的）OSS。就决定先用FTP+Nginx自己搭一个。</p>
+</blockquote>
+<h1 id="FTP介绍"><a href="#FTP介绍" class="headerlink" title="FTP介绍"></a>FTP介绍</h1><p>在搭建之前我们先简单了解一下FTP协议。   </p>
+<p>主动模式  被动模式</p>
+
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/14/【组成原理回顾】计算机发展史/" rel="next" title="【组成原理回顾】一、计算机发展史">
+                <i class="fa fa-chevron-left"></i> 【组成原理回顾】一、计算机发展史
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -444,8 +477,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -534,6 +576,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FTP介绍"><span class="nav-number">1.</span> <span class="nav-text">FTP介绍</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -664,6 +722,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
 
   
 
