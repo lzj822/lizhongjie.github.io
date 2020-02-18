@@ -372,7 +372,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-18 01:10:30" itemprop="dateModified" datetime="2020-02-18T01:10:30+08:00">2020-02-18</time>
+                <time title="修改时间：2020-02-18 10:16:32" itemprop="dateModified" datetime="2020-02-18T10:16:32+08:00">2020-02-18</time>
               
             
           </span>
@@ -407,7 +407,7 @@
       
         
           
-            <h1 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h1><p>Facebook开源的JS单元测试框架，几乎是0配置直接进行单元测试，Jest还有很多好处这里，这里就不一一列举。详情可以到Jest官网查看<a href="https://jestjs.io/" target="_blank" rel="noopener">https://jestjs.io/</a>。  </p>
+            <h1 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h1><p>Facebook开源的测试框架，几乎是0配置直接进行单元测试，相对其他测试框架，其一大特点就是内置了常用的测试工具，比如自带断言、测试覆盖率等工具。Jest还有很多好处这里，详情可以到Jest官网查看<a href="https://jestjs.io/" target="_blank" rel="noopener">https://jestjs.io/</a>。  </p>
 <h2 id="Jest-安装"><a href="#Jest-安装" class="headerlink" title="Jest 安装"></a>Jest 安装</h2><p>这里默认安装了node。 如果没有安装的，可自行到Node官网进行下载安装<a href="https://nodejs.org/" target="_blank" rel="noopener">https://nodejs.org/</a>这里不做介绍。安装好Node后是默认自带NPM包管理工具的。我们可以通过 <code>node -v</code> 和 <code>npm -v</code> 来检测node、和npm是否安装成功，如果都成功的显示了版本号，就说明node和npm都安装成功了。下面我们就可以对Jest来进行安装。   </p>
 <p>Jest的安装十分简单，就一行命令    </p>
 <p><code>npm install --save-dev jest</code>   </p>
@@ -433,7 +433,8 @@
 </blockquote>
 <p>输入完命令后会有几个问题让你回答，来创建基本的配置文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Would you like to use Jest when running &quot;test&quot; script in &quot;package.json&quot;? › (Y/n)</span><br><span class="line">这个就是帮你配置package.json当，npm test的时候执行Jest。</span><br><span class="line"></span><br><span class="line">Choose the test environment that will be used for testing › - Use arrow-keys. Return to submit.</span><br><span class="line">❯   node</span><br><span class="line">    jsdom (browser-like)</span><br><span class="line">选择node环境还是浏览器环境</span><br><span class="line"></span><br><span class="line">Do you want Jest to add coverage reports? › (y/N)</span><br><span class="line">是否增加测试覆盖率报告</span><br><span class="line"></span><br><span class="line">Automatically clear mock calls and instances between every test? › (y/N)</span><br><span class="line">每次运行测试时自动清除所有mock</span><br></pre></td></tr></table></figure></p>
 <p>回答完问题之后，会生成一个 <code>jest.config.js</code> 的配置文件。我们可以在里面进行Jest更多的配置。我们将会在之后专门来讲Jest的配置，以及通过babel支持TypeScript和ES Modules。   </p>
-<h2 id="Jest-Matchers-常用匹配器"><a href="#Jest-Matchers-常用匹配器" class="headerlink" title="Jest Matchers 常用匹配器"></a>Jest Matchers 常用匹配器</h2><h3 id="Truthiness"><a href="#Truthiness" class="headerlink" title="Truthiness"></a>Truthiness</h3><ul>
+<h2 id="Jest-Matchers-常用匹配器"><a href="#Jest-Matchers-常用匹配器" class="headerlink" title="Jest Matchers 常用匹配器"></a>Jest Matchers 常用匹配器</h2><p>匹配器（Matchers）是Jest中非常重要的一个概念，它可以提供很多种方式来让你去验证你所测试的返回值</p>
+<h3 id="Truthiness"><a href="#Truthiness" class="headerlink" title="Truthiness"></a>Truthiness</h3><ul>
 <li><code>toBe</code> 匹配器：相当于 Object.is 或者 ===</li>
 <li><code>toEqual</code> 匹配器： 只匹配内容，不匹配引用。</li>
 <li><code>toBeNull</code> 匹配器： 内容是否等于Null</li>
