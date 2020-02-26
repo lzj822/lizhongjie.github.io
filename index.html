@@ -536,7 +536,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-16 22:21:54" itemprop="dateModified" datetime="2020-02-16T22:21:54+08:00">2020-02-16</time>
+                <time title="修改时间：2020-02-26 10:29:47" itemprop="dateModified" datetime="2020-02-26T10:29:47+08:00">2020-02-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -623,9 +623,87 @@
 </tr>
 </tbody>
 </table>
-<h2 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h2><p><strong>万能的帮助命令</strong><br>man help info<br>cheat</p>
-<p><strong>文件管理</strong><br>文件查看<br>pwd —— print name of current/working directory 显示当前目录名称<br>cd —— change the shell working directory 更改当前目录操作<br>ls —— list directory contents 查看当前目录下的文件</p>
-<p>目录的创建与删除<br>mkdir</p>
+<h2 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h2><h3 id="万能的帮助命令"><a href="#万能的帮助命令" class="headerlink" title="万能的帮助命令"></a>万能的帮助命令</h3><p><code>man</code> —— manual 命令<br>Linux命令太多，有时候我们记不住怎么办，这是就需要一个男人。man命令的作用就是告诉你这个命令的详情。<br>在man命令中，我们用空格，d，b以及上下箭头键来实现上下翻页。按下 h 键会显示所有有用的键盘快捷键和一般用法。<br>在man命令中，输入<code>/</code>之后跟想要搜索的内容进行搜索，按n或shift+n来匹配下一个或上一个。<br>man命令分为9章，我们可以通过<code>man + 对应章节数字</code>来进入对应章节。</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>章节名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>用户命令</td>
+<td>可由任何人启动的</td>
+</tr>
+<tr>
+<td>2</td>
+<td>系统调用</td>
+<td>即由内核提供的函数</td>
+</tr>
+<tr>
+<td>3</td>
+<td>例程</td>
+<td>即库函数</td>
+</tr>
+<tr>
+<td>4</td>
+<td>设备</td>
+<td>即/dev目录下的特殊文件</td>
+</tr>
+<tr>
+<td>5</td>
+<td>文件格式描述</td>
+<td>例如/etc/passwd</td>
+</tr>
+<tr>
+<td>6</td>
+<td>游戏</td>
+<td>与游戏相关的</td>
+</tr>
+<tr>
+<td>7</td>
+<td>杂项</td>
+<td>例如宏命令包、惯例等</td>
+</tr>
+<tr>
+<td>8</td>
+<td>系统管理员工具</td>
+<td>只能由root启动</td>
+</tr>
+<tr>
+<td>9</td>
+<td>其他（Linux特定的）</td>
+<td>用来存放内核例行程序的文档</td>
+</tr>
+</tbody>
+</table>
+<p><code>help</code></p>
+<p><code>info</code></p>
+<p><code>cheat</code></p>
+<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><p>文件查看<br><code>pwd</code> —— print name of current/working directory 显示当前目录名称<br><code>cd</code> —— change the shell working directory 更改当前目录操作<br>cd常见用法：</p>
+<ul>
+<li><code>cd+目录路径</code>进入指定目录</li>
+<li><code>cd + -</code>返回上一次工作目录</li>
+<li><code>cd + ~</code>进入当前用户的家目录</li>
+<li><code>cd + ..</code>返回上一层目录</li>
+</ul>
+<p><code>ls</code> —— list directory contents 查看当前目录下的文件<br>ls常用参数：</p>
+<ul>
+<li><code>ls -a</code> 全部（all）列举目录中的全部文件，包括隐藏文件（.filename）。</li>
+<li><code>ls -l 或者 ll</code> 列举目录内容的细节。</li>
+<li><code>ls -F</code> 文件类型（File type）。在每一个列举项目之后添加一个符号。这些符号包括：/ 表明是一个目录；@ 表明是到其它文件的符号链接；* 表明是一个可执行文件。</li>
+<li><code>ls -r</code>逆向（reverse）。从后向前地列举目录中的内容。</li>
+<li><code>ls -R</code>递归（recursive）。该选项递归地列举所有目录（在当前目录之下）的内容。</li>
+<li><code>ls -S</code>大小（size）。按文件大小排序。</li>
+</ul>
+<p>目录的创建与删除<br><code>mkdir</code> —— 用来创建指定名称的目录</p>
+<ul>
+<li><code>mkdir -p</code> parents 若所建立的上层目录目前尚未建立，则会一并建立上层目录；</li>
+</ul>
+<p><code>rm</code> —— 删除（remove）<br><code>rm -d</code> directory删除目录，目录中没有内容。<br><code>rm -f</code> force略过不存在的文件，不显示任何信息，强制删除。<br><code>rm -r/R</code> recursive同时删除该目录下的所有目录层</p>
 
       
     </div>
