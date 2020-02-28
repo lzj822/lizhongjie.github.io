@@ -536,7 +536,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-28 23:43:01" itemprop="dateModified" datetime="2020-02-28T23:43:01+08:00">2020-02-28</time>
+                <time title="修改时间：2020-02-29 00:47:46" itemprop="dateModified" datetime="2020-02-29T00:47:46+08:00">2020-02-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -623,7 +623,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h2><h3 id="万能的帮助命令"><a href="#万能的帮助命令" class="headerlink" title="万能的帮助命令"></a>万能的帮助命令</h3><p><code>man</code> —— manual 命令<br>Linux命令太多，有时候我们记不住怎么办，这是就需要一个男人。man命令的作用就是告诉你这个命令的详情。<br>在man命令中，我们用空格，d，b以及上下箭头键来实现上下翻页。按下 h 键会显示所有有用的键盘快捷键和一般用法。<br>在man命令中，输入<code>/</code>之后跟想要搜索的内容进行搜索，按n或shift+n来匹配下一个或上一个。<br>man命令分为9章，我们可以通过<code>man + 对应章节数字</code>来进入对应章节。</p>
+<h2 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h2><h3 id="密码的修改与创建用户"><a href="#密码的修改与创建用户" class="headerlink" title="密码的修改与创建用户"></a>密码的修改与创建用户</h3><p><code>passwd</code> —— password 命令，通过这个命令来修改当前用户密码。<br><code>useradd</code>这个命令来添加一个新的用户，注意，添加完会直接返回，需要配合passwd命令，来给这个新用户设置密码。</p>
+<h3 id="万能的帮助命令"><a href="#万能的帮助命令" class="headerlink" title="万能的帮助命令"></a>万能的帮助命令</h3><p><code>man</code> —— manual 命令<br>Linux命令太多，有时候我们记不住怎么办，这是就需要一个男人。man命令的作用就是告诉你这个命令的详情。<br>在man命令中，我们用空格，d，b以及上下箭头键来实现上下翻页。按下 h 键会显示所有有用的键盘快捷键和一般用法。<br>在man命令中，输入<code>/</code>之后跟想要搜索的内容进行搜索，按n或shift+n来匹配下一个或上一个。<br>man命令分为9章，我们可以通过<code>man + 对应章节数字</code>来进入对应章节。</p>
 <table>
 <thead>
 <tr>
@@ -738,6 +739,8 @@
 <ul>
 <li><code>cat file1 file &gt; file</code>可以将多个文件合并成一个文件。</li>
 </ul>
+<h3 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h3><p>Linux有两种，一种是rpm是CentOS体系，一种是deb是Ubuntu体系。<br>分别用 <code>rpm -i</code> 和 <code>dpkg -i</code> 来进行安装。<br>查看已安装的软件列表用 <code>rpm -qa</code> 和 <code>dpkg -l</code>。<br>而删除软件用 <code>rpm -e</code> 和 <code>dpkg -r</code>命令。</p>
+<p>Linux也有自己的软件管家，CentOS下面是yum，Ubuntu下是apt-get</p>
 
       
     </div>
