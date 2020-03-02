@@ -20,18 +20,21 @@
     var CONFIG = {"hostname":"lizhongjie.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一、从逻辑元件的发展，看计算机硬件的发展 电子管时代。逻辑元件采用电子管  晶体管时代。逻辑元件采用晶体管。  中小规模集成电路时代。逻辑元件采用中小规模集成电路。  超大规模集成电路。逻辑元器件采用大规模集成电路和超大规模集成电路。   在计算机元件的更新换代中有一个著名的摩尔定律——当价格不变时，集成电路上可容纳的晶体管数目，约每隔18个月便会增加一倍，性能也将提升一倍。 半导体存储期的发展">
+  <meta name="description" content="这一章，主要是讲的冯诺依曼体系结构和简单介绍计算机的发展史。  一、从逻辑元件的发展，看计算机硬件的发展 电子管时代。逻辑元件采用电子管  晶体管时代。逻辑元件采用晶体管。  中小规模集成电路时代。逻辑元件采用中小规模集成电路。  超大规模集成电路。逻辑元器件采用大规模集成电路和超大规模集成电路。   在计算机元件的更新换代中有一个著名的摩尔定律——当价格不变时，集成电路上可容纳的晶体管数目，约">
 <meta name="keywords" content="计算机组成原理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【组成原理回顾】一、计算机发展史">
 <meta property="og:url" content="http://lizhongjie.com/2020/02/14/【组成原理回顾】计算机发展史/index.html">
 <meta property="og:site_name" content="Liam Li">
-<meta property="og:description" content="一、从逻辑元件的发展，看计算机硬件的发展 电子管时代。逻辑元件采用电子管  晶体管时代。逻辑元件采用晶体管。  中小规模集成电路时代。逻辑元件采用中小规模集成电路。  超大规模集成电路。逻辑元器件采用大规模集成电路和超大规模集成电路。   在计算机元件的更新换代中有一个著名的摩尔定律——当价格不变时，集成电路上可容纳的晶体管数目，约每隔18个月便会增加一倍，性能也将提升一倍。 半导体存储期的发展">
+<meta property="og:description" content="这一章，主要是讲的冯诺依曼体系结构和简单介绍计算机的发展史。  一、从逻辑元件的发展，看计算机硬件的发展 电子管时代。逻辑元件采用电子管  晶体管时代。逻辑元件采用晶体管。  中小规模集成电路时代。逻辑元件采用中小规模集成电路。  超大规模集成电路。逻辑元器件采用大规模集成电路和超大规模集成电路。   在计算机元件的更新换代中有一个著名的摩尔定律——当价格不变时，集成电路上可容纳的晶体管数目，约">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-14T09:44:46.731Z">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/02/3WFOhj.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/02/3WPfVe.md.png">
+<meta property="og:updated_time" content="2020-03-02T14:48:47.094Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【组成原理回顾】一、计算机发展史">
-<meta name="twitter:description" content="一、从逻辑元件的发展，看计算机硬件的发展 电子管时代。逻辑元件采用电子管  晶体管时代。逻辑元件采用晶体管。  中小规模集成电路时代。逻辑元件采用中小规模集成电路。  超大规模集成电路。逻辑元器件采用大规模集成电路和超大规模集成电路。   在计算机元件的更新换代中有一个著名的摩尔定律——当价格不变时，集成电路上可容纳的晶体管数目，约每隔18个月便会增加一倍，性能也将提升一倍。 半导体存储期的发展">
+<meta name="twitter:description" content="这一章，主要是讲的冯诺依曼体系结构和简单介绍计算机的发展史。  一、从逻辑元件的发展，看计算机硬件的发展 电子管时代。逻辑元件采用电子管  晶体管时代。逻辑元件采用晶体管。  中小规模集成电路时代。逻辑元件采用中小规模集成电路。  超大规模集成电路。逻辑元器件采用大规模集成电路和超大规模集成电路。   在计算机元件的更新换代中有一个著名的摩尔定律——当价格不变时，集成电路上可容纳的晶体管数目，约">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/03/02/3WFOhj.md.png">
 
 <link rel="canonical" href="http://lizhongjie.com/2020/02/14/【组成原理回顾】计算机发展史/">
 
@@ -168,10 +171,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-14 15:40:20 / 修改时间：17:44:46" itemprop="dateCreated datePublished" datetime="2020-02-14T15:40:20+08:00">2020-02-14</time>
+              <time title="创建时间：2020-02-14 15:40:20" itemprop="dateCreated datePublished" datetime="2020-02-14T15:40:20+08:00">2020-02-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-02 22:48:47" itemprop="dateModified" datetime="2020-03-02T22:48:47+08:00">2020-03-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -195,7 +204,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="一、从逻辑元件的发展，看计算机硬件的发展"><a href="#一、从逻辑元件的发展，看计算机硬件的发展" class="headerlink" title="一、从逻辑元件的发展，看计算机硬件的发展"></a>一、从逻辑元件的发展，看计算机硬件的发展</h1><ol>
+        <blockquote>
+<p>这一章，主要是讲的冯诺依曼体系结构和简单介绍计算机的发展史。</p>
+</blockquote>
+<h1 id="一、从逻辑元件的发展，看计算机硬件的发展"><a href="#一、从逻辑元件的发展，看计算机硬件的发展" class="headerlink" title="一、从逻辑元件的发展，看计算机硬件的发展"></a>一、从逻辑元件的发展，看计算机硬件的发展</h1><ol>
 <li><p>电子管时代。逻辑元件采用电子管</p>
 </li>
 <li><p>晶体管时代。逻辑元件采用晶体管。</p>
@@ -217,6 +229,33 @@
 <li>有五部分组成（运算器、控制器、存储器、输入设备、输出设备）</li>
 </ol>
 <p>二进制作为主要涉及思想之一，主要是因为电子元件的双稳定工作的特点，二进制的采用可以简化机器的逻辑线路。<br>程序的存储执行。就意味这个这个计算机是可编程的和可存储的。就是说程序的本身是存在内存中的，根据不同的需要去加载不同的程序，来解决不同的问题。而像老式的计算器就属于不可编程的。而第一台计算机ENIAC，通过在板子上不同的插头或者接口的位置插入线路，来实现不同的功能。ENIAC属于可编程，但它不可存储。因为每次要执行与当前程序不同的程序时，需要重新插板子，所以老式的计算器和ENIAC都不属于冯·诺依曼机。</p>
+<p>冯·诺依曼机特点如下：</p>
+<ol>
+<li>计算机硬件系统由运算器、存储器、控制器、输入设备和输出设备5大部件组成。</li>
+<li>指令和数据以同等地位存储在存储器中，并可按地址寻访。</li>
+<li>指令和数据均用二进制代码表示。</li>
+<li>指令由操作码和地址码组成，操作码用来表示操作的性质，地址码用来表示操作数在存储器中的位置。</li>
+<li>指令在存储器内按顺序。通常，指令是顺序执行的，在特定条件下可根据运算结果或根据设定的条件改变执行顺序。</li>
+<li>早期的冯·诺依曼机以运算器为中心，输入/输出设备通过运算器与存储器传输数据。</li>
+</ol>
+<p>典型冯诺依曼计算机结构<br><img src="https://s2.ax1x.com/2020/03/02/3WFOhj.md.png" alt="典型冯诺依曼计算机结构"><br>由于大量I/O设备的速度和CPU的速度差距悬殊，现代计算机已经发展为以存储器为核心。<br><img src="https://s2.ax1x.com/2020/03/02/3WPfVe.md.png" alt="现代计算机结构"></p>
+<h1 id="详细介绍功能部件"><a href="#详细介绍功能部件" class="headerlink" title="详细介绍功能部件"></a>详细介绍功能部件</h1><p>在介绍每个功能部件之前，先通俗了解一下寄存器，内存和辅存，在知乎上有一个回答我觉得很好。</p>
+<p>寄存器就是你的口袋。身上只有那么几个，只装最常用或者马上要用的东西。<br>内存就是你的背包。有时候拿点什么放到口袋里，有时候从口袋里拿出点东西放在背包里。<br>辅存就是你家里的抽屉。可以放很多东西，但存取不方便。</p>
+<h2 id="输入输出设备（I-O设备）"><a href="#输入输出设备（I-O设备）" class="headerlink" title="输入输出设备（I/O设备）"></a>输入输出设备（I/O设备）</h2><p>输入输出设备是计算机与外界沟通的桥梁。这个很好理解。输入设备的主要功能是将程序和数据以机器所能识别和接受的信息形式输入计算机。而输出设备就是讲计算机处理的结果以人们所能接受的形式返回。比如鼠标、键盘就是我们常见的输入设备，而显示器就是输出设备。<br>I/O设备，都是通过主板上面的南桥芯片组，来和CPU进行通讯的。</p>
+<h2 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h2><p>存储器是计算机的存储部件，用来存放程序和数据。<br>存储器分为主存储器和外部存储器。主存储器就是我们常说的内存，CPU可以直接访问，而外部存储器中的信息必须调入主存储器后，才能被CPU所访问。</p>
+<h3 id="主存储器的工作方式"><a href="#主存储器的工作方式" class="headerlink" title="主存储器的工作方式"></a>主存储器的工作方式</h3><p>按存储单元的地址进行存取，这种存取方式称为按地址存取方式（相连存储器是按内容访问的）</p>
+<h3 id="主存储器的基本组成"><a href="#主存储器的基本组成" class="headerlink" title="主存储器的基本组成"></a>主存储器的基本组成</h3><ol>
+<li>地址寄存器（MAR-Memory Address Register）<br>用于寻址，其位数对应着存储单元个数，MAR为N为，则有2^N个存储单元。</li>
+<li>数据寄存器（MDR-Memory Data Register）<br>MDR的位数与存储字长相等。一般为字节的二次幂的整数倍。</li>
+<li>存储体<br>存储体是由一个一个的存储单元构成的。一般以8位二进制（8bit）也就是一字节（1Byte）作为一个存储单元。一个存储单元所存储的二进制代码的组合叫做存储字。存储字的位数就称为存储字长。存储字长可以是1B(8bit)或是字节的偶数倍。</li>
+<li>译码器</li>
+<li>驱动器</li>
+</ol>
+<p>现代计算机。 地址寄存器和数据寄存器是放在CPU里的。分别通过地址总线和数据总线与内存通讯。</p>
+<h2 id="运算器"><a href="#运算器" class="headerlink" title="运算器"></a>运算器</h2><p>计算机的执行部件，用于算术运算和逻辑运算。核心为ALU（Arithmetic and Logical Unit，算数逻辑单元）。<br>包含若干个通用寄存器，用于暂存操作数和中间结果，如累加器（ACC），乘商寄存器（MQ）、操作数寄存器(X)等。<br>还有程序状态寄存器（PSW），也称标志寄存器，用于存放ALU运算得到的一些标志信息或者处理机的状态。如是否溢出，有无进位、结果是否为负数。</p>
+<h2 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h2><p>计算机的指挥中心。<br>CU 控制单元<br>IR 指令寄存器，存放当前指令。<br>PC Program Counter（程序计数器） 存放指令的地址，并且可以自动加一</p>
+<p>一般运算器和控制器集成到一个芯片上，称为中央处理器（CPU）。</p>
+<p>指令是由操作码和地址码构成<br>CPU区分指令和数据的依据：指令周期的不同阶段。</p>
 
     </div>
 
@@ -301,7 +340,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、从逻辑元件的发展，看计算机硬件的发展"><span class="nav-number">1.</span> <span class="nav-text">一、从逻辑元件的发展，看计算机硬件的发展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、-冯·诺依曼体系结构"><span class="nav-number">2.</span> <span class="nav-text">二、 冯·诺依曼体系结构</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、从逻辑元件的发展，看计算机硬件的发展"><span class="nav-number">1.</span> <span class="nav-text">一、从逻辑元件的发展，看计算机硬件的发展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、-冯·诺依曼体系结构"><span class="nav-number">2.</span> <span class="nav-text">二、 冯·诺依曼体系结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#详细介绍功能部件"><span class="nav-number">3.</span> <span class="nav-text">详细介绍功能部件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入输出设备（I-O设备）"><span class="nav-number">3.1.</span> <span class="nav-text">输入输出设备（I/O设备）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储器"><span class="nav-number">3.2.</span> <span class="nav-text">存储器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主存储器的工作方式"><span class="nav-number">3.2.1.</span> <span class="nav-text">主存储器的工作方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主存储器的基本组成"><span class="nav-number">3.2.2.</span> <span class="nav-text">主存储器的基本组成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算器"><span class="nav-number">3.3.</span> <span class="nav-text">运算器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制器"><span class="nav-number">3.4.</span> <span class="nav-text">控制器</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
