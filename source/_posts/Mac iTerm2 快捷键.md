@@ -30,7 +30,7 @@ categories:
 
 ## 标签
 
-新建标签 : command + t  
+新建标签 : command + t  
 关闭标签 : command + w  
 切换标签 : command + 数字 | command + 方向键  
 显示所有标签(可搜索): command + option + e   
@@ -40,8 +40,6 @@ categories:
 水平分屏 : command + shift + d  
 切换屏幕 : command + option + 方向键 | command + [ 和 ]  
 
-
-
 
 
 
