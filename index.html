@@ -164,10 +164,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-04-08 22:46:28 / 修改时间：23:15:55" itemprop="dateCreated datePublished" datetime="2020-04-08T22:46:28+08:00">2020-04-08</time>
+              <time title="创建时间：2020-04-08 22:46:28" itemprop="dateCreated datePublished" datetime="2020-04-08T22:46:28+08:00">2020-04-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-09 22:59:57" itemprop="dateModified" datetime="2020-04-09T22:59:57+08:00">2020-04-09</time>
+              </span>
 
           
 
@@ -183,9 +189,9 @@
           <h1 id="React简介"><a href="#React简介" class="headerlink" title="React简介"></a>React简介</h1><p>React是一个UI组件库，核心部分解决的就是声明式渲染和组件问题。</p>
 <h2 id="什么是声明式？"><a href="#什么是声明式？" class="headerlink" title="什么是声明式？"></a>什么是声明式？</h2><p>声明式编程是一种编程范式，它关注的是你要做什么，而不是如何做。它表达逻辑而不显式地定义步骤也就是说它没有描述具体的步骤。声明式编程的例子有HTML、SQL等。声明式就好像你去饭店点菜，你只需要告诉服务员你吃什么，并不需要关心后厨是怎么做的。</p>
 <h2 id="什么是命令式？"><a href="#什么是命令式？" class="headerlink" title="什么是命令式？"></a>什么是命令式？</h2><p>命令式是与声明式相对的，声明式描述了应该做什么，而命令式是描述了如何做。它会具体的描述每一个步骤。命令式就像自己照着食谱做饭，先洗菜，切菜，倒油，炒它，加调料，装盘。精确地定义好每一步，然后去实施。</p>
-<h2 id="什么是函数式编程？"><a href="#什么是函数式编程？" class="headerlink" title="什么是函数式编程？"></a>什么是函数式编程？</h2><p>函数式是声明式的一部分。JavaScript中的函数是第一类公民，就意味着函数跟其它的数据类型一样处于平等的地位，可以赋值给其他变量，可以作为参数传入另一个函数，也可以作为别的函数的返回值。函数式编程的目的是使用函数来抽象作用在数据之上的控制流和操作，从而在系统中消除副作用并减少对状态的改变。<br>我们可以看一下函数式的几个重要的概念。</p>
-<h3 id="不可变性"><a href="#不可变性" class="headerlink" title="不可变性"></a>不可变性</h3><p>在函数式编程中，不能更改数据。如果要改变或者更改数据，则必须复制数据副本来更改。</p>
-<h3 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h3><p>纯函数实际上就是，没有副作用的函数，相同的输入有相同的输出。</p>
+<h2 id="什么是函数式编程？"><a href="#什么是函数式编程？" class="headerlink" title="什么是函数式编程？"></a>什么是函数式编程？</h2><p>函数式是声明式的一部分，既然是声明式的一部分，函数式也更加强调程序执行的结果而非执行的过程。JavaScript中的函数是第一类公民，就意味着函数跟其它的数据类型一样处于平等的地位，可以赋值给其他变量，可以作为参数传入另一个函数，也可以作为别的函数的返回值(这就是高阶函数)。函数式编程的目的是使用函数来抽象作用在数据之上的控制流和操作，从而在系统中消除副作用并减少对状态的改变。<br>我们可以看一下函数式的几个重要的概念。</p>
+<h3 id="不可变数据"><a href="#不可变数据" class="headerlink" title="不可变数据"></a>不可变数据</h3><p>在函数式编程中，不能更改数据。如果要改变或者更改数据，则必须复制数据副本来更改。</p>
+<h3 id="纯函数，拒绝副作用"><a href="#纯函数，拒绝副作用" class="headerlink" title="纯函数，拒绝副作用"></a>纯函数，拒绝副作用</h3><p>纯函数实际上就是，没有副作用的函数，相同的输入有相同的输出。</p>
 <h3 id="引用透明"><a href="#引用透明" class="headerlink" title="引用透明"></a>引用透明</h3><p>函数的返回值只依赖于其输入值。</p>
 <p>React走的就是函数式宗教，在React声明式渲染中，有一个公式就是<code>UI = render(data)</code>开发者只需要维护可变的数据，React会帮助我们处理具体的DOM操作。</p>
 <h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><p>JSX是学习React必须知道的一个概念，JSX是一个语法糖，它既不是字符串也不是HTML，它是JavaScript的语法扩展。它就像一个拥有JavaScript所有功能的模板引擎。<br>React UI与逻辑  高耦合。</p>
