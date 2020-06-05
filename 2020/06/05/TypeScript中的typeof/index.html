@@ -20,15 +20,19 @@
     var CONFIG = {"hostname":"lizhongjie.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Liam Li">
-<meta property="og:url" content="http://lizhongjie.com/tags/后端/index.html">
+  <meta name="description" content="在之前的文章中，介绍过JavaScript的typeof运算符。在JavaScript中typeof主要是用于类型检测。而在TypeScript中typeof不光能类型检测，还能用来获取类型。具体是什么，得结合环境来看。举一个简单地例子123let bar = &amp;#123; a: 0 &amp;#125;let b = typeof bar // &quot;object&quot;type c = typeof bar /">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript中的typeof">
+<meta property="og:url" content="http://lizhongjie.com/2020/06/05/TypeScript中的typeof/index.html">
 <meta property="og:site_name" content="Liam Li">
+<meta property="og:description" content="在之前的文章中，介绍过JavaScript的typeof运算符。在JavaScript中typeof主要是用于类型检测。而在TypeScript中typeof不光能类型检测，还能用来获取类型。具体是什么，得结合环境来看。举一个简单地例子123let bar = &amp;#123; a: 0 &amp;#125;let b = typeof bar // &quot;object&quot;type c = typeof bar /">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-06-05T14:19:18.827Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Liam Li">
+<meta name="twitter:title" content="TypeScript中的typeof">
+<meta name="twitter:description" content="在之前的文章中，介绍过JavaScript的typeof运算符。在JavaScript中typeof主要是用于类型检测。而在TypeScript中typeof不光能类型检测，还能用来获取类型。具体是什么，得结合环境来看。举一个简单地例子123let bar = &amp;#123; a: 0 &amp;#125;let b = typeof bar // &quot;object&quot;type c = typeof bar /">
 
-<link rel="canonical" href="http://lizhongjie.com/tags/后端/">
+<link rel="canonical" href="http://lizhongjie.com/2020/06/05/TypeScript中的typeof/">
 
 
 <script id="page-configurations">
@@ -36,11 +40,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>标签: 后端 | Liam Li</title>
+  <title>TypeScript中的typeof | Liam Li</title>
   
 
 
@@ -136,50 +140,82 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">后端
-          <small>标签</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/05/TypeScript中的typeof/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TypeScript中的typeof
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-05 22:18:55 / 修改时间：22:19:18" itemprop="dateCreated datePublished" datetime="2020-06-05T22:18:55+08:00">2020-06-05</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2018</h1>
+        <p>在之前的文章中，介绍过JavaScript的typeof运算符。在JavaScript中typeof主要是用于类型检测。<br>而在TypeScript中typeof不光能类型检测，还能用来获取类型。<br>具体是什么，得结合环境来看。<br>举一个简单地例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bar = &#123; <span class="attr">a</span>: <span class="number">0</span> &#125;</span><br><span class="line"><span class="keyword">let</span> b = <span class="keyword">typeof</span> bar <span class="comment">// "object"</span></span><br><span class="line">type c = <span class="keyword">typeof</span> bar <span class="comment">// "&#123;a: number&#125;"</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看出来，如果typeof赋值给一个变量的话，那将用JavaScript运算符。 如果赋给一个type的话，就是获取它的类型。TypeScript将其对象中的a属性自动推断为number类型。</p>
+<p>也可以获取类型通过一个字符数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = [<span class="string">'text 1'</span>, <span class="string">'text 2'</span>] <span class="keyword">as</span> <span class="keyword">const</span>;</span><br><span class="line">type Data = <span class="keyword">typeof</span> data[number];</span><br><span class="line"><span class="comment">// type Data = "text 1" | "text 2"</span></span><br></pre></td></tr></table></figure></p>
+<p>或者是一个tuple<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> type Lit = string | number | boolean | <span class="literal">undefined</span> | <span class="literal">null</span> | <span class="keyword">void</span> | &#123;&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> tuple = &lt;T extends Lit[]&gt;(...args: T) =&gt; args;</span><br><span class="line"></span><br><span class="line">const animals = tuple('cat', 'dog', 'rabbit', 'snake');</span><br><span class="line">type Animal = (typeof animals)[number];</span><br><span class="line">//'cat' | 'dog' | 'rabbit' | 'snake'</span><br></pre></td></tr></table></figure></p>
+<p>还可以与keyof结合，将对象的key转为联合类型。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> datas = &#123;</span><br><span class="line">  key1: <span class="string">'value1'</span>,</span><br><span class="line">  key2: <span class="string">'value2'</span>,</span><br><span class="line">  key3: <span class="string">'value3'</span>,</span><br><span class="line">&#125;</span><br><span class="line">type data = keyof <span class="keyword">typeof</span> datas;</span><br><span class="line"><span class="comment">// type data = "key1" | "key2" | "key3"</span></span><br></pre></td></tr></table></figure></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-09-11T09:10:23+08:00"
-              content="2018-09-11">
-          09-11
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2018/09/11/[转]学习web框架/" itemprop="url">
-            <span itemprop="name">[转]学习web框架</span>
-          </a>
-      </h2>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/02/React生命周期/" rel="prev" title="React生命周期">
+      <i class="fa fa-chevron-left"></i> React生命周期
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
