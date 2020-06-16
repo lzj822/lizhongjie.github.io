@@ -27,12 +27,12 @@
 <meta property="og:site_name" content="Liam Li">
 <meta property="og:description" content="旧的生命周期constructor构造函数构造函数的主要作用就是1、通过this.state来初始化内部的state。2、为事件函数绑定this。在组件挂载之前，会调用它的构造函数。 我们知道如果在为 React.Component 子类实现构造函数时，应在其他语句之前前调用 super(props)。否则，this.props 在构造函数中可能会出现未定义的 bug。我们可以来想想为什么每次都必">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s1.ax1x.com/2020/06/02/tYI8jx.md.png">
-<meta property="og:updated_time" content="2020-06-02T13:03:18.639Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/02/tYI8jx.png">
+<meta property="og:updated_time" content="2020-06-16T13:50:54.686Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React生命周期">
 <meta name="twitter:description" content="旧的生命周期constructor构造函数构造函数的主要作用就是1、通过this.state来初始化内部的state。2、为事件函数绑定this。在组件挂载之前，会调用它的构造函数。 我们知道如果在为 React.Component 子类实现构造函数时，应在其他语句之前前调用 super(props)。否则，this.props 在构造函数中可能会出现未定义的 bug。我们可以来想想为什么每次都必">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/06/02/tYI8jx.md.png">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/06/02/tYI8jx.png">
 
 <link rel="canonical" href="http://lizhongjie.com/2020/06/02/React生命周期/">
 
@@ -169,10 +169,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-06-02 21:02:42 / 修改时间：21:03:18" itemprop="dateCreated datePublished" datetime="2020-06-02T21:02:42+08:00">2020-06-02</time>
+              <time title="创建时间：2020-06-02 21:02:42" itemprop="dateCreated datePublished" datetime="2020-06-02T21:02:42+08:00">2020-06-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-16 21:50:54" itemprop="dateModified" datetime="2020-06-16T21:50:54+08:00">2020-06-16</time>
+              </span>
 
           
 
@@ -201,7 +207,7 @@
 <h3 id="componentWillUpdate"><a href="#componentWillUpdate" class="headerlink" title="componentWillUpdate"></a>componentWillUpdate</h3><p>这个方法很简单，就是当组件收到新的props或state时，会在渲染之前调用这个方法。初始渲染不会调用它。<br><strong>同样这个方法在React 17中将被废弃。</strong><br>想要使用应该写成UNSAFE_componentWillUpdate</p>
 <h3 id="componentDidUpdate"><a href="#componentDidUpdate" class="headerlink" title="componentDidUpdate"></a>componentDidUpdate</h3><p>componentDidUpdate会在更新后会被立即调用。首次渲染不会执行此方法。也可以在这个函数中直接调用setState()，但它必须包裹在一个条件语句中。要不然就会导致死循环。也不要将props镜像给state，应该直接使用props。</p>
 <h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount"></a>componentWillUnmount</h3><p>componentWillUnmount() 会在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作，例如，清除 timer，取消网络请求或清除在 componentDidMount() 中创建的订阅等。<br>componentWillUnmount() 中不应调用 setState()，因为该组件将永远不会重新渲染。</p>
-<h2 id="新的生命周期"><a href="#新的生命周期" class="headerlink" title="新的生命周期"></a>新的生命周期</h2><p>新增了两个生命周期<code>getDerivedStateFromProps</code>和<code>getSnapshotBeforeUpdate</code><br>我们先来看看图<br><img src="https://s1.ax1x.com/2020/06/02/tYI8jx.md.png" alt="React新生命周期">  </p>
+<h2 id="新的生命周期"><a href="#新的生命周期" class="headerlink" title="新的生命周期"></a>新的生命周期</h2><p>新增了两个生命周期<code>getDerivedStateFromProps</code>和<code>getSnapshotBeforeUpdate</code><br>我们先来看看图<br><img src="https://s1.ax1x.com/2020/06/02/tYI8jx.png" alt="React新生命周期">  </p>
 <h3 id="getDerivedStateFromProps"><a href="#getDerivedStateFromProps" class="headerlink" title="getDerivedStateFromProps"></a>getDerivedStateFromProps</h3><p>组件每次被rerender的时候，都会触发这个生命周期函数，无论是props更新，还是setState，还是调用forceUpdate()，并且它在组件挂载和后续更新时都会被调用。它应该返回一个对象来更新state，如果返回null则不更新任何内容。注意，getDerivedStateFromProps是一个静态函数，所以函数体内不能访问this，输出完全由输入决定。</p>
 <h3 id="getSnapshotBeforeUpdate"><a href="#getSnapshotBeforeUpdate" class="headerlink" title="getSnapshotBeforeUpdate"></a>getSnapshotBeforeUpdate</h3><p>它的触发时间实在update发生的时候，render之后，组件dom渲染之前。这个函数的返回值会作为componentDidUpdate的第三个参数。它可以来替代componentWillUpdate。</p>
 <p>还有两个生命周期函数</p>
@@ -303,7 +309,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

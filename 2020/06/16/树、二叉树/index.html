@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"lizhongjie.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="在之前的文章中，介绍过JavaScript的typeof运算符。在JavaScript中typeof主要是用于类型检测。而在TypeScript中typeof不光能类型检测，还能用来获取类型。具体是什么，得结合环境来看。举一个简单地例子123let bar = &amp;#123; a: 0 &amp;#125;let b = typeof bar // &quot;object&quot;type c = typeof bar /">
+  <meta name="description" content="概念树的结构就很像生活中的树，一个枝干上分出很多的树杈。 在数据结构中，我们将树中的每个元素称为节点。没有父节点的叫做根节点。没有子节点的节点叫做叶子节点。如果多个节点的父节点是同一个节点，那么我们就将它们称为兄弟节点。树还有 高度、深度、层。这三个概念  节点的高度： 节点到叶子节点的最长路径，也就是边数    节点的深度： 根节点到这个节点所经历的边的个数    节点的层数： 节点的深度+1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TypeScript中的typeof">
-<meta property="og:url" content="http://lizhongjie.com/2020/06/05/TypeScript中的typeof/index.html">
+<meta property="og:title" content="树、二叉树">
+<meta property="og:url" content="http://lizhongjie.com/2020/06/16/树、二叉树/index.html">
 <meta property="og:site_name" content="Liam Li">
-<meta property="og:description" content="在之前的文章中，介绍过JavaScript的typeof运算符。在JavaScript中typeof主要是用于类型检测。而在TypeScript中typeof不光能类型检测，还能用来获取类型。具体是什么，得结合环境来看。举一个简单地例子123let bar = &amp;#123; a: 0 &amp;#125;let b = typeof bar // &quot;object&quot;type c = typeof bar /">
+<meta property="og:description" content="概念树的结构就很像生活中的树，一个枝干上分出很多的树杈。 在数据结构中，我们将树中的每个元素称为节点。没有父节点的叫做根节点。没有子节点的节点叫做叶子节点。如果多个节点的父节点是同一个节点，那么我们就将它们称为兄弟节点。树还有 高度、深度、层。这三个概念  节点的高度： 节点到叶子节点的最长路径，也就是边数    节点的深度： 根节点到这个节点所经历的边的个数    节点的层数： 节点的深度+1">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-05T14:19:18.827Z">
+<meta property="og:updated_time" content="2020-06-16T13:46:31.242Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TypeScript中的typeof">
-<meta name="twitter:description" content="在之前的文章中，介绍过JavaScript的typeof运算符。在JavaScript中typeof主要是用于类型检测。而在TypeScript中typeof不光能类型检测，还能用来获取类型。具体是什么，得结合环境来看。举一个简单地例子123let bar = &amp;#123; a: 0 &amp;#125;let b = typeof bar // &quot;object&quot;type c = typeof bar /">
+<meta name="twitter:title" content="树、二叉树">
+<meta name="twitter:description" content="概念树的结构就很像生活中的树，一个枝干上分出很多的树杈。 在数据结构中，我们将树中的每个元素称为节点。没有父节点的叫做根节点。没有子节点的节点叫做叶子节点。如果多个节点的父节点是同一个节点，那么我们就将它们称为兄弟节点。树还有 高度、深度、层。这三个概念  节点的高度： 节点到叶子节点的最长路径，也就是边数    节点的深度： 根节点到这个节点所经历的边的个数    节点的层数： 节点的深度+1">
 
-<link rel="canonical" href="http://lizhongjie.com/2020/06/05/TypeScript中的typeof/">
+<link rel="canonical" href="http://lizhongjie.com/2020/06/16/树、二叉树/">
 
 
 <script id="page-configurations">
@@ -44,7 +44,7 @@
   };
 </script>
 
-  <title>TypeScript中的typeof | Liam Li</title>
+  <title>树、二叉树 | Liam Li</title>
   
 
 
@@ -145,7 +145,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/05/TypeScript中的typeof/">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/16/树、二叉树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -158,7 +158,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          TypeScript中的typeof
+          树、二叉树
         </h1>
 
         <div class="post-meta">
@@ -169,7 +169,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-06-05 22:18:55 / 修改时间：22:19:18" itemprop="dateCreated datePublished" datetime="2020-06-05T22:18:55+08:00">2020-06-05</time>
+              <time title="创建时间：2020-06-16 21:45:51 / 修改时间：21:46:31" itemprop="dateCreated datePublished" datetime="2020-06-16T21:45:51+08:00">2020-06-16</time>
             </span>
 
           
@@ -183,11 +183,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在之前的文章中，介绍过JavaScript的typeof运算符。在JavaScript中typeof主要是用于类型检测。<br>而在TypeScript中typeof不光能类型检测，还能用来获取类型。<br>具体是什么，得结合环境来看。<br>举一个简单地例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bar = &#123; <span class="attr">a</span>: <span class="number">0</span> &#125;</span><br><span class="line"><span class="keyword">let</span> b = <span class="keyword">typeof</span> bar <span class="comment">// "object"</span></span><br><span class="line">type c = <span class="keyword">typeof</span> bar <span class="comment">// "&#123;a: number&#125;"</span></span><br></pre></td></tr></table></figure></p>
-<p>我们可以看出来，如果typeof赋值给一个变量的话，那将用JavaScript运算符。 如果赋给一个type的话，就是获取它的类型。TypeScript将其对象中的a属性自动推断为number类型。</p>
-<p>也可以获取类型通过一个字符数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = [<span class="string">'text 1'</span>, <span class="string">'text 2'</span>] <span class="keyword">as</span> <span class="keyword">const</span>;</span><br><span class="line">type Data = <span class="keyword">typeof</span> data[number];</span><br><span class="line"><span class="comment">// type Data = "text 1" | "text 2"</span></span><br></pre></td></tr></table></figure></p>
-<p>或者是一个tuple<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> type Lit = string | number | boolean | <span class="literal">undefined</span> | <span class="literal">null</span> | <span class="keyword">void</span> | &#123;&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> tuple = &lt;T extends Lit[]&gt;(...args: T) =&gt; args;</span><br><span class="line"></span><br><span class="line">const animals = tuple('cat', 'dog', 'rabbit', 'snake');</span><br><span class="line">type Animal = (typeof animals)[number];</span><br><span class="line">//'cat' | 'dog' | 'rabbit' | 'snake'</span><br></pre></td></tr></table></figure></p>
-<p>还可以与keyof结合，将对象的key转为联合类型。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> datas = &#123;</span><br><span class="line">  key1: <span class="string">'value1'</span>,</span><br><span class="line">  key2: <span class="string">'value2'</span>,</span><br><span class="line">  key3: <span class="string">'value3'</span>,</span><br><span class="line">&#125;</span><br><span class="line">type data = keyof <span class="keyword">typeof</span> datas;</span><br><span class="line"><span class="comment">// type data = "key1" | "key2" | "key3"</span></span><br></pre></td></tr></table></figure></p>
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>树的结构就很像生活中的树，一个枝干上分出很多的树杈。 在数据结构中，我们将树中的每个元素称为节点。没有父节点的叫做根节点。没有子节点的节点叫做叶子节点。如果多个节点的父节点是同一个节点，那么我们就将它们称为兄弟节点。<br>树还有 高度、深度、层。这三个概念</p>
+<ul>
+<li>节点的高度： 节点到叶子节点的最长路径，也就是边数   </li>
+<li>节点的深度： 根节点到这个节点所经历的边的个数   </li>
+<li>节点的层数： 节点的深度+1   </li>
+<li>树的的高度： 根节点的高度   </li>
+</ul>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>每个节点上最多有两个叉。   </p>
+<h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>除了叶子节点之外，每个节点都有左右两个子节点。   </p>
+<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>最后一层的叶子节点都靠左排列，并且除了最后一层，其他层的节点个数都要达到最大。</p>
+<h2 id="存储方式。"><a href="#存储方式。" class="headerlink" title="存储方式。"></a>存储方式。</h2><ol>
+<li>链式存储法。 每个节点有三个字段，一个存储数据，另外两个是指向左右节点的指针。</li>
+<li>数组存储法。根节点在i=1的位置，左节点存储在2 <em> i的位置，右节点存储在2 </em> i + 1的位置。反过来 i/2存储的就是父节点的位置。 如果是完全二叉树，数组存储方式是最不占空间的。堆就是一种完全二叉树。   </li>
+</ol>
+<h2 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h2><ul>
+<li>前序遍历是指，对于树中的任意节点来说，先打印这个节点，然后再打印它的左子树，最后打印它的右子树。</li>
+<li>中序遍历是指，对于树中的任意节点来说，先打印它的左子树，然后再打印它本身，最后打印它的右子树。</li>
+<li>后序遍历是指，对于树中的任意节点来说，先打印它的左子树，然后再打印它的右子树，最后打印这个节点本身。</li>
+</ul>
 
     </div>
 
@@ -203,12 +217,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/06/02/React生命周期/" rel="prev" title="React生命周期">
-      <i class="fa fa-chevron-left"></i> React生命周期
+    <a href="/2020/06/05/TypeScript中的typeof/" rel="prev" title="TypeScript中的typeof">
+      <i class="fa fa-chevron-left"></i> TypeScript中的typeof
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/06/16/树、二叉树/" rel="next" title="树、二叉树">
-      树、二叉树 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/06/16/React组件库实现——Button组件/" rel="next" title="React组件库实现——Button组件">
+      React组件库实现——Button组件 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -269,6 +283,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">2.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#满二叉树"><span class="nav-number">2.1.</span> <span class="nav-text">满二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完全二叉树"><span class="nav-number">2.2.</span> <span class="nav-text">完全二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储方式。"><span class="nav-number">2.3.</span> <span class="nav-text">存储方式。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的遍历"><span class="nav-number">2.4.</span> <span class="nav-text">二叉树的遍历</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
