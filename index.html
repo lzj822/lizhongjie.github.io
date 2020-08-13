@@ -141,6 +141,121 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/08/13/JavaScript类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/13/JavaScript类型/" class="post-title-link" itemprop="url">JavaScript类型</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-13 22:04:07 / 修改时间：22:04:38" itemprop="dateCreated datePublished" datetime="2020-08-13T22:04:07+08:00">2020-08-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="八种类型"><a href="#八种类型" class="headerlink" title="八种类型"></a>八种类型</h1><p>JavaScript语言规定了8种类型，每一个值都属于某一种数据类型。    </p>
+<ol>
+<li>Undefined</li>
+<li>Null</li>
+<li>Boolean</li>
+<li>String</li>
+<li>Number</li>
+<li>Symbol (ES2015/ES6新增)</li>
+<li>BigInt (ES2020/ES11新增)</li>
+<li>Object</li>
+</ol>
+<p>其中Symbol是ES2015中新添加的，我们就先从这这个最不熟悉的类型开始讲解。而ES2020中新添加的BigInt，我们放在Number类型之后讲。</p>
+<h2 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h2><p>symbol代表唯一的标识。<br>Symbol()函数会返回一个symbol类型的值。创建时，我们可以给symbol一个描述，就像这样<code>Symbol(&quot;description&quot;)</code>，这主要的目的是用来debugging。你无需知道这个值具体是什么，你只用知道它与任何值都不相等就行，哪怕我们给他相同的描述，它也是不同的值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> id1 = <span class="built_in">Symbol</span>(<span class="string">"id"</span>);</span><br><span class="line"><span class="keyword">let</span> id2 = <span class="built_in">Symbol</span>(<span class="string">"id"</span>);</span><br><span class="line"></span><br><span class="line">alert(id1 == id2); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>如果我们直接去console一个Symbol，它会报错<code>TypeError: Cannot convert a Symbol value to a string</code>,因为Symbol不能隐式转换成string，我们可以用<code>toString()</code>进行显示转换，也可以通过Symbol的description属性来去到他的描述<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(id1.toString());  <span class="comment">// Symbol(id)</span></span><br><span class="line"><span class="built_in">console</span>.log(id1.description);  <span class="comment">// id</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Symbol的作用"><a href="#Symbol的作用" class="headerlink" title="Symbol的作用"></a>Symbol的作用</h3><p>Symbol的作用只有一个，作为对象属性的唯一标识符。我们知道对象的key，只有可能是string和symbol，所以我们也可以说它是非字符串对象key的集合。<br>其最主要的目的就是防止对象属性发生冲突。   </p>
+<p>我们通过几个例子来理解一下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj1 = &#123;</span><br><span class="line">    a: <span class="string">'aaa'</span>,</span><br><span class="line">    b: <span class="string">'bbb'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj2 = &#123;</span><br><span class="line">    a: <span class="string">'a'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们对上面两个对象进行合并的话，属性a就会被覆盖。就会变成这样。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    a: <span class="string">'a'</span>,</span><br><span class="line">    b: <span class="string">'bbb'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果我们不想在整合的时候因为冲突而产生覆盖，用Symbol就能解决这个问题。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj1 = &#123;</span><br><span class="line">    [<span class="built_in">Symbol</span>(<span class="string">'a'</span>)]: <span class="string">'aaa'</span>,</span><br><span class="line">    b: <span class="string">'bbb'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj2 = &#123;</span><br><span class="line">    [<span class="built_in">Symbol</span>(<span class="string">'a'</span>)]: <span class="string">'a'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样合并后的结果就是<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="built_in">Symbol</span>(a): <span class="string">'aaa'</span>,</span><br><span class="line">    <span class="built_in">Symbol</span>(a): <span class="string">'a'</span>,</span><br><span class="line">    b: <span class="string">'bbb'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为<code>Symbol()</code>返回值是唯一的，也就是: <code>Symbol(&#39;a&#39;) === Symbol(&#39;a&#39;)</code> 的返回值为false。    </p>
+<p>在举一个例子，在开发中我们经常会遇到这样一个需求。根据传入不同的参数去做不同的事情：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    a: <span class="string">'a'</span>,</span><br><span class="line">    b: <span class="string">'b'</span>,</span><br><span class="line">    c: <span class="string">'c'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handler</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (type === obj.a) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type === obj.b) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type === obj.c &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们在调用的时候传入<code>obj.a</code>或者<code>obj.b</code>或<code>obj.c</code>,这样的话其实我们并不用关心obj对象中a、b、c具体的值，他们各自的值是多少无所谓，只要他们直接互不相同就行。这是Symbol就很好地满足了这个需求。我们就可以把obj对象写成这样</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    a: <span class="built_in">Symbol</span>(),</span><br><span class="line">    b: <span class="built_in">Symbol</span>(),</span><br><span class="line">    c: <span class="built_in">Symbol</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取Symbol-对应属性的值"><a href="#获取Symbol-对应属性的值" class="headerlink" title="获取Symbol()对应属性的值"></a>获取Symbol()对应属性的值</h3><p>在symbol和对象使用的时候我们就需要[]了。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = symbol();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    s = <span class="number">1</span>,</span><br><span class="line">    [s] = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.s)  <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(obj[<span class="string">'s'</span>]) <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(obj[s]) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Symbol-与-for…in"><a href="#Symbol-与-for…in" class="headerlink" title="Symbol 与 for…in"></a>Symbol 与 for…in</h3><p>Symbols在for…in中不可枚举，Object.keys也是枚举不到key的。如果想要枚举的话，可以借助<code>Object.getOwnPropertySymbols(obj)</code>这个方法。<code>Reflect.ownKeys(obj)</code> 这个方法会返回对象所有key的数组，使用这个相当于使用<code>Object.getOwnPropertyNames(target).concat(Object.getOwnPropertySymbols(target))</code></p>
+<h3 id="Symbol-与-JSON-stringify"><a href="#Symbol-与-JSON-stringify" class="headerlink" title="Symbol 与 JSON.stringify()"></a>Symbol 与 JSON.stringify()</h3><p>当使用JSON.stringify()的时候，symbol作为key也会被忽略。   </p>
+<h3 id="全局Symbol"><a href="#全局Symbol" class="headerlink" title="全局Symbol"></a>全局Symbol</h3><p>我们知道，通常symbol是不同的。但是有时候我们希望相同名称的symbol的值是相同的。symbol提供了一个全局注册表。使用<code>Symbol.for(key)</code>,它会从注册表里去读取，如果这个symbol不存在，它便会创建一个。它是全局可用的，甚至跨service worker、iframe。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// read from the global registry</span></span><br><span class="line"><span class="keyword">let</span> id = <span class="built_in">Symbol</span>.for(<span class="string">"id"</span>); <span class="comment">// if the symbol did not exist, it is created</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// read it again (maybe from another part of the code)</span></span><br><span class="line"><span class="keyword">let</span> idAgain = <span class="built_in">Symbol</span>.for(<span class="string">"id"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// the same symbol</span></span><br><span class="line">alert( id === idAgain ); <span class="comment">// true</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">还有一个是与`</span><span class="built_in">Symbol</span>.for(key)<span class="string">`相反的操作`</span><span class="built_in">Symbol</span>.keyFor(sym)<span class="string">`,它是传入全局symbol变量，返回它的name,注意的是它只适用于全局的Symbol，非全局的Symbol会返回undefined。</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span> javascript</span><br><span class="line"><span class="comment">// get symbol by name</span></span><br><span class="line"><span class="keyword">let</span> sym = <span class="built_in">Symbol</span>.for(<span class="string">"name"</span>);</span><br><span class="line"><span class="keyword">let</span> sym2 = <span class="built_in">Symbol</span>.for(<span class="string">"id"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// get name by symbol</span></span><br><span class="line">alert( <span class="built_in">Symbol</span>.keyFor(sym) ); <span class="comment">// name</span></span><br><span class="line">alert( <span class="built_in">Symbol</span>.keyFor(sym2) ); <span class="comment">// id</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Undefined</span></span><br><span class="line"><span class="string">表示未定义，任何变量在未赋值之前都是Undefined类型、值为undefined。它与null还是有一些区别，null表示定义了但是值为空，undefined表示根本就没有定义。这里有一个要注意的问题，undefined在JavaScript中不是一个关键词，它可能会被改写的。一般建议用`</span> <span class="keyword">void</span> <span class="number">0</span> <span class="string">`来获取undefined的值。因为 void 运算会把任意一个表达式变成 undefined，也就是说不管void后面跟什么返回的都是undefined。不少 JavaScript 压缩工具在压缩过程中，也是将 undefined 用 void 0 代替掉了。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Null</span></span><br><span class="line"><span class="string">Null表示空值。前面也说过它代表着定义了但是值为空，它与undefined不同，null是JavaScript的关键词，可以放心的使用。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Boolean</span></span><br><span class="line"><span class="string">这个很简单就两个值，true和false。   </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># String</span></span><br><span class="line"><span class="string">在JavaScript中最重要的一点就是，String是永远无法变更的，一旦字符串构造出来，无法用任何方式改变字符串的内容，所以字符串具有值类型的特征。    </span></span><br><span class="line"><span class="string">ES7确定了字符串的最大长度为`</span><span class="number">2</span>^<span class="number">53</span><span class="number">-1</span><span class="string">`。但是在老版本V8中字符串最大长度限制在256MB`</span>（<span class="number">2</span>^<span class="number">28</span> - <span class="number">16</span>）<span class="string">`，而在新版本中32位平台还与之前一样，64位平台的最大长度将限制在`</span><span class="number">2</span>^(<span class="number">32</span><span class="number">-1</span>)<span class="number">-1</span><span class="number">-24</span><span class="string">`大约1GB。   </span></span><br><span class="line"><span class="string">但是我们要知道JavaScript中String的最大长度，并不是字符数。   </span></span><br><span class="line"><span class="string">要讲清楚这个概念，我们就不得不引入码点和代码单元的概念。   </span></span><br><span class="line"><span class="string">码点是指与一个编码表中的某个字符对应的代码值。在Unicode标准中，码点采用十六进制书写，并加上前缀U+，例如U+0041 就是拉丁字母A 的码点。Unicode的码点可以分成17个级别。    </span></span><br><span class="line"><span class="string">第1个代码级别称为基本字符区域（BMP），（U+0000 - U+FFFF），在基本字符区域中，每个字符用16位表示，通常被称为代码单元，换句话说也就是在基本字符区域内一个码点需要一个代码单元，一个码点对应一个字符。    </span></span><br><span class="line"><span class="string">而其余的16个级别，码点从U+10000 到U+10FFFF , 其中包括一些辅助字符（supplementary character)。而辅助字符采用一对连续的代码单元进行编码。也就是需要两个代码单元。    </span></span><br><span class="line"><span class="string">总结一下：一个字符对应一个码点(且每个字符的码点都是唯一的)，但一个码点可能需要一个代码单元或者两个代码单元才能表示。    </span></span><br><span class="line"><span class="string">而JavaScript字符串把每个UTF16单元当做一个字符来处理，所以处理非BMP的时候就需要注意。比如 "𝌷"的`</span>length<span class="string">`就为2。    </span></span><br><span class="line"><span class="string">一个空的字符串的length为0.</span></span><br><span class="line"><span class="string">如果你要是直接访问String.length返回的是1</span></span><br></pre></td></tr></table></figure></p>
+<p>console.log(String.length) // 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">这是因为String中的这个length其实继承于Function.prototype的。函数实例的length为声明的参数长度，String接受一个value参数，所以length为1。</span><br><span class="line"></span><br><span class="line"># Number</span><br><span class="line">在JavaScript中Number这种类型使用 IEEE754 格式来表示</span><br><span class="line">整数和浮点数值（浮点数值在某些语言中也被称为双精度数值）。接下来我们讲讲什么是IEEE754   </span><br><span class="line"></span><br><span class="line">## IEEE754</span><br><span class="line">我们先记住几个基础知识，十进制小数点向左移动1位相当于将该数除以10，向右移动1位相当于将该数乘以10。同理，二进制小数点向左移动1位相当于将该数除以2，向右移动1位相当于将该数乘以2。</span><br><span class="line"></span><br><span class="line">我们可以根据上面的概念，引入科学计数法。一个很大或者很小的数可以表示为：</span><br></pre></td></tr></table></figure></p>
+<p>a * 10^n<br>|a|&gt;=1 且 |a|&lt;10<br>n为整数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果用科学记数法来表示二进制数：</span><br></pre></td></tr></table></figure></p>
+<p>a * 2^n<br>指数基数为2<br>|a|&gt;=1且|a|&lt;2，也就是说a的范围包含两个区间(-2,-1]、[1,2)<br>n为整数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 浮点数</span><br><span class="line">在计算器科学中，浮点是一种对于实数的近似值数值表示法，由一个有效数字（即尾数）加上幂数来表示，通常是乘以某个基数的整数次指数得到。以这种表示法表示的数值，称为浮点数。    </span><br><span class="line"></span><br><span class="line">IEEE 754规定了四种表示浮点数值的方式</span><br><span class="line"></span><br><span class="line">* 单精度（32位）</span><br><span class="line">* 双精度（64位）</span><br><span class="line">* 延伸单精度（43比特以上，很少使用）</span><br><span class="line">* 延伸双精度（79比特以上，通常以80位实现</span><br><span class="line"></span><br><span class="line">JavaScript使用的是双精度浮点型。    </span><br><span class="line"></span><br><span class="line">**二进制浮点数由三部分组成**</span><br><span class="line">1. 符号位，0表示正数，1表示负数。</span><br><span class="line">2. 阶码，规定为实际指数值加上一个偏移值。偏移值为2^(n-1)−1，其中的n为存储指数的比特位长度。    </span><br><span class="line">    由于科学记数法的指数可为正，可为负。因此，一个数转换为浮点数之后，符号位、阶码这两部分都是带符号的。    </span><br><span class="line">    如果我们要比较两个浮点数的大小，那么除了要判断比较数值本身的符号位，还需要再判断比较阶码的符号位，最后才是非符号部分的比较。显然，这会复杂化比较逻辑。    </span><br><span class="line">    在使用了偏移值之后，无论指数部分是正是负，都可以转换为非负数。将真值映射到正数域的数值（真值在数轴上正向平移一个偏移量），称为移码。使用移码来比较两个真值的大小比较简单，只要高位对齐后逐位比较即可，不用考虑符号位问题。    </span><br><span class="line">3. 尾数，用于存储“有效数字”的小数部分，使用原码表示。</span><br><span class="line"></span><br><span class="line">在64位双精度浮点型：</span><br><span class="line">1. 符号位，占1bit</span><br><span class="line">2. 指数为，占11bit</span><br><span class="line">3. 尾数，占52bit</span><br><span class="line"></span><br><span class="line">### IEEE 754计算</span><br><span class="line">1. 如果指数位全为1，且尾数不为0，就超过了最大值，这样的数就无法表示，表示为**NaN**，此时无视符号位。这就是为什么`NaN != NaN`。因为NaN有不同的可能。</span><br><span class="line">2. 如果指数位全为1，尾数为0的话，根据符号位得到两个特殊值，符号位为0就是正无穷Infinity，符号位为1的话就得负无穷-Infinity。</span><br><span class="line">3. 如果指数位和尾数位都为0的话，就会根据符号位表示正负0。</span><br><span class="line">4. 在正常的浮点数区间，那么对应的数字的计算公式为：`(-1)^s x(2^(e-1023))x(1.f)` 对于e-1023和1.f可能会有些疑惑。其中 1023 代表指数的偏移量，那么为什么会有这个偏移量呢，首先，作为11位的阶码，如果是无符号，那么表示的范围为` [0-2047] `, 当处于我们第三种情况时，e的范围要去掉0和2047，变成` [1,2046]` ，如果要表示正负，则需要使用一个bit去作为符号位，范围为` [-1022, 1023]` ，如果没有偏移量，那么需要引入补码，计算更加复杂，为了简化运算，则使用无符号的阶码，引入了偏移量的概念，通过偏移将其转换成` [1,2046]` ，所以偏移量为 1023。 那么对于1.f来说，因为对于浮点数，在规范中采用科学计数法的方法，对于十进制12.34来说，用科学技术法表示为 1.234×10^2，不会表示为 0.1234×10^3，其首位肯定是一个不为0的数字，那么在二进制中，只有0和1，那么他的首位就只能是1（用科学计数法表示，首位不能为0）。因为对于所有的浮点数他的首位都是1，因此可以省略一位进行，不需要额外占用1位，所以f实际上的有效位数有53位（其中首位是1）。在计算时需要使用上这个隐含的1,这也是1.f的由来.</span><br><span class="line">5. 当指数为0且尾数不为0时，是非规范化的数字，用于表示那些非常接近0的数字。    </span><br><span class="line"></span><br><span class="line">从上面的分类我们得知，前两种是非正常的值，第一种含有 2^52 种情况（尾数有52位），第二种含有两种情况（正无穷和负无穷），那么根据排列组合，共有 `2*1*2^52 = 2^53` 种情况。这些非正常的值在JS中以 NaN、+Infinity、-Infinity表示，因此在Number中多了三种情况。那么总数就是 `2^64-2^53+3`。</span><br><span class="line"></span><br><span class="line">## Number数值范围    </span><br><span class="line">Number的数值范围为-2^53 到 2^53。由上可知在双精度浮点型，尾数占52bit又由于整数位的第一位肯定为1，所以第一位可以省略掉，从而多了一位。</span><br><span class="line"></span><br><span class="line">## 浮点数精度问题    </span><br><span class="line">因为十进制小数转成二进制会变成无限循环小数，它就变得不准确了。</span><br><span class="line">从十进制数转为二进制数，小数的转换采用的乘2取整的过程。这必然就会有无限不循环的情况产生。这样用计算机存储产生截取是必然的，必定会有一定的精度损失！   </span><br><span class="line"></span><br><span class="line">遇到浮点数的比较，正确的方法应该是使用JavaScript提供的最小精度值：</span><br><span class="line">```javascript</span><br><span class="line">Math.abs(0.1 + 0.2 - 0.3) &lt;= Number.EPSILON</span><br></pre></td></tr></table></figure></p>
+<p>检查等式左右两边差的绝对值是否小于最小精度，才是正确的比较浮点数的方法。</p>
+<h1 id="BigInt"><a href="#BigInt" class="headerlink" title="BigInt"></a>BigInt</h1><p>这个是ES2020新增的，我们从上得知Number的最大整数是2^53-1。如果超过了这个数就会有问题。而BigInt的出现就再也不用担心这个问题。   </p>
+<p>创建BigInt的方式也很简单</p>
+<ol>
+<li>直接在整数后面加n<br> <code>let a = 123n</code>;</li>
+<li>调用BigInt函数<br> <code>let a = BigInt(123);</code></li>
+</ol>
+<h2 id="BigInt运算"><a href="#BigInt运算" class="headerlink" title="BigInt运算"></a>BigInt运算</h2><p>就像Number运算一样，只不过在做除法运算的时候会舍去小数部分。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>n + <span class="number">2</span>n  <span class="comment">// 3n</span></span><br><span class="line"><span class="number">1</span>n / <span class="number">2</span>n <span class="comment">// 0n</span></span><br></pre></td></tr></table></figure></p>
+<p>我们要注意BigInt类型和Number类型不能混用。<br>在BigInt和Number直接可以用BigInt()和Number()进行显示转换。但是如果BigInt超过了Number，会进行截断。<br>BigInt也不支持一元加法，我们知道可以用+”value”，将String类型的转为Number类型。这在BigInt中并不支持。    </p>
+<p>比较运算符，例如 &lt; 和 &gt;，使用它们来对 bigint 和 number 类型的数字进行比较没有问题。<br>由于 number 和 bigint 属于不同类型，它们可能在进行 == 比较时相等，但在进行 ===（严格相等）比较时不相等。    </p>
+<p>在进行布尔运算时与Number一样，BigInt <code>0n</code> 为 <code>false</code>，其他值为 <code>true</code>。</p>
+<h1 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h1><p>Object就是一组数据和功能的集合。对象通过new操作符后面跟着要创建的对象类型的名称来创建。</p>
+<pre><code class="javascript"><span class="keyword">let</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();  <span class="comment">//如果不传参数的话，可以省略圆括号但是不推荐。</span>
+</code></pre>
+<p>Object是所有类的基类。Object类所具有的任何属性和方法也同样存在于更具体的对象中。Object的每个实例都具有下列的属性和方法。</p>
+<ol>
+<li>constructor<br> 用于创建当前对象的函数，也就是构造函数。</li>
+<li>hasOwnProperty<br> 检测给定的属性是否在当前对象实例中，可以是String也可以是Symbol。</li>
+<li>isPrototypeOf<br> 检测一个对象是否是另一个对象的原型。或者说一个对象是否被包含在另一个对象的原型链中。就是说如果B继承与A，那么A就是B的原型。<code>A.isPrototypeOf(B) === true</code>    </li>
+<li>propertyIsEnumerable<br> 此方法可以确定对象中指定的属性是否可以被 for…in 循环枚举，但是通过原型链继承的属性除外。如果对象没有指定的属性，则此方法返回 false。</li>
+<li>toLocaleString<br> 返回对象的字符串表示形式，针对当前语言环境进行了本地化。但只有Array、Date和Number重写了此方法。其他的只是默认调用toString方法。</li>
+<li>toString<br> 每个对象都有一个 toString() 方法，当该对象被表示为一个文本值时，或者一个对象以预期的字符串方式引用时自动调用。默认情况下，toString() 方法被每个 Object 对象继承。如果此方法在自定义对象中未被覆盖，toString() 返回 “[object type]”，其中 type 是对象的类型。</li>
+<li>valueOf<br> valueOf()：返回对象的字符串、数值或布尔值表示。通常与 toString()方法的返回值<br>相同。    </li>
+</ol>
+<p>Number、String和Boolean，这三个构造方法，在new的时候产生与其基本类型对应的对象类型。而直接调用的时候表示强制类型转换。</p>
+<p>Symbol、和BigInt比较特殊，直接用new的时候回报错。    </p>
+<p>我们发现有时候对象可以直接用在基本类型上，比如字符串字面量可以直接调用String类型的方法，这是因为<br>JavaScript运算符提供了装箱操作，他会根据基础类型构造一个临时对象，使我们能在基础类型上调用对于对象的方法。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/08/12/Web语义化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -915,142 +1030,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/03/11/使用Jest、Enzyme等工具进行单元测试(上)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Liam Li">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Liam Li">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/11/使用Jest、Enzyme等工具进行单元测试(上)/" class="post-title-link" itemprop="url">使用Jest、Enzyme等工具进行单元测试(上)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-11 23:53:41" itemprop="dateCreated datePublished" datetime="2020-03-11T23:53:41+08:00">2020-03-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-05 17:59:36" itemprop="dateModified" datetime="2020-04-05T17:59:36+08:00">2020-04-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h1><p>Jest是Facebook开源的测试框架，几乎是0配置直接进行单元测试，相对其他测试框架，其一大特点就是内置了常用的测试工具，比如自带断言、测试覆盖率等工具。Jest还有很多好处这里就不一一介绍了，详情可以到Jest官网查看<a href="https://jestjs.io/" target="_blank" rel="noopener">https://jestjs.io/</a>。  </p>
-<h2 id="Jest-安装"><a href="#Jest-安装" class="headerlink" title="Jest 安装"></a>Jest 安装</h2><p>这里默认安装了node。 如果没有安装的，可自行到Node官网进行下载安装<a href="https://nodejs.org/" target="_blank" rel="noopener">https://nodejs.org/</a>。安装好Node后是默认自带NPM包管理工具的。我们可以通过 <code>node -v</code> 和 <code>npm -v</code> 来检测node、和npm是否安装成功，如果都成功的显示了版本号，就说明node和npm都安装成功了。下面我们就可以对Jest来进行安装。   </p>
-<p>Jest的安装十分简单，就一行命令    </p>
-<p><code>npm install --save-dev jest</code>   </p>
-<p>因为只有在开发的时候我们才去运行测试用例，所以我们在安装Jest的时候加上<code>--save-dev</code>。安装完成后我们就可以进行Jest的学习了。</p>
-<h2 id="Jest初体验"><a href="#Jest初体验" class="headerlink" title="Jest初体验"></a>Jest初体验</h2><p>我们可以根据Jest官网给的简单的例子，来体验一下Jest。   </p>
-<p>我们写一个需要被测试的函数，这个函数就是做一个简单的两个数相加的运算然后返回结果。首先我们先创建一个名为 <code>sum.js</code> 的js文件:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = sum;</span><br></pre></td></tr></table></figure></p>
-<p>我们用module.exports将这个函数导出<br>然后我们创建一个名为 <code>sum.test.js</code>的js文件，这个文件里写我们真正的测试代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sum = <span class="built_in">require</span>(<span class="string">'./sum'</span>);</span><br><span class="line"></span><br><span class="line">test(<span class="string">'adds 1 + 2 to equal 3'</span>, () =&gt; &#123;</span><br><span class="line">  expect(sum(<span class="number">1</span>, <span class="number">2</span>)).toBe(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>然后我们修改 <code>package.json</code> 文件，使得我们输入 <code>npm test</code> 的时候就可以运行我们的测试用例:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"jest"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最后我们输入<code>npm run test</code>来运行我们的测试用例，并可以看到Jest打印的信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PASS  ./sum.test.js</span><br><span class="line">✓ adds 1 + 2 to equal 3 (5ms)</span><br></pre></td></tr></table></figure></p>
-<p>至此我们就成功的用Jest写了第一个测试用例。</p>
-<p>我们可以看到这段测试代码的核心就两条语句</p>
-<ol>
-<li>调用一个test方法，第一个参数是对这个测试用例的描述，第二参数是一个回调函数，里面是具体的测试方法。</li>
-<li><code>expect(resultValue).toBe(actualValue)</code> 这行代码，我们可以看做，当expect方法中的传入的这个值和toBe这个方法中的值完全相等。这条测试用例就算通过（例子中，resultValue是调用sum函数的返回值，actualValue是我们认为函数运行正确应该返回的值）</li>
-</ol>
-<p>我们可以简单地试着实现一下这两行代码，这样能更好的理解。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">expect</span>(<span class="params">resultValue</span>) </span>&#123; <span class="comment">//函数的返回值</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">//返回一个对象，其中有toBe方法，toBe方法接收真实值。</span></span><br><span class="line">    toBe: <span class="function"><span class="keyword">function</span>(<span class="params">actualValue</span>) </span>&#123;</span><br><span class="line">      <span class="comment">//判断函数的返回值，与真实值是否相等，如果不相等，抛出错误。</span></span><br><span class="line">      <span class="keyword">if</span> (resultValue !== actualValue) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Error'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">description: string, fn: Function</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    fn(); <span class="comment">//执行函数fn，如果没有抛出错误，输出PASS</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`PASS`</span>); </span><br><span class="line">  &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">    <span class="comment">//如果fn抛出错误，将在这里捕获，并输出错误信息。</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;description&#125;</span> : <span class="subst">$&#123;e&#125;</span>`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们可以简单的理解为，<code>expect(resultValue).toBe(actualValue)</code> 就是对上述代码的简化。它的实质其实就是比较。expect函数中resultValue和toBe函数中actualValue是否完全相等。之后会介绍Jest中更多的方法。</p>
-<h2 id="配置你的Jest"><a href="#配置你的Jest" class="headerlink" title="配置你的Jest"></a>配置你的Jest</h2><p>首先 我们输入下面命令，来生成Jest的配置文件。<br><code>npx jest --init</code>   </p>
-<blockquote>
-<p>注意，我们这里使用的是npx，不是npm，npx的意思是运行的时候，会到 <code>node_modules/.bin</code> 路径和环境变量  <code>$PATH</code> 里面，检查命令是否存在。 而不是去全局环境查找命令。</p>
-</blockquote>
-<p>输入完命令后会有几个问题让你回答，来创建基本的配置文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Would you like to use Jest when running &quot;test&quot; script in &quot;package.json&quot;? › (Y/n)</span><br><span class="line">这个就是帮你配置package.json当，npm test的时候执行Jest。</span><br><span class="line"></span><br><span class="line">Choose the test environment that will be used for testing › - Use arrow-keys. Return to submit.</span><br><span class="line">❯   node</span><br><span class="line">    jsdom (browser-like)</span><br><span class="line">选择node环境还是浏览器环境</span><br><span class="line"></span><br><span class="line">Do you want Jest to add coverage reports? › (y/N)</span><br><span class="line">是否增加测试覆盖率报告</span><br><span class="line"></span><br><span class="line">Automatically clear mock calls and instances between every test? › (y/N)</span><br><span class="line">每次运行测试时自动清除所有mock</span><br></pre></td></tr></table></figure></p>
-<p>回答完问题之后，会生成一个 <code>jest.config.js</code> 的配置文件。我们可以在里面进行Jest更多的配置。我们将会在之后专门来讲Jest的配置，以及通过babel支持TypeScript和ES Modules。   </p>
-<h2 id="Jest-–watch-监视模式运行"><a href="#Jest-–watch-监视模式运行" class="headerlink" title="Jest –watch 监视模式运行"></a>Jest –watch 监视模式运行</h2><ul>
-<li><code>--watch</code> 监听变化的测试用例，如果想一个文件改变而运行全部测试用例的话需要使用<code>--watchAll</code></li>
-</ul>
-<h2 id="Jest-Matchers-常用匹配器"><a href="#Jest-Matchers-常用匹配器" class="headerlink" title="Jest Matchers 常用匹配器"></a>Jest Matchers 常用匹配器</h2><p>匹配器（Matchers）是Jest中非常重要的一个概念，它可以提供很多种方式来让你去验证你所测试的返回值</p>
-<h3 id="Truthiness"><a href="#Truthiness" class="headerlink" title="Truthiness"></a>Truthiness</h3><ul>
-<li><code>toBe</code> 匹配器：相当于 Object.is 或者 ===</li>
-<li><code>toEqual</code> 匹配器： 只匹配内容，不匹配引用。</li>
-<li><code>toBeNull</code> 匹配器： 内容是否等于Null</li>
-<li><code>toBeUndefined</code> 匹配器： 内容是否等于undefined</li>
-<li><code>toBeDefined</code> 匹配器： 希望内容是定义过的。</li>
-<li><code>toBeTruthy</code> 匹配器： 内容是否为true。</li>
-<li><code>toBeFalsy</code> 匹配器： 内容是否为false。</li>
-<li><code>not</code> 匹配器： 在其他匹配器之前，相当于取反操作   </li>
-</ul>
-<h3 id="与数字相关"><a href="#与数字相关" class="headerlink" title="与数字相关"></a>与数字相关</h3><ul>
-<li><code>toBeGreaterThan</code> 匹配器： 输入的数字是否大于</li>
-<li><code>toBeGreaterThanOrEqual</code>  匹配器： 输入的数字是否大于等于</li>
-<li><code>toBeLessThan</code> 匹配器： 输入的数字是否小于</li>
-<li><code>toBeLessThanOrEqual</code>  匹配器： 输入的数字是否小于等于</li>
-<li>对于浮点数判断相等，为了解决浮点数的bug。要用<code>toBeCloseTo</code>匹配器。   </li>
-</ul>
-<h3 id="与String相关"><a href="#与String相关" class="headerlink" title="与String相关"></a>与String相关</h3><ul>
-<li><code>toMatch</code> 匹配器： 结果中是否包含内容，可以是String也可以是正则   </li>
-</ul>
-<h3 id="与Array相关"><a href="#与Array相关" class="headerlink" title="与Array相关"></a>与Array相关</h3><ul>
-<li><code>toContain</code> 匹配器： 判断元素是否存在数组中。   </li>
-</ul>
-<h3 id="与异常相关"><a href="#与异常相关" class="headerlink" title="与异常相关"></a>与异常相关</h3><ul>
-<li>用<code>toThrow</code>匹配器来判断在调用一个函数出现异常时，这个函数是否抛出了异常。   </li>
-</ul>
-<h2 id="Jest测试异步函数"><a href="#Jest测试异步函数" class="headerlink" title="Jest测试异步函数"></a>Jest测试异步函数</h2><h3 id="callback"><a href="#callback" class="headerlink" title="callback"></a>callback</h3><p>我们先看下面的测试用例</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    expect(data).toBe(<span class="string">'success'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fetchData(callback);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>在上面这个函数中，fetchData是一个异步的方法，去请求数据，当数据返回时调用，callback函数。我们期望这个异步函数的返回值是”success“。但是Jest并不知道这个异步函数什么时候返回。Jest仅仅只是从头执行到尾。这样这个测试用例是无效的。</p>
-<p>为了解决这个问题。Jest提供了一个 <code>done</code> 参数，这个参数通过test函数的回调方法传进去，<code>done</code> 是一个不接受任何参数的方法。具体怎么用我们来看代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code with done'</span>, done =&gt; &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    expect(data).toBe(<span class="string">'success'</span>);</span><br><span class="line">    done();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fetchData(callback);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>我们对比两个代码可以看出，下面这块代买仅仅是在回调函数中多执行了一句<code>done()</code>它的意思就是告诉Jest，只有运行到了<code>done()</code>这个命令的时候，这个test才算完事。如果一直不调用<code>done()</code>的话会报出超时错误。<br>但是这里还有点问题。就是当测试不通过的时候，会到的done不被调用。这时我们还需要改写一下代码，用try/catch 来捕获expect错误从而实现我们这个需求。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code with done'</span>, done =&gt; &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      expect(data).toBe(<span class="string">'success'</span>);</span><br><span class="line">      done();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      done(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fetchData(callback);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Promises"><a href="#Promises" class="headerlink" title="Promises"></a>Promises</h3><p>如果使用Promise，会简单很多。我们只需要把 promise返回， Jest会等待promise resolve。 如果  rejected 的话，这条测试用例会自动不通过。代码如下。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> fetchData().then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">    expect(data).toBe(<span class="string">'success'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>如果你用catch捕获了rejected。 那就一定要添加assertions匹配器，assertions匹配器接收一个参数，这个参数表示expect的次数，如果没有出现指定的次数，就会报错。我们改写一下上面的方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'the fetch fails with an error'</span>, () =&gt; &#123;</span><br><span class="line">  expect.assertions(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> fetchData().catch(<span class="function"><span class="params">e</span> =&gt;</span> expect(e).toMatch(<span class="string">'error'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="resolves-rejects-匹配器"><a href="#resolves-rejects-匹配器" class="headerlink" title="resolves / rejects 匹配器"></a>resolves / rejects 匹配器</h3><p>我们也可以用 resolves和rejects匹配器。我们直接看代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> expect(fetchData()).resolves.toBe(<span class="string">'success'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">'the fetch fails with an error'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> expect(fetchData()).rejects.toMatch(<span class="string">'error'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="Async-Await"><a href="#Async-Await" class="headerlink" title="Async/Await"></a>Async/Await</h3><p>最后我们可以用，Await来等待异步函数执行完成，我们只需要把test中的回调函数改写成async/await形式即可。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'the data is peanut butter'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> fetchData();</span><br><span class="line">  expect(data).toBe(<span class="string">'peanut butter'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">'the fetch fails with an error'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  expect.assertions(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> fetchData();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    expect(e).toMatch(<span class="string">'error'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>至此我们简单的介绍了Jest的基本用法。更多的用法我们会在下节讲到。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1121,7 +1100,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
