@@ -20,20 +20,19 @@
     var CONFIG = {"hostname":"lizhongjie.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="总结一些iTerm2常用的快捷键(不断更新)  基本操作全屏 : command + enter查找 : command + f查看历史命令 : command + ;删除当前行 : ctrl + u到行首 : ctrl + a到行尾 : ctrl + e前进后退 : ctrl + f/b (相当于前进后退)上一条命令 : ctrl + p搜索历史命令 : ctrl + r删除当前光标字符 :">
-<meta name="keywords" content="Mac技巧,终端">
+  <meta name="description" content="unqiueId([prefix=’’])这个方法主要作用是，生成唯一ID。如果提供了prefix，会被添加到ID前缀上。     例子12345_.uniqueId(&apos;contact_&apos;);// =&amp;gt; &apos;contact_104&apos; _.uniqueId();// =&amp;gt; &apos;105&apos; 这个方法源码很简单，我们直接上源码。解析直接以注释的方式呈现。1234567891011121314151">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac iTerm2 快捷键">
-<meta property="og:url" content="http://lizhongjie.com/2018/09/14/Mac iTerm2 快捷键/index.html">
+<meta property="og:title" content="【学习Lodash源码】uniqueId">
+<meta property="og:url" content="http://lizhongjie.com/2020/10/08/【学习Lodash源码】uniqueId/index.html">
 <meta property="og:site_name" content="Liam Li">
-<meta property="og:description" content="总结一些iTerm2常用的快捷键(不断更新)  基本操作全屏 : command + enter查找 : command + f查看历史命令 : command + ;删除当前行 : ctrl + u到行首 : ctrl + a到行尾 : ctrl + e前进后退 : ctrl + f/b (相当于前进后退)上一条命令 : ctrl + p搜索历史命令 : ctrl + r删除当前光标字符 :">
+<meta property="og:description" content="unqiueId([prefix=’’])这个方法主要作用是，生成唯一ID。如果提供了prefix，会被添加到ID前缀上。     例子12345_.uniqueId(&apos;contact_&apos;);// =&amp;gt; &apos;contact_104&apos; _.uniqueId();// =&amp;gt; &apos;105&apos; 这个方法源码很简单，我们直接上源码。解析直接以注释的方式呈现。1234567891011121314151">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-11T15:53:41.955Z">
+<meta property="og:updated_time" content="2020-10-08T13:35:29.218Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac iTerm2 快捷键">
-<meta name="twitter:description" content="总结一些iTerm2常用的快捷键(不断更新)  基本操作全屏 : command + enter查找 : command + f查看历史命令 : command + ;删除当前行 : ctrl + u到行首 : ctrl + a到行尾 : ctrl + e前进后退 : ctrl + f/b (相当于前进后退)上一条命令 : ctrl + p搜索历史命令 : ctrl + r删除当前光标字符 :">
+<meta name="twitter:title" content="【学习Lodash源码】uniqueId">
+<meta name="twitter:description" content="unqiueId([prefix=’’])这个方法主要作用是，生成唯一ID。如果提供了prefix，会被添加到ID前缀上。     例子12345_.uniqueId(&apos;contact_&apos;);// =&amp;gt; &apos;contact_104&apos; _.uniqueId();// =&amp;gt; &apos;105&apos; 这个方法源码很简单，我们直接上源码。解析直接以注释的方式呈现。1234567891011121314151">
 
-<link rel="canonical" href="http://lizhongjie.com/2018/09/14/Mac iTerm2 快捷键/">
+<link rel="canonical" href="http://lizhongjie.com/2020/10/08/【学习Lodash源码】uniqueId/">
 
 
 <script id="page-configurations">
@@ -45,7 +44,7 @@
   };
 </script>
 
-  <title>Mac iTerm2 快捷键 | Liam Li</title>
+  <title>【学习Lodash源码】uniqueId | Liam Li</title>
   
 
 
@@ -146,7 +145,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2018/09/14/Mac iTerm2 快捷键/">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/10/08/【学习Lodash源码】uniqueId/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -159,7 +158,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Mac iTerm2 快捷键
+          【学习Lodash源码】uniqueId
         </h1>
 
         <div class="post-meta">
@@ -168,26 +167,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2018-09-14 10:33:01" itemprop="dateCreated datePublished" datetime="2018-09-14T10:33:01+08:00">2018-09-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-11 23:53:41" itemprop="dateModified" datetime="2020-03-11T23:53:41+08:00">2020-03-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/小tips/" itemprop="url" rel="index">
-                    <span itemprop="name">小tips</span>
-                  </a>
-                </span>
+              <time title="创建时间：2020-10-08 21:33:38 / 修改时间：21:35:29" itemprop="dateCreated datePublished" datetime="2020-10-08T21:33:38+08:00">2020-10-08</time>
             </span>
 
           
@@ -201,13 +183,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>总结一些iTerm2常用的快捷键(不断更新)</p>
-</blockquote>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>全屏 : command + enter<br>查找 : command + f<br>查看历史命令 : command + ;<br>删除当前行 : ctrl + u<br>到行首 : ctrl + a<br>到行尾 : ctrl + e<br>前进后退 : ctrl + f/b (相当于前进后退)<br>上一条命令 : ctrl + p<br>搜索历史命令 : ctrl + r<br>删除当前光标字符 : ctrl + d<br>删除光标之前的字符 : ctrl + h<br>删除光标之前的单词 : ctrl + w<br>删除到文本末尾: ctrl + k<br>交换当前光标和前一个文本: ctrl + t  </p>
-<p>清屏: command + r | ctrl + l  </p>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>新建标签 : command + t<br>关闭标签 : command + w<br>切换标签 : command + 数字 | command + 方向键<br>显示所有标签(可搜索): command + option + e   </p>
-<h2 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h2><p>垂直分屏 : command + d<br>水平分屏 : command + shift + d<br>切换屏幕 : command + option + 方向键 | command + [ 和 ]  </p>
+        <h1 id="unqiueId-prefix-’’"><a href="#unqiueId-prefix-’’" class="headerlink" title="unqiueId([prefix=’’])"></a>unqiueId([prefix=’’])</h1><p>这个方法主要作用是，生成唯一ID。如果提供了prefix，会被添加到ID前缀上。    </p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_.uniqueId(<span class="string">'contact_'</span>);</span><br><span class="line"><span class="comment">// =&gt; 'contact_104'</span></span><br><span class="line"> </span><br><span class="line">_.uniqueId();</span><br><span class="line"><span class="comment">// =&gt; '105'</span></span><br></pre></td></tr></table></figure>
+<p>这个方法源码很简单，我们直接上源码。解析直接以注释的方式呈现。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">创建一个全局的对象，用来生成唯一的id。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> idCounter = &#123;&#125;  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uniqueId</span>(<span class="params">prefix=<span class="string">'$lodash$'</span></span>) </span>&#123; <span class="comment">//如果prefix没有传的话，默认参数为$lodash$</span></span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">  初始化，如果prefix在idCounter中不存在的话。</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">if</span> (!idCounter[prefix]) &#123;</span><br><span class="line">    idCounter[prefix] = <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> id =++idCounter[prefix] <span class="comment">//每次调用的时候id+1，由于是++在前，所以id是从1开始。</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">  如果没有传prefix，最终返回id，如果传了，则拼接返回。</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">if</span> (prefix === <span class="string">'$lodash$'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;id&#125;</span>`</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;prefix&#125;</span><span class="subst">$&#123;id&#125;</span>`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> uniqueId</span><br></pre></td></tr></table></figure></p>
 
     </div>
 
@@ -216,10 +194,6 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Mac技巧/" rel="tag"># Mac技巧</a>
-              <a href="/tags/终端/" rel="tag"># 终端</a>
-          </div>
 
         
 
@@ -227,13 +201,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2018/09/13/Linux简单入门/" rel="prev" title="Linux简单入门">
-      <i class="fa fa-chevron-left"></i> Linux简单入门
+    <a href="/2020/08/14/JavaScript类型转换/" rel="prev" title="JavaScript类型转换">
+      <i class="fa fa-chevron-left"></i> JavaScript类型转换
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/14/【组成原理回顾】一、计算机发展史/" rel="next" title="【组成原理回顾】一、计算机发展史">
-      【组成原理回顾】一、计算机发展史 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -293,7 +264,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签"><span class="nav-number">2.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分屏"><span class="nav-number">3.</span> <span class="nav-text">分屏</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#unqiueId-prefix-’’"><span class="nav-number">1.</span> <span class="nav-text">unqiueId([prefix=’’])</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
