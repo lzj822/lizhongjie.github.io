@@ -141,6 +141,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/12/26/【学习Lodash源码】Object.get/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/26/【学习Lodash源码】Object.get/" class="post-title-link" itemprop="url">【学习Lodash源码】Object.get</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-26 17:10:55 / 修改时间：17:11:16" itemprop="dateCreated datePublished" datetime="2020-12-26T17:10:55+08:00">2020-12-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Object.get这个方法，我觉得是在工作中比较常用的。而且ES6没有原生实现的。在之前的文章中。尝试用Reduce实现了一个类似的方法。可以在JS数组那篇文章中的末尾找到。我们来看一看Lodash是怎么实现的。    </p>
+<p>我们先来看看他的用法。这个函数的主要作用是，根据对象的路径获取值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> object = &#123; <span class="string">'a'</span>: [&#123; <span class="string">'b'</span>: &#123; <span class="string">'c'</span>: <span class="number">3</span> &#125; &#125;] &#125;</span><br><span class="line"></span><br><span class="line">get(object, <span class="string">'a[0].b.c'</span>)</span><br><span class="line"><span class="comment">// =&gt; 3</span></span><br><span class="line"></span><br><span class="line">get(object, [<span class="string">'a'</span>, <span class="string">'0'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])</span><br><span class="line"><span class="comment">// =&gt; 3</span></span><br><span class="line"></span><br><span class="line">get(object, <span class="string">'a.b.c'</span>, <span class="string">'default'</span>)</span><br><span class="line"><span class="comment">// =&gt; 'default'</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看出来，路径可以是一个字符串，可以是一个数组。我们最后还可以给一个默认值，当根据这路径没有找到对应值得时候，而返回默认值。   </p>
+<p>下面我们来看一下源码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">object, path, defaultValue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = object == <span class="literal">null</span> ? <span class="literal">undefined</span> : baseGet(object, path)</span><br><span class="line">  <span class="keyword">return</span> result === <span class="literal">undefined</span> ? defaultValue : result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到如果传入的对象为undefined或者根据路径查找出的结果为undefined的时候，就返回defaultValue。否则返回查找的结果。主要的逻辑还是在baseGet中。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> castPath <span class="keyword">from</span> <span class="string">'./castPath.js'</span></span><br><span class="line"><span class="keyword">import</span> toKey <span class="keyword">from</span> <span class="string">'./toKey.js'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baseGet</span>(<span class="params">object, path</span>) </span>&#123;</span><br><span class="line">  path = castPath(path, object)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">  <span class="keyword">const</span> length = path.length</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (object != <span class="literal">null</span> &amp;&amp; index &lt; length) &#123;</span><br><span class="line">    object = object[toKey(path[index++])]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (index &amp;&amp; index == length) ? object : <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> baseGet</span><br></pre></td></tr></table></figure>
+<p>在baseGet中引入了两个方法。首先是这个<code>castPath</code>这个方法是强制转换为path数组。可以先看一下它的实现。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">castPath</span>(<span class="params">value, object</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> isKey(value, object) ? [value] : stringToPath(value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果本身就是一个path数组，就返回value。如果不是的话，就调用<code>isKey</code>这个方法<code>isKey</code>这个方法主要是用来检测value是否是属性名，而不是属性路径。我们先不看里面的具体实现。就看最后的return，如果这个value是对象的名的话（也就是传入的这个value不带.或者[])我们就直接返回这个数组只包含value这一个值。否则返回通过stringToPath这个函数，返回的路径数组。    </p>
+<p>我们回到前面一个函数，我们看下面while部分的内容。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (object != <span class="literal">null</span> &amp;&amp; index &lt; length) &#123;</span><br><span class="line">    object = object[toKey(path[index++])]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果object不为空，我们就一直取数组里面的值，然后通过数组里面的key找到对应的value。起初刚看这个时候，还在想直接用<code>object=</code>是不是修改传入的对象。后面才发现真的是基础不牢。其实在JavaScript函数的参数都是值传递，而传入对象也只是传入对象地址的值。我们在用object进行赋值的时候。实际是切断了与传入地址之间的关系。所以并不会改变原对象。这部分之后会单独开一篇文章进行讲解。剩下的核心就是toKey这个方法。<br>这个方法也很简单<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> INFINITY = <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toKey</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">'string'</span> || isSymbol(value)) &#123;</span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="string">`<span class="subst">$&#123;value&#125;</span>`</span></span><br><span class="line">  <span class="keyword">return</span> (result == <span class="string">'0'</span> &amp;&amp; (<span class="number">1</span> / value) == -INFINITY) ? <span class="string">'-0'</span> : result</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">`   </span></span><br><span class="line"><span class="string">这个方法就是讲不是string和Symbol的key转为string。不得不佩服这种开源库想的真周到。    </span></span><br><span class="line"><span class="string">我们可以看到其中有一个非常冷面的知识点。    </span></span><br><span class="line"><span class="string">就是当你给一个变量赋值为+0或者0的时候，它都为0。而赋值为-0的时候它等于-0；</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">const</span> a = <span class="number">0</span>; <span class="comment">//console -&gt; 0</span></span><br><span class="line"><span class="keyword">const</span> b = +<span class="number">0</span>; <span class="comment">//console -&gt; 0</span></span><br><span class="line"><span class="keyword">const</span> c = <span class="number">-0</span>; <span class="comment">//console -&gt; 0</span></span><br></pre></td></tr></table></figure></p>
+<p>而经过字符串转换的时候，0、+0、-0都会转换为0。Lodash居然考虑到了这一点，他用 1/value 是否等于 -（1/0）来判断传入的这个value是否为-0。从而修复了这一个问题。    </p>
+<p>又扯远了。我们回去继续看。其实核心代码很简单，就是一个不断根据key取值的一个过程。但是通过源码的学习。我们能学习到很多冷门的知识点和一些边界检测。这个过程也是十分有意思的。    </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/12/24/JavaScript数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1056,98 +1126,11 @@ root.appendChild(node);
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/02/React生命周期/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Liam Li">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Liam Li">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/02/React生命周期/" class="post-title-link" itemprop="url">React生命周期</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-02 21:02:42" itemprop="dateCreated datePublished" datetime="2020-06-02T21:02:42+08:00">2020-06-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-16 21:50:54" itemprop="dateModified" datetime="2020-06-16T21:50:54+08:00">2020-06-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="旧的生命周期"><a href="#旧的生命周期" class="headerlink" title="旧的生命周期"></a>旧的生命周期</h2><h3 id="constructor构造函数"><a href="#constructor构造函数" class="headerlink" title="constructor构造函数"></a>constructor构造函数</h3><p>构造函数的主要作用就是1、通过this.state来初始化内部的state。2、为事件函数绑定this。在组件挂载之前，会调用它的构造函数。</p>
-<p>我们知道如果在为 React.Component 子类实现构造函数时，应在其他语句之前前调用 super(props)。否则，this.props 在构造函数中可能会出现未定义的 bug。我们可以来想想为什么每次都必须要写super，我们可以不写它么？</p>
-<p>首先，super指的是父类的构造函数。在调用super之前，我们是不能使用this的。为什么这样做呢，我们试想一下，如果在调用super之前不禁止this，我们来看看下面这个例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">        <span class="keyword">this</span>.greet();</span><br><span class="line">        <span class="keyword">super</span>(name)</span><br><span class="line">    &#125;</span><br><span class="line">    greet() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'hello my name is'</span> + <span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们可以看出在这个例子中，this.greet()在super()给this.name赋值之前就已经执行了。这时候this.name尚未定义。为了避免这种情况，强制在使用this之前先行调用super。<br>下面我们看看为什么要传入props么？</p>
-<p>我们可以看看React内部<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">this</span>.props = props;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在React内部，的构造方法里我们一目了然，它直接将props赋值给this.props。<br>即便你调用super()的时候没有传入props，你依然能够在render函数或其他地方访问到this.props。这是因为，React 在调用构造函数后也立即将 props 赋值到了实例上<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// React 内部</span></span><br><span class="line"><span class="keyword">const</span> instance = <span class="keyword">new</span> YourComponent(props);</span><br><span class="line">instance.props = props;</span><br></pre></td></tr></table></figure></p>
-<p>尽管这样，我们也要避免使用super()而使用super(props),因为如果使用super()，会使得 this.props 在 super 调用一直到构造函数结束期间值为 undefined。</p>
-<p>【注意】避免将props的值直接赋值给state。因为这样做毫无意义，并且props改变的时候，state并不改变。</p>
-<h3 id="componentWillMount"><a href="#componentWillMount" class="headerlink" title="componentWillMount"></a>componentWillMount</h3><p>这是一个即将被废弃的方法。而且16.3已经将这个更名为UNSAFE_componentWillMount。它在挂载组件前调用，在componentWillMount中执行setState是毫无意义的。因为组件只挂在一次，componentWillMount也只执行一次，应该把这里的setState放到constructor中。<br>之前讨论的最多的就是异步请求api的时候，应该在componentWillMount里还是componentDidMount中，网上有一种说法是，放在componentWillMount中异步的请求数据，先会render一次空数据，等数据回来之后再走一遍render，所以应该放到componentDidMount中，但我觉得这种说法是不可靠的。因为在DidMount之前，同样也会render一遍空数据。早发起请求确实能早点获得结果，但是省的这几微妙根本微不足道。再加之WillMount即将被废弃。所以应该避免使用它。还有一点要注意，它是服务器渲染上调用的唯一方法。</p>
-<h3 id="render"><a href="#render" class="headerlink" title="render"></a>render</h3><p>render()是在componentWillMount()和componentWillReceive()之后调用。主要的作用是渲染组件，它是在class组件中唯一必须实现的方法。render应该为纯函数，意味着在state不变的情况下。每次调用返回的结果都应该相同。</p>
-<h3 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount"></a>componentDidMount</h3><p>该方法会在render方法后立即执行，它跟componentWillMount一样也是永远只执行一次。在这里可以对DOM进行操作，因为这时组件已经加载完毕。之前我们也说了，网络请求数据的操作也应该放在这里。需要注意的是render函数结束之后，不会立即调用componentDidMount。是因为render函数本身并不往DOM树上渲染或者装载内容，它只是返回一个JSX表示的对象，然后由React库来根据返回对象决定如何渲染。而React库需要把所有组件返回的结果综合起来。才知道该如何产生对应的DOM修改。只有React库调用了全部render后，再依次调用各个组件的componentDidMount函数作为装载过程的收尾。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">componentWillMount First</span><br><span class="line">render First</span><br><span class="line">componentWillMount Second</span><br><span class="line">render Second</span><br><span class="line">componentWillMount Third</span><br><span class="line">render Third</span><br><span class="line">componentDidMount First</span><br><span class="line">componentDidMount Second</span><br><span class="line">componentDidMount Third</span><br></pre></td></tr></table></figure></p>
-<h3 id="componentWillReceiveProps"><a href="#componentWillReceiveProps" class="headerlink" title="componentWillReceiveProps"></a>componentWillReceiveProps</h3><p>这个的用法主要是，需要根据新的prop改变状态，可以比较this.props和nextProps，并使用setState()执行state转换。<br>一般对这个方法有一个误区，就是它会通常被认为当props改变了它才会被调用，但事实是，只要是父组件的render函数被调用，在render函数里面被渲染的子组件就会经历更新过程，不管父组件传给子组件的props有没有改变，都会触发子组件的componentWillReceiveProps。我们唯一能保证的就是当props改变的时候，一定会触发componentWillReceiveProps，反之不然。注意在setState触发的更新过程是不会调用这个方法的。我们在使用的时候需要避免，在这个方法中调用父组件的回调函数修改父组件的state，这样父组件rerender会导致死循环。<br><strong>同样这个方法在React 17中将被废弃。</strong><br>想要使用应该写成UNSAFE_componentWillReceiveProps</p>
-<h3 id="shouldComponentUpdate"><a href="#shouldComponentUpdate" class="headerlink" title="shouldComponentUpdate"></a>shouldComponentUpdate</h3><p>根据shouldComponentUpdate的返回值，判断React组件的输出是否受当前state或props更改的影响。意思就是判断组件是否重新渲染。默认行为state每次发生改变的时候组件都会重新渲染。我们要注意在首次渲染或使用forceUpdate()时不会调用该方法。在官方介绍中，说应该考虑使用PureComponent组件，而不是手动编写shouldComponentUpdate()。PureComponent会对props和state进行浅层比较。<strong>【注意】</strong> 返回 false 并不会阻止子组件在 state 更改时重新渲染。</p>
-<h3 id="componentWillUpdate"><a href="#componentWillUpdate" class="headerlink" title="componentWillUpdate"></a>componentWillUpdate</h3><p>这个方法很简单，就是当组件收到新的props或state时，会在渲染之前调用这个方法。初始渲染不会调用它。<br><strong>同样这个方法在React 17中将被废弃。</strong><br>想要使用应该写成UNSAFE_componentWillUpdate</p>
-<h3 id="componentDidUpdate"><a href="#componentDidUpdate" class="headerlink" title="componentDidUpdate"></a>componentDidUpdate</h3><p>componentDidUpdate会在更新后会被立即调用。首次渲染不会执行此方法。也可以在这个函数中直接调用setState()，但它必须包裹在一个条件语句中。要不然就会导致死循环。也不要将props镜像给state，应该直接使用props。</p>
-<h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount"></a>componentWillUnmount</h3><p>componentWillUnmount() 会在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作，例如，清除 timer，取消网络请求或清除在 componentDidMount() 中创建的订阅等。<br>componentWillUnmount() 中不应调用 setState()，因为该组件将永远不会重新渲染。</p>
-<h2 id="新的生命周期"><a href="#新的生命周期" class="headerlink" title="新的生命周期"></a>新的生命周期</h2><p>新增了两个生命周期<code>getDerivedStateFromProps</code>和<code>getSnapshotBeforeUpdate</code><br>我们先来看看图<br><img src="https://s1.ax1x.com/2020/06/02/tYI8jx.png" alt="React新生命周期">  </p>
-<h3 id="getDerivedStateFromProps"><a href="#getDerivedStateFromProps" class="headerlink" title="getDerivedStateFromProps"></a>getDerivedStateFromProps</h3><p>组件每次被rerender的时候，都会触发这个生命周期函数，无论是props更新，还是setState，还是调用forceUpdate()，并且它在组件挂载和后续更新时都会被调用。它应该返回一个对象来更新state，如果返回null则不更新任何内容。注意，getDerivedStateFromProps是一个静态函数，所以函数体内不能访问this，输出完全由输入决定。</p>
-<h3 id="getSnapshotBeforeUpdate"><a href="#getSnapshotBeforeUpdate" class="headerlink" title="getSnapshotBeforeUpdate"></a>getSnapshotBeforeUpdate</h3><p>它的触发时间实在update发生的时候，render之后，组件dom渲染之前。这个函数的返回值会作为componentDidUpdate的第三个参数。它可以来替代componentWillUpdate。</p>
-<p>还有两个生命周期函数</p>
-<h3 id="getDerivedStateFromError"><a href="#getDerivedStateFromError" class="headerlink" title="getDerivedStateFromError"></a>getDerivedStateFromError</h3><p>这个生命周期函数会在子组件抛出一个错误之后被调用。它会接收到这个throw出来的参数，然后去return一个值去更新state来处理这个错误。设置错误边界可以让代码在出错的情况下，也能将错误显示到页面中，而不是出现空白页面。<br>一般使用static getDerivedStateFromError() 来渲染一个提示错误的UI，使用componentDidCatch() 来记录一些error的详细信息，错误调用栈等等</p>
-<h3 id="componentDidCatch"><a href="#componentDidCatch" class="headerlink" title="componentDidCatch"></a>componentDidCatch</h3><p>这个也是在后代组件抛出错误后被调用。 它应该用于记录错误之类的情况。如果要是降级渲染UI，还是应该用getDerivedStateFromError来处理。</p>
-<h2 id="父子组件生命周期执行顺序总结"><a href="#父子组件生命周期执行顺序总结" class="headerlink" title="父子组件生命周期执行顺序总结"></a>父子组件生命周期执行顺序总结</h2><p>当子组件自身状态改变时，不会对父组件产生副作用的情况下，父组件不会更新，不会触发父组件的生命周期。<br>当父组件中状态发生变化（包括子组件的挂载以及）时，会触发自身对应的生命周期以及子组件的更新。<br>还是洋葱圈模型，render 以及 render 之前的生命周期，则 父组件 先执行。render 以及 render 之后的声明周期，则子组件先执行，并且是与父组件交替执行。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1213,7 +1196,7 @@ root.appendChild(node);
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

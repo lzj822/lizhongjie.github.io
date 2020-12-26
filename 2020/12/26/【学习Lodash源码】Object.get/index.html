@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lizhongjie.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Object.get这个方法，我觉得是在工作中比较常用的。而且ES6没有原生实现的。在之前的文章中。尝试用Reduce实现了一个类似的方法。可以在JS数组那篇文章中的末尾找到。我们来看一看Lodash是怎么实现的。     我们先来看看他的用法。这个函数的主要作用是，根据对象的路径获取值。12345678910const object = &amp;#123; &apos;a&apos;: [&amp;#123; &apos;b&apos;: &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习Lodash源码】Object.get">
+<meta property="og:url" content="http://lizhongjie.com/2020/12/26/【学习Lodash源码】Object.get/index.html">
+<meta property="og:site_name" content="Liam Li">
+<meta property="og:description" content="Object.get这个方法，我觉得是在工作中比较常用的。而且ES6没有原生实现的。在之前的文章中。尝试用Reduce实现了一个类似的方法。可以在JS数组那篇文章中的末尾找到。我们来看一看Lodash是怎么实现的。     我们先来看看他的用法。这个函数的主要作用是，根据对象的路径获取值。12345678910const object = &amp;#123; &apos;a&apos;: [&amp;#123; &apos;b&apos;: &amp;#12">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-26T09:11:16.824Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【学习Lodash源码】Object.get">
+<meta name="twitter:description" content="Object.get这个方法，我觉得是在工作中比较常用的。而且ES6没有原生实现的。在之前的文章中。尝试用Reduce实现了一个类似的方法。可以在JS数组那篇文章中的末尾找到。我们来看一看Lodash是怎么实现的。     我们先来看看他的用法。这个函数的主要作用是，根据对象的路径获取值。12345678910const object = &amp;#123; &apos;a&apos;: [&amp;#123; &apos;b&apos;: &amp;#12">
+
+<link rel="canonical" href="http://lizhongjie.com/2020/12/26/【学习Lodash源码】Object.get/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>【学习Lodash源码】Object.get | Liam Li</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Liam Li</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/12/26/【学习Lodash源码】Object.get/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【学习Lodash源码】Object.get
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-26 17:10:55 / 修改时间：17:11:16" itemprop="dateCreated datePublished" datetime="2020-12-26T17:10:55+08:00">2020-12-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Object.get这个方法，我觉得是在工作中比较常用的。而且ES6没有原生实现的。在之前的文章中。尝试用Reduce实现了一个类似的方法。可以在JS数组那篇文章中的末尾找到。我们来看一看Lodash是怎么实现的。    </p>
+<p>我们先来看看他的用法。这个函数的主要作用是，根据对象的路径获取值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> object = &#123; <span class="string">'a'</span>: [&#123; <span class="string">'b'</span>: &#123; <span class="string">'c'</span>: <span class="number">3</span> &#125; &#125;] &#125;</span><br><span class="line"></span><br><span class="line">get(object, <span class="string">'a[0].b.c'</span>)</span><br><span class="line"><span class="comment">// =&gt; 3</span></span><br><span class="line"></span><br><span class="line">get(object, [<span class="string">'a'</span>, <span class="string">'0'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])</span><br><span class="line"><span class="comment">// =&gt; 3</span></span><br><span class="line"></span><br><span class="line">get(object, <span class="string">'a.b.c'</span>, <span class="string">'default'</span>)</span><br><span class="line"><span class="comment">// =&gt; 'default'</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看出来，路径可以是一个字符串，可以是一个数组。我们最后还可以给一个默认值，当根据这路径没有找到对应值得时候，而返回默认值。   </p>
+<p>下面我们来看一下源码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">object, path, defaultValue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = object == <span class="literal">null</span> ? <span class="literal">undefined</span> : baseGet(object, path)</span><br><span class="line">  <span class="keyword">return</span> result === <span class="literal">undefined</span> ? defaultValue : result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到如果传入的对象为undefined或者根据路径查找出的结果为undefined的时候，就返回defaultValue。否则返回查找的结果。主要的逻辑还是在baseGet中。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> castPath <span class="keyword">from</span> <span class="string">'./castPath.js'</span></span><br><span class="line"><span class="keyword">import</span> toKey <span class="keyword">from</span> <span class="string">'./toKey.js'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baseGet</span>(<span class="params">object, path</span>) </span>&#123;</span><br><span class="line">  path = castPath(path, object)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">  <span class="keyword">const</span> length = path.length</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (object != <span class="literal">null</span> &amp;&amp; index &lt; length) &#123;</span><br><span class="line">    object = object[toKey(path[index++])]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (index &amp;&amp; index == length) ? object : <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> baseGet</span><br></pre></td></tr></table></figure>
+<p>在baseGet中引入了两个方法。首先是这个<code>castPath</code>这个方法是强制转换为path数组。可以先看一下它的实现。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">castPath</span>(<span class="params">value, object</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> isKey(value, object) ? [value] : stringToPath(value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果本身就是一个path数组，就返回value。如果不是的话，就调用<code>isKey</code>这个方法<code>isKey</code>这个方法主要是用来检测value是否是属性名，而不是属性路径。我们先不看里面的具体实现。就看最后的return，如果这个value是对象的名的话（也就是传入的这个value不带.或者[])我们就直接返回这个数组只包含value这一个值。否则返回通过stringToPath这个函数，返回的路径数组。    </p>
+<p>我们回到前面一个函数，我们看下面while部分的内容。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (object != <span class="literal">null</span> &amp;&amp; index &lt; length) &#123;</span><br><span class="line">    object = object[toKey(path[index++])]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果object不为空，我们就一直取数组里面的值，然后通过数组里面的key找到对应的value。起初刚看这个时候，还在想直接用<code>object=</code>是不是修改传入的对象。后面才发现真的是基础不牢。其实在JavaScript函数的参数都是值传递，而传入对象也只是传入对象地址的值。我们在用object进行赋值的时候。实际是切断了与传入地址之间的关系。所以并不会改变原对象。这部分之后会单独开一篇文章进行讲解。剩下的核心就是toKey这个方法。<br>这个方法也很简单<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> INFINITY = <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toKey</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">'string'</span> || isSymbol(value)) &#123;</span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="string">`<span class="subst">$&#123;value&#125;</span>`</span></span><br><span class="line">  <span class="keyword">return</span> (result == <span class="string">'0'</span> &amp;&amp; (<span class="number">1</span> / value) == -INFINITY) ? <span class="string">'-0'</span> : result</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">`   </span></span><br><span class="line"><span class="string">这个方法就是讲不是string和Symbol的key转为string。不得不佩服这种开源库想的真周到。    </span></span><br><span class="line"><span class="string">我们可以看到其中有一个非常冷面的知识点。    </span></span><br><span class="line"><span class="string">就是当你给一个变量赋值为+0或者0的时候，它都为0。而赋值为-0的时候它等于-0；</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">const</span> a = <span class="number">0</span>; <span class="comment">//console -&gt; 0</span></span><br><span class="line"><span class="keyword">const</span> b = +<span class="number">0</span>; <span class="comment">//console -&gt; 0</span></span><br><span class="line"><span class="keyword">const</span> c = <span class="number">-0</span>; <span class="comment">//console -&gt; 0</span></span><br></pre></td></tr></table></figure></p>
+<p>而经过字符串转换的时候，0、+0、-0都会转换为0。Lodash居然考虑到了这一点，他用 1/value 是否等于 -（1/0）来判断传入的这个value是否为-0。从而修复了这一个问题。    </p>
+<p>又扯远了。我们回去继续看。其实核心代码很简单，就是一个不断根据key取值的一个过程。但是通过源码的学习。我们能学习到很多冷门的知识点和一些边界检测。这个过程也是十分有意思的。    </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/24/JavaScript数组/" rel="prev" title="JavaScript数组">
+      <i class="fa fa-chevron-left"></i> JavaScript数组
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Liam Li</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liam Li</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
