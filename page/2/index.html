@@ -141,6 +141,69 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/05/TypeScript中的typeof/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/05/TypeScript中的typeof/" class="post-title-link" itemprop="url">TypeScript中的typeof</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-05 22:18:55 / 修改时间：22:19:18" itemprop="dateCreated datePublished" datetime="2020-06-05T22:18:55+08:00">2020-06-05</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在之前的文章中，介绍过JavaScript的typeof运算符。在JavaScript中typeof主要是用于类型检测。<br>而在TypeScript中typeof不光能类型检测，还能用来获取类型。<br>具体是什么，得结合环境来看。<br>举一个简单地例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bar = &#123; <span class="attr">a</span>: <span class="number">0</span> &#125;</span><br><span class="line"><span class="keyword">let</span> b = <span class="keyword">typeof</span> bar <span class="comment">// "object"</span></span><br><span class="line">type c = <span class="keyword">typeof</span> bar <span class="comment">// "&#123;a: number&#125;"</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看出来，如果typeof赋值给一个变量的话，那将用JavaScript运算符。 如果赋给一个type的话，就是获取它的类型。TypeScript将其对象中的a属性自动推断为number类型。</p>
+<p>也可以获取类型通过一个字符数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = [<span class="string">'text 1'</span>, <span class="string">'text 2'</span>] <span class="keyword">as</span> <span class="keyword">const</span>;</span><br><span class="line">type Data = <span class="keyword">typeof</span> data[number];</span><br><span class="line"><span class="comment">// type Data = "text 1" | "text 2"</span></span><br></pre></td></tr></table></figure></p>
+<p>或者是一个tuple<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> type Lit = string | number | boolean | <span class="literal">undefined</span> | <span class="literal">null</span> | <span class="keyword">void</span> | &#123;&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> tuple = &lt;T extends Lit[]&gt;(...args: T) =&gt; args;</span><br><span class="line"></span><br><span class="line">const animals = tuple('cat', 'dog', 'rabbit', 'snake');</span><br><span class="line">type Animal = (typeof animals)[number];</span><br><span class="line">//'cat' | 'dog' | 'rabbit' | 'snake'</span><br></pre></td></tr></table></figure></p>
+<p>还可以与keyof结合，将对象的key转为联合类型。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> datas = &#123;</span><br><span class="line">  key1: <span class="string">'value1'</span>,</span><br><span class="line">  key2: <span class="string">'value2'</span>,</span><br><span class="line">  key3: <span class="string">'value3'</span>,</span><br><span class="line">&#125;</span><br><span class="line">type data = keyof <span class="keyword">typeof</span> datas;</span><br><span class="line"><span class="comment">// type data = "key1" | "key2" | "key3"</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/02/React生命周期/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1045,295 +1108,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2018/09/13/Linux简单入门/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Liam Li">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Liam Li">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/09/13/Linux简单入门/" class="post-title-link" itemprop="url">Linux简单入门</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-13 15:40:20" itemprop="dateCreated datePublished" datetime="2018-09-13T15:40:20+08:00">2018-09-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-11 23:53:41" itemprop="dateModified" datetime="2020-03-11T23:53:41+08:00">2020-03-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本博文仅作为个人<linux>复习使用, 并没有清楚的描述问题的细节, 主要是为了构建Linux知识体系,熟悉Linux简单操作.</linux></p>
-</blockquote>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>从Windows系统向Linux系统转变的时候,最不是习惯的就是目录结构,如果Windows不分区,全部东西都放C盘那感觉跟Linux也差不多(手动狗头)  </p>
-<table>
-<thead>
-<tr>
-<th>目录名</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>/</strong></td>
-<td>根目录；有且只有一个根目录,Linux目录结构是一个树的结构,所有的东西都从这里开始。</td>
-</tr>
-<tr>
-<td><strong>/home</strong></td>
-<td>用户的主目录, 每个用户都有一个自己的目录, 一般都是以用户的账号命名, 主要存放个人数据。</td>
-</tr>
-<tr>
-<td><strong>/bin</strong></td>
-<td>存放最经常使用命令, 如: cat, cp, ls, mkdir, rm等。</td>
-</tr>
-<tr>
-<td><strong>/sbin</strong></td>
-<td>存放管理员的系统管理指令, 如: shutdown, reboot, 命令通常只有管理员才可以运行  </td>
-</tr>
-<tr>
-<td><strong>/usr</strong></td>
-<td>包含绝大多数的(多)用户工具和应用程序。  </td>
-</tr>
-<tr>
-<td><strong>/usr/bin</strong></td>
-<td>下面的都是系统预装的可执行程序，会随着系统升级而改变。</td>
-</tr>
-<tr>
-<td><strong>/usr/local/bin</strong></td>
-<td>目录是给用户放置自己的可执行程序的地方，推荐放在这里，不会被系统升级而覆盖同名文件。 </td>
-</tr>
-<tr>
-<td><strong>/usr/sbin</strong></td>
-<td>存放超级用户才能使用的应用程序   </td>
-</tr>
-<tr>
-<td><strong>/boot</strong></td>
-<td>Linux的内核及引导系统程序所需要的文件目录  </td>
-</tr>
-<tr>
-<td><strong>/tmp</strong></td>
-<td>这个目录存放一些临时文件. 对于某些程序来说, 有些文件被用了一次两次之后，就不会再被用到，像这样的文件就放在这里. 有些Linux系统会定期自动对这个目录进行清理.  </td>
-</tr>
-<tr>
-<td><strong>/opt</strong></td>
-<td>这是给主机额外安装软件所摆放的目录。  </td>
-</tr>
-<tr>
-<td><strong>/etc</strong></td>
-<td>这个目录用来存放所有的系统管理所需要的配置文件和子目录.  </td>
-</tr>
-</tbody>
-</table>
-<h2 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h2><h3 id="密码的修改与创建用户"><a href="#密码的修改与创建用户" class="headerlink" title="密码的修改与创建用户"></a>密码的修改与创建用户</h3><p><code>passwd</code> —— password 命令，通过这个命令来修改当前用户密码。<br><code>useradd</code>这个命令来添加一个新的用户，注意，添加完会直接返回，需要配合passwd命令，来给这个新用户设置密码。</p>
-<h3 id="万能的帮助命令"><a href="#万能的帮助命令" class="headerlink" title="万能的帮助命令"></a>万能的帮助命令</h3><p><code>man</code> —— manual 命令<br>Linux命令太多，有时候我们记不住怎么办，这是就需要一个男人。man命令的作用就是告诉你这个命令的详情。<br>在man命令中，我们用空格，d，b以及上下箭头键来实现上下翻页。按下 h 键会显示所有有用的键盘快捷键和一般用法。<br>在man命令中，输入<code>/</code>之后跟想要搜索的内容进行搜索，按n或shift+n来匹配下一个或上一个。<br>man命令分为9章，我们可以通过<code>man + 对应章节数字</code>来进入对应章节。</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>章节名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>用户命令</td>
-<td>可由任何人启动的</td>
-</tr>
-<tr>
-<td>2</td>
-<td>系统调用</td>
-<td>即由内核提供的函数</td>
-</tr>
-<tr>
-<td>3</td>
-<td>例程</td>
-<td>即库函数</td>
-</tr>
-<tr>
-<td>4</td>
-<td>设备</td>
-<td>即/dev目录下的特殊文件</td>
-</tr>
-<tr>
-<td>5</td>
-<td>文件格式描述</td>
-<td>例如/etc/passwd</td>
-</tr>
-<tr>
-<td>6</td>
-<td>游戏</td>
-<td>与游戏相关的</td>
-</tr>
-<tr>
-<td>7</td>
-<td>杂项</td>
-<td>例如宏命令包、惯例等</td>
-</tr>
-<tr>
-<td>8</td>
-<td>系统管理员工具</td>
-<td>只能由root启动</td>
-</tr>
-<tr>
-<td>9</td>
-<td>其他（Linux特定的）</td>
-<td>用来存放内核例行程序的文档</td>
-</tr>
-</tbody>
-</table>
-<p><code>help</code><br>再讲help命令之前，我们首先的搞清楚一个概念。Linux的内建命令和外部命令，什么是内建命令呢。正所谓内建命令就是系统启动时就存在内存当中。所以执行效率高。而外部命令是系统的软件功能，用户需要时才从硬盘中读入内存，是磁盘中的可执行程序。<br>一般用<code>type</code>命令查看该命令是内建命令还是外部命令。<br><code>hele 内建命令</code>来查看帮助，这种形式只支持内建命令，而绝大多数都支持<code>命令 --help</code>来获取帮助。</p>
-<p><code>info</code><br>info命令与man命令类似。但是编排上要比man命令更好。也更加的完整</p>
-<p><code>cheat</code><br>号称是更好用的帮助命令，它会通过简单的实例告诉你一个命令的具体用法。<br>具体可以看cheat的<a href="https://github.com/cheat/cheat" target="_blank" rel="noopener">官网</a></p>
-<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><p>目录查看<br><code>pwd</code> —— print name of current/working directory 显示当前目录名称<br><code>cd</code> —— change the shell working directory 更改当前目录操作<br>cd常见用法：</p>
-<ul>
-<li><code>cd+目录路径</code>进入指定目录</li>
-<li><code>cd + -</code>返回上一次工作目录</li>
-<li><code>cd + ~</code>进入当前用户的家目录</li>
-<li><code>cd + ..</code>返回上一层目录</li>
-</ul>
-<p><code>ls</code> —— list directory contents 查看当前目录下的文件<br>ls常用参数：</p>
-<ul>
-<li><code>ls -a</code> 全部（all）列举目录中的全部文件，包括隐藏文件（.filename）。</li>
-<li><code>ls -l 或者 ll</code> 列举目录内容的细节。</li>
-<li><code>ls -F</code> 文件类型（File type）。在每一个列举项目之后添加一个符号。这些符号包括：/ 表明是一个目录；@ 表明是到其它文件的符号链接；* 表明是一个可执行文件。</li>
-<li><code>ls -r</code>逆向（reverse）。从后向前地列举目录中的内容。</li>
-<li><code>ls -R</code>递归（recursive）。该选项递归地列举所有目录（在当前目录之下）的内容。</li>
-<li><code>ls -S</code>大小（size）。按文件大小排序。</li>
-</ul>
-<p>目录的创建与删除<br><code>mkdir</code> —— 用来创建指定名称的目录</p>
-<ul>
-<li><code>mkdir -p</code> parents 若所建立的上层目录目前尚未建立，则会一并建立上层目录；</li>
-</ul>
-<p><code>rm</code> —— 删除（remove）</p>
-<ul>
-<li><code>rm -d</code> directory删除目录，目录中没有内容。</li>
-<li><code>rm -f</code> force略过不存在的文件，不显示任何信息，强制删除。</li>
-<li><code>rm -r/R</code> recursive同时删除该目录下的所有目录层。</li>
-</ul>
-<p>目录的复制、移动和重命名<br><code>cp</code> —— 复制（copy）</p>
-<ul>
-<li><code>cp -i</code>询问，如果目标文件已经存在，则会询问是否覆盖。</li>
-<li><code>cp -l</code>：把目标文件建立为源文件的硬链接文件，而不是复制源文件。</li>
-<li><code>cp -s</code>：把目标文件建立为源文件的软链接文件，而不是复制源文件。</li>
-<li><code>cp -p</code>：复制后目标文件保留源文件的属性（包括所有者、所属组、权限和时间）。</li>
-<li><code>cp -r</code>：递归复制，用于复制目录。</li>
-</ul>
-<p><code>move</code> —— 移动move（改名）</p>
-<ul>
-<li><code>move -b</code>若需覆盖文件，则覆盖前先行备份。</li>
-<li><code>move -f</code>force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖；</li>
-<li><code>move -i</code>若目标文件 (destination) 已经存在时，就会询问是否覆盖！</li>
-<li><code>move -u</code>若目标文件已经存在，且 source 比较新，才会更新(update)<br>也可以用move来重命名，如果目标文件和源文件在同一目录下，就可以用move来重命名 <code>move 目标文件 新文件名</code>。</li>
-</ul>
-<p>文件查看<br><code>tail</code> —— 用于显示指定文件末尾内容，一般用于查看日志。</p>
-<ul>
-<li><code>tail -f</code>实时监听文件变化。</li>
-<li><code>tail -n &lt;number&gt;</code>显示行数。</li>
-</ul>
-<p><code>head</code> —— 与tail相对应，用于显示指定文件开头内容。</p>
-<ul>
-<li><code>head -n &lt;number&gt;</code>显示行数。</li>
-</ul>
-<p><code>more</code> 和 <code>less</code> 这两个命令相似，都是用来查看内容比较多的文件。more命令，可以按Enter键向下逐行滚动查看，按空格键可以向下翻一屏，按b键向上翻一屏，按q键退出并返回原来的命令环境。more不能逐行向上滚动查看，而less可以，我们可以把less看做more的升级版，正所谓less is more。less可以按键盘上下方向键显示上下内容，less不必读整个文件，加载速度会比more更快。less退出后shell不会留下刚显示的内容,而more退出后会在shell上留下刚显示的内容。less可以用/和？进行向下搜索和向上搜索</p>
-<p><code>cat</code> —— 查看文件内容</p>
-<ul>
-<li><code>cat file1 file &gt; file</code>可以将多个文件合并成一个文件。   </li>
-</ul>
-<p>文件创建<br><code>touch</code> —— 一是可以来创建文件，二是可以用来修改时间戳。</p>
-<ul>
-<li><code>touch 文件名</code> 如果没有文件将创建一个文件。</li>
-<li><code>touch -d</code> 使用指定的日期时间，而非现在的时间。</li>
-<li><code>touch -t</code> 与-d功能相同，只是格式不同。</li>
-<li><code>touch -r</code> 把指定文档或目录的日期时间，统统设成和参考文档或目录的日期时间相同。</li>
-</ul>
-<h3 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h3><p>Linux有两种，一种是rpm是CentOS体系，一种是deb是Ubuntu体系。<br>分别用 <code>rpm -i</code> 和 <code>dpkg -i</code> 来进行安装。<br>查看已安装的软件列表用 <code>rpm -qa</code> 和 <code>dpkg -l</code>。<br>而删除软件用 <code>rpm -e</code> 和 <code>dpkg -r</code>命令。</p>
-<p>Linux也有自己的软件管家，CentOS下面是yum，Ubuntu下是apt-get</p>
-<h3 id="文件的打包与压缩"><a href="#文件的打包与压缩" class="headerlink" title="文件的打包与压缩"></a>文件的打包与压缩</h3><p><code>tar</code>——打包，将所有文件整合成一个文件，方便拷贝或者移动，但并不会压缩。</p>
-<ul>
-<li><code>tar -c</code> 建立打包</li>
-<li><code>tar -x</code> 解压</li>
-<li><code>tar -t</code> 查看内容</li>
-<li><code>tar -r</code> 向压缩归档文件末尾追加文件</li>
-<li><code>tar -u</code> 更新原压缩包中的文件</li>
-</ul>
-<p>在Linux下可以用<code>gzip</code>和<code>bzip2</code>两个主要命令对文件进行压缩。一般都会和tar命令组合使用<br>bzip2的压缩比率要比gzip的高。</p>
-<ul>
-<li><code>-z</code>用gzip的压缩方式</li>
-<li><code>-j</code>用bz2的压缩方式</li>
-<li><code>-v</code>显示所有过程</li>
-</ul>
-<p>切记 <strong><code>-f</code></strong> 是必须的</p>
-<ul>
-<li><code>-f</code>使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。</li>
-</ul>
-<h3 id="文件与命令的查找"><a href="#文件与命令的查找" class="headerlink" title="文件与命令的查找"></a>文件与命令的查找</h3><p><code>find</code> 最强大的查找命令，可以用来查找任何文件。<br><code>find &lt;指定目录&gt; &lt;指定条件&gt; &lt;指定动作&gt;</code></p>
-<ul>
-<li>&lt;指定目录&gt;： 所要搜索的目录及其所有子目录。默认为当前目录。</li>
-<li>&lt;指定条件&gt;： 所要搜索的文件的特征。</li>
-<li>&lt;指定动作&gt;： 对搜索结果进行特定的处理。</li>
-</ul>
-<p><code>locate</code> 它要比find搜索快得多，因为它不搜索任何目录，而去搜索一个数据库，这个数据库中含有本地所有文件信息。但是这个数据库每天更新一次会导致查不到最新变动过的文件。要避免这个问题，可以在使用locate之前先使用 <strong><code>updatedb</code></strong> 命令来手动更新数据库。</p>
-<p><code>whereis</code> 该命令只能用于程序名的搜索，而且只搜索二进制文件（参数-b）、man说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息。</p>
-<p><code>which</code> 在PATH变量指定的路径中，搜索某个系统命令的位置，并且返回第一个搜索结果。也就是说，使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。 </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1404,7 +1178,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
