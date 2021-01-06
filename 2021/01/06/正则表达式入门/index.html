@@ -20,17 +20,17 @@
     var CONFIG = {"hostname":"lizhongjie.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。正则的语法就是两条斜线//中间是正则的主体。比如1/aaaa/ 匹配 aaaa 转义字符转义字符主要作用就是  匹配不方便显示的字符如\n 在正则中预设了一些特殊意义的字符。 让特殊意义的字符显示本身。举一些常见的例子。1234567891011121314151617\n  换行\r  回车\t  制表符也就是tab这些属于第一种，但感觉也">
+  <meta name="description" content="之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。正则的语法就是两条斜线//中间是正则的主体。比如1/aaaa/ 匹配 aaaa 转义字符转义字符主要作用就是  匹配不方便显示的字符如\n 在正则中预设了一些特殊意义的字符。 让特殊意义的字符显示本身。     举一些常见的例子。1234567891011121314151617\n  换行\r  回车\t  制表符也就是tab这些属于第一种">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式入门">
 <meta property="og:url" content="http://lizhongjie.com/2021/01/06/正则表达式入门/index.html">
 <meta property="og:site_name" content="Liam Li">
-<meta property="og:description" content="之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。正则的语法就是两条斜线//中间是正则的主体。比如1/aaaa/ 匹配 aaaa 转义字符转义字符主要作用就是  匹配不方便显示的字符如\n 在正则中预设了一些特殊意义的字符。 让特殊意义的字符显示本身。举一些常见的例子。1234567891011121314151617\n  换行\r  回车\t  制表符也就是tab这些属于第一种，但感觉也">
+<meta property="og:description" content="之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。正则的语法就是两条斜线//中间是正则的主体。比如1/aaaa/ 匹配 aaaa 转义字符转义字符主要作用就是  匹配不方便显示的字符如\n 在正则中预设了一些特殊意义的字符。 让特殊意义的字符显示本身。     举一些常见的例子。1234567891011121314151617\n  换行\r  回车\t  制表符也就是tab这些属于第一种">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-06T15:04:32.252Z">
+<meta property="og:updated_time" content="2021-01-06T15:57:21.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式入门">
-<meta name="twitter:description" content="之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。正则的语法就是两条斜线//中间是正则的主体。比如1/aaaa/ 匹配 aaaa 转义字符转义字符主要作用就是  匹配不方便显示的字符如\n 在正则中预设了一些特殊意义的字符。 让特殊意义的字符显示本身。举一些常见的例子。1234567891011121314151617\n  换行\r  回车\t  制表符也就是tab这些属于第一种，但感觉也">
+<meta name="twitter:description" content="之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。正则的语法就是两条斜线//中间是正则的主体。比如1/aaaa/ 匹配 aaaa 转义字符转义字符主要作用就是  匹配不方便显示的字符如\n 在正则中预设了一些特殊意义的字符。 让特殊意义的字符显示本身。     举一些常见的例子。1234567891011121314151617\n  换行\r  回车\t  制表符也就是tab这些属于第一种">
 
 <link rel="canonical" href="http://lizhongjie.com/2021/01/06/正则表达式入门/">
 
@@ -169,7 +169,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-01-06 23:04:12 / 修改时间：23:04:32" itemprop="dateCreated datePublished" datetime="2021-01-06T23:04:12+08:00">2021-01-06</time>
+              <time title="创建时间：2021-01-06 23:04:12 / 修改时间：23:57:21" itemprop="dateCreated datePublished" datetime="2021-01-06T23:04:12+08:00">2021-01-06</time>
             </span>
 
           
@@ -188,11 +188,32 @@
 <ol>
 <li>匹配不方便显示的字符如\n</li>
 <li>在正则中预设了一些特殊意义的字符。</li>
-<li>让特殊意义的字符显示本身。<br>举一些常见的例子。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">\n  换行</span><br><span class="line">\r  回车</span><br><span class="line">\t  制表符也就是tab</span><br><span class="line">这些属于第一种，但感觉也不常用。平时开发没怎么用到</span><br><span class="line"></span><br><span class="line">\w  匹配任何一个字母或者数字或者下划线</span><br><span class="line">\W  除了\w以外的东西</span><br><span class="line">\s  匹配空白字符，如空格，tab等。</span><br><span class="line">\S  除了\s以外的东西</span><br><span class="line">\d  <span class="number">0</span><span class="number">-9</span></span><br><span class="line">\D  非数字字符</span><br><span class="line">\b  匹配单词的边界</span><br><span class="line">\b  匹配非单词的边界</span><br><span class="line">这些就是一些常见的预设特殊意义的字符</span><br><span class="line"></span><br><span class="line">如果你就想匹配\的话。就需要这样写</span><br><span class="line">\\</span><br></pre></td></tr></table></figure>
-</li>
+<li>让特殊意义的字符显示本身。   </li>
 </ol>
-<h1 id="字符集合"><a href="#字符集合" class="headerlink" title="字符集合"></a>字符集合</h1><p>用一个中括号。表示里面的字符匹配都是或的关系。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[abc] a || b || c</span><br><span class="line">[0-9] 可以用-表示一个范围。 表示0-9中间任意一个</span><br><span class="line">[^abc] ^表示非 就是匹配abc之外的任意字符</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line"># 量词</span><br><span class="line">正则中量词有多个。</span><br><span class="line">1. ？匹配0次或者1次（也就是最多出现一次）</span><br><span class="line">2. \+ 匹配1-n次（至少出现一次）</span><br><span class="line">3. \* 匹配0-n次，优先匹配n次。</span><br><span class="line">4. &#123;n&#125; 匹配n次。</span><br><span class="line">5. &#123;m, n&#125; 匹配m-n次。</span><br><span class="line">6. &#123;m, &#125; 匹配m到无穷次。优先匹配无穷次。   </span><br><span class="line"></span><br><span class="line">正则默认是贪婪模式，就是凡事表示范围的，优先匹配上限而不是下限。就是说它会尽可能的往多里匹配。    </span><br><span class="line"></span><br><span class="line"># 字符边界</span><br><span class="line">1. ^ 表示匹配开头</span><br><span class="line">2. $ 表示匹配结尾</span><br><span class="line"></span><br><span class="line"># 选择表达式</span><br><span class="line">`123|456|789 //匹配123或456或789 `    </span><br><span class="line"></span><br><span class="line"># 分组与引用</span><br><span class="line">分组的功能就是匹配一组字符,如</span><br><span class="line">`(abc) 就是匹配abc这个整体`</span><br><span class="line"></span><br><span class="line">## 捕获分组和非捕获分组</span><br><span class="line">这块，知乎上有一个答案说的非常清楚。在此引用一下。</span><br><span class="line">&gt; 最近正在学习正则，也发现了捕获性分组和非捕获性分组，也在寻找答案。终于通过努力，研究懂了他们的区别到底在哪。我就不说术语了，直接用例子会表述的更清楚：        要在一篇文章中查找&quot;program&quot;和&quot;project&quot;两个单词，正则表达式可表示为/program|project/,也可表示为/pro(gram|ject)/，但是缓存子匹配(gramject)没有意义，就可以用/pro(?:gram|ject)/进行非捕获性匹配这样既可以简洁匹配又可不缓存无实际意义的字匹配    </span><br><span class="line">作者：冰冻三寸   </span><br><span class="line">链接：https://www.zhihu.com/question/19853431/answer/160306020    </span><br><span class="line">来源：知乎</span><br><span class="line"></span><br><span class="line"># 预搜索</span><br><span class="line">如果你想匹配xxx前不能是yyy，或者xxx后不能是yyy，那就要用到预搜索</span><br><span class="line"></span><br><span class="line">js只支持先行预搜索，也就是xxx前面必须是yyy，或者xxx前面不能是yyy</span><br></pre></td></tr></table></figure></p>
-<p>(?=1)2 // 可以匹配12，不能匹配22<br>(?!1)2 // 可有匹配22，不能匹配12<br><code>`</code></p>
+<p>举一些常见的例子。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">\n  换行</span><br><span class="line">\r  回车</span><br><span class="line">\t  制表符也就是tab</span><br><span class="line">这些属于第一种，但感觉也不常用。平时开发没怎么用到</span><br><span class="line"></span><br><span class="line">\w  匹配任何一个字母或者数字或者下划线</span><br><span class="line">\W  除了\w以外的东西</span><br><span class="line">\s  匹配空白字符，如空格，tab等。</span><br><span class="line">\S  除了\s以外的东西</span><br><span class="line">\d  <span class="number">0</span><span class="number">-9</span></span><br><span class="line">\D  非数字字符</span><br><span class="line">\b  匹配单词的边界</span><br><span class="line">\b  匹配非单词的边界</span><br><span class="line">这些就是一些常见的预设特殊意义的字符</span><br><span class="line"></span><br><span class="line">如果你就想匹配\的话。就需要这样写</span><br><span class="line">\\</span><br></pre></td></tr></table></figure></p>
+<h1 id="字符集合"><a href="#字符集合" class="headerlink" title="字符集合"></a>字符集合</h1><p>用一个中括号。表示里面的字符匹配都是或的关系。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[abc] a || b || c</span><br><span class="line">[<span class="number">0</span><span class="number">-9</span>] 可以用-表示一个范围。 表示<span class="number">0</span><span class="number">-9</span>中间任意一个</span><br><span class="line">[^abc] ^表示非 就是匹配abc之外的任意字符</span><br></pre></td></tr></table></figure></p>
+<h1 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h1><p>正则中量词有多个。</p>
+<ol>
+<li>？匹配0次或者1次（也就是最多出现一次）</li>
+<li>+ 匹配1-n次（至少出现一次）</li>
+<li>* 匹配0-n次，优先匹配n次。</li>
+<li>{n} 匹配n次。</li>
+<li>{m, n} 匹配m-n次。</li>
+<li>{m, } 匹配m到无穷次。优先匹配无穷次。   </li>
+</ol>
+<p>正则默认是贪婪模式，就是凡事表示范围的，优先匹配上限而不是下限。就是说它会尽可能的往多里匹配。    </p>
+<h1 id="字符边界"><a href="#字符边界" class="headerlink" title="字符边界"></a>字符边界</h1><ol>
+<li>^ 表示匹配开头</li>
+<li>$ 表示匹配结尾</li>
+</ol>
+<h1 id="选择表达式"><a href="#选择表达式" class="headerlink" title="选择表达式"></a>选择表达式</h1><p><code>123|456|789 //匹配123或456或789</code>    </p>
+<h1 id="分组与引用"><a href="#分组与引用" class="headerlink" title="分组与引用"></a>分组与引用</h1><p>分组的功能就是匹配一组字符,如<br><code>(abc) 就是匹配abc这个整体</code></p>
+<h2 id="捕获分组和非捕获分组"><a href="#捕获分组和非捕获分组" class="headerlink" title="捕获分组和非捕获分组"></a>捕获分组和非捕获分组</h2><p>这块，知乎上有一个答案说的非常清楚。在此引用一下。</p>
+<blockquote>
+<p>最近正在学习正则，也发现了捕获性分组和非捕获性分组，也在寻找答案。终于通过努力，研究懂了他们的区别到底在哪。我就不说术语了，直接用例子会表述的更清楚：        要在一篇文章中查找”program”和”project”两个单词，正则表达式可表示为/program|project/,也可表示为/pro(gram|ject)/，但是缓存子匹配(gramject)没有意义，就可以用/pro(?:gram|ject)/进行非捕获性匹配这样既可以简洁匹配又可不缓存无实际意义的字匹配<br>作者：冰冻三寸<br>链接：<a href="https://www.zhihu.com/question/19853431/answer/160306020" target="_blank" rel="noopener">https://www.zhihu.com/question/19853431/answer/160306020</a><br>来源：知乎</p>
+</blockquote>
+<h1 id="预搜索"><a href="#预搜索" class="headerlink" title="预搜索"></a>预搜索</h1><p>如果你想匹配xxx前不能是yyy，或者xxx后不能是yyy，那就要用到预搜索</p>
+<p>js只支持先行预搜索，也就是xxx前面必须是yyy，或者xxx前面不能是yyy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(?=1)2 // 可以匹配12，不能匹配22</span><br><span class="line">(?!1)2 // 可有匹配22，不能匹配12</span><br></pre></td></tr></table></figure></p>
 <h1 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h1><ol>
 <li>g 全局修饰符，一直匹配到结束</li>
 <li>i 忽略大小写</li>
@@ -279,7 +300,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#转义字符"><span class="nav-number">1.</span> <span class="nav-text">转义字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符集合"><span class="nav-number">2.</span> <span class="nav-text">字符集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修饰符"><span class="nav-number">3.</span> <span class="nav-text">修饰符</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#转义字符"><span class="nav-number">1.</span> <span class="nav-text">转义字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符集合"><span class="nav-number">2.</span> <span class="nav-text">字符集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#量词"><span class="nav-number">3.</span> <span class="nav-text">量词</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符边界"><span class="nav-number">4.</span> <span class="nav-text">字符边界</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择表达式"><span class="nav-number">5.</span> <span class="nav-text">选择表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分组与引用"><span class="nav-number">6.</span> <span class="nav-text">分组与引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获分组和非捕获分组"><span class="nav-number">6.1.</span> <span class="nav-text">捕获分组和非捕获分组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预搜索"><span class="nav-number">7.</span> <span class="nav-text">预搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修饰符"><span class="nav-number">8.</span> <span class="nav-text">修饰符</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
