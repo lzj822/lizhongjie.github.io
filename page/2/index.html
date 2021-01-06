@@ -141,6 +141,165 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/16/React组件库实现——Button组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/16/React组件库实现——Button组件/" class="post-title-link" itemprop="url">React组件库实现——Button组件</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-16 21:47:12 / 修改时间：22:01:38" itemprop="dateCreated datePublished" datetime="2020-06-16T21:47:12+08:00">2020-06-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我们以一个Button组件为例。尝试从设计到实现一个React组件。</p>
+<h1 id="按钮的设计"><a href="#按钮的设计" class="headerlink" title="按钮的设计"></a>按钮的设计</h1><h2 id="轮廓线-按钮的边框"><a href="#轮廓线-按钮的边框" class="headerlink" title="轮廓线(按钮的边框)"></a>轮廓线(按钮的边框)</h2><p>主要的作用就是按钮与背景色相近的时候让按钮更加的明显。<br>成像效果不好的显示器，显示效果会有偏差。加上轮廓线确保显示。</p>
+<h1 id="类型检测"><a href="#类型检测" class="headerlink" title="类型检测"></a>类型检测</h1><p>静态类型检测是写组件必不可少的。一方面是在开发时避免类型问题，它还可以通过IDE的智能提醒方便使用组件的开发者。将使用Typescript对组件进行类型检测声明。   </p>
+<h2 id="Props声明"><a href="#Props声明" class="headerlink" title="Props声明"></a>Props声明</h2><p>首先是Props声明，Props声明我们用<code>组件名后面跟Props</code>的形式来定义接口名称，并将它导出。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> BaseButtonProps &#123;</span><br><span class="line">    <span class="keyword">type</span>?: ButtonType;</span><br><span class="line">    children?: React.ReactNode;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在定义props的时候，我们要保持接口小，props数量要少。</p>
+<h2 id="组件声明"><a href="#组件声明" class="headerlink" title="组件声明"></a>组件声明</h2><p>在组件使用中，应该无状态组件&gt;有状态组件&gt;Class组件。尤其是在hook出现后，函数组件被React大肆推广。   </p>
+<h3 id="函数组件"><a href="#函数组件" class="headerlink" title="函数组件"></a>函数组件</h3><p>我们用FC来声明函数组件，FC就是FunctionComponent的缩写，我们可以通过源码看到，它的props默认定义了children。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ButtonBase:FC&lt;BaseButtonProps&gt; = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;&#123;props.children&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后将这个组件导出<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Button;</span><br></pre></td></tr></table></figure></p>
+<p>但是在之前FC类型来声明函数组件时并不能完美支持propsDefault（现在已经解决）。<br>一般用解构赋值的默认值来代替propsDefault</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BaseButton:FC&lt;BaseButtonProps&gt; = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; type = <span class="string">"default"</span> &#125; = props;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;&#123;props.children&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也有直接使用普通函数来进行组件声明<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BaseButton = (props: BaseButtonProps): JSX.Element =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; type = <span class="string">"default"</span> &#125; = props;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;&#123;type&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用普通函数来进行组件声明还有以下好处：</p>
+<ol>
+<li>React.FC隐式的提供了一个children props，如果你的组件不需要子组件，用普通函数组件也许是一个很好的选择</li>
+<li><p>支持泛型。例如</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">type OptionValue = string | number;</span><br><span class="line"></span><br><span class="line">type Option&lt;T extends OptionValue&gt; = &#123;</span><br><span class="line">  value: T;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = &lt;T extends OptionValue&gt;(props: Option&lt;T&gt;): JSX.Element =&gt; &lt;div&gt;&#123;props.value&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在使用defaultProps不会出错。</p>
+</li>
+</ol>
+<p>【注意】在使用普通函数来进行组件声明的时候，defaultProps的类型和组件本身的props没有关联性，会使得defaultProps无法得到类型约束。比如</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface ButtonProps &#123;</span><br><span class="line">    name: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Button = <span class="function">(<span class="params">props: ButtonProps</span>) =&gt;</span> &lt;div&gt;&#123;props.name&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">Button.defaultProps = &#123; name: 123 &#125; /</span><span class="regexp">/这样是不会报错的</span></span><br></pre></td></tr></table></figure>
+<p>我们需要改写成这样<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Partial&lt;T&gt; = &#123;</span><br><span class="line">    [P <span class="keyword">in</span> keyof T]?: T[P];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Button.defaultProps = &#123; name: <span class="string">'Liam'</span> &#125; <span class="keyword">as</span> Partial&lt;ButtonProps&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/16/树、二叉树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/16/树、二叉树/" class="post-title-link" itemprop="url">树、二叉树</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-16 21:45:51 / 修改时间：21:46:31" itemprop="dateCreated datePublished" datetime="2020-06-16T21:45:51+08:00">2020-06-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>树的结构就很像生活中的树，一个枝干上分出很多的树杈。 在数据结构中，我们将树中的每个元素称为节点。没有父节点的叫做根节点。没有子节点的节点叫做叶子节点。如果多个节点的父节点是同一个节点，那么我们就将它们称为兄弟节点。<br>树还有 高度、深度、层。这三个概念</p>
+<ul>
+<li>节点的高度： 节点到叶子节点的最长路径，也就是边数   </li>
+<li>节点的深度： 根节点到这个节点所经历的边的个数   </li>
+<li>节点的层数： 节点的深度+1   </li>
+<li>树的的高度： 根节点的高度   </li>
+</ul>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>每个节点上最多有两个叉。   </p>
+<h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>除了叶子节点之外，每个节点都有左右两个子节点。   </p>
+<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>最后一层的叶子节点都靠左排列，并且除了最后一层，其他层的节点个数都要达到最大。</p>
+<h2 id="存储方式。"><a href="#存储方式。" class="headerlink" title="存储方式。"></a>存储方式。</h2><ol>
+<li>链式存储法。 每个节点有三个字段，一个存储数据，另外两个是指向左右节点的指针。</li>
+<li>数组存储法。根节点在i=1的位置，左节点存储在2 <em> i的位置，右节点存储在2 </em> i + 1的位置。反过来 i/2存储的就是父节点的位置。 如果是完全二叉树，数组存储方式是最不占空间的。堆就是一种完全二叉树。   </li>
+</ol>
+<h2 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h2><ul>
+<li>前序遍历是指，对于树中的任意节点来说，先打印这个节点，然后再打印它的左子树，最后打印它的右子树。</li>
+<li>中序遍历是指，对于树中的任意节点来说，先打印它的左子树，然后再打印它本身，最后打印它的右子树。</li>
+<li>后序遍历是指，对于树中的任意节点来说，先打印它的左子树，然后再打印它的右子树，最后打印这个节点本身。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/05/TypeScript中的typeof/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -895,219 +1054,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/02/14/【组成原理回顾】一、计算机发展史/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Liam Li">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Liam Li">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/【组成原理回顾】一、计算机发展史/" class="post-title-link" itemprop="url">【组成原理回顾】一、计算机发展史</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-14 15:40:20" itemprop="dateCreated datePublished" datetime="2020-02-14T15:40:20+08:00">2020-02-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-11 23:53:41" itemprop="dateModified" datetime="2020-03-11T23:53:41+08:00">2020-03-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机组成原理/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机组成原理</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>这一章，主要是讲的冯诺依曼体系结构和简单介绍计算机的发展史。</p>
-</blockquote>
-<h1 id="一、从逻辑元件的发展，看计算机硬件的发展"><a href="#一、从逻辑元件的发展，看计算机硬件的发展" class="headerlink" title="一、从逻辑元件的发展，看计算机硬件的发展"></a>一、从逻辑元件的发展，看计算机硬件的发展</h1><ol>
-<li><p>电子管时代。</p>
-</li>
-<li><p>晶体管时代。</p>
-</li>
-<li><p>中小规模集成电路时代。</p>
-</li>
-<li><p>超大规模集成电路。</p>
-</li>
-</ol>
-<p>在计算机元件的更新换代中有一个著名的 <strong>摩尔定律</strong> ——当价格不变时，集成电路上可容纳的晶体管数目，约每隔18个月便会增加一倍，性能也将提升一倍。</p>
-<h1 id="二、-冯·诺依曼体系结构"><a href="#二、-冯·诺依曼体系结构" class="headerlink" title="二、 冯·诺依曼体系结构"></a>二、 冯·诺依曼体系结构</h1><p>前面我们了解了计算机的硬件发展，计算机的种类是多种多样的。笔记本电脑、台式电脑、手机、IPad、服务器，这些都属于计算机，因为它们都遵循着，计算机祖师爷冯·诺依曼老爷子（对，是男的，男的）提出的，冯·诺依曼体系结构，也叫存储程序计算机。</p>
-<p>简单的概括一下冯老爷提出的这套理论的三个基本原则：</p>
-<ol>
-<li>采用二进制运算</li>
-<li>程序存储执行</li>
-<li>有五部分组成（运算器、控制器、存储器、输入设备、输出设备）</li>
-</ol>
-<p>二进制作为主要涉及思想之一，主要是因为电子元件的双稳定工作的特点，二进制的采用可以简化机器的逻辑线路。<br>程序的存储执行。就意味这个这个计算机是可编程的和可存储的。就是说程序的本身是存在内存中的，根据不同的需要去加载不同的程序，来解决不同的问题。而像老式的计算器就属于不可编程的。而第一台计算机ENIAC，通过在板子上不同的插头或者接口的位置插入线路，来实现不同的功能。ENIAC属于可编程，但它不可存储。因为每次要执行与当前程序不同的程序时，需要重新插板子，所以老式的计算器和ENIAC都不属于冯·诺依曼机。</p>
-<p>冯·诺依曼机特点如下：</p>
-<ol>
-<li>计算机硬件系统由运算器、存储器、控制器、输入设备和输出设备5大部件组成。</li>
-<li>指令和数据以同等地位存储在存储器中，并可按地址寻访。</li>
-<li>指令和数据均用二进制代码表示。</li>
-<li>指令由操作码和地址码组成，操作码用来表示操作的性质，地址码用来表示操作数在存储器中的位置。</li>
-<li>指令在存储器内按顺序。通常，指令是顺序执行的，在特定条件下可根据运算结果或根据设定的条件改变执行顺序。</li>
-<li>早期的冯·诺依曼机以运算器为中心，输入/输出设备通过运算器与存储器传输数据。</li>
-</ol>
-<p>典型冯诺依曼计算机结构<br><img src="https://s2.ax1x.com/2020/03/02/3WFOhj.md.png" alt="典型冯诺依曼计算机结构"><br>由于大量I/O设备的速度和CPU的速度差距悬殊，现代计算机已经发展为以存储器为核心。<br><img src="https://s2.ax1x.com/2020/03/02/3WPfVe.md.png" alt="现代计算机结构"></p>
-<h1 id="三、详细介绍功能部件"><a href="#三、详细介绍功能部件" class="headerlink" title="三、详细介绍功能部件"></a>三、详细介绍功能部件</h1><p>在介绍每个功能部件之前，先通俗了解一下寄存器，内存和辅存，在知乎上有一个回答我觉得很好。</p>
-<p>寄存器就是你的口袋。身上只有那么几个，只装最常用或者马上要用的东西。<br>内存就是你的背包。有时候拿点什么放到口袋里，有时候从口袋里拿出点东西放在背包里。<br>辅存就是你家里的抽屉。可以放很多东西，但存取不方便。</p>
-<h2 id="输入输出设备（I-O设备）"><a href="#输入输出设备（I-O设备）" class="headerlink" title="输入输出设备（I/O设备）"></a>输入输出设备（I/O设备）</h2><p>输入输出设备是计算机与外界沟通的桥梁。这个很好理解。输入设备的主要功能是将程序和数据以机器所能识别和接受的信息形式输入计算机。而输出设备就是讲计算机处理的结果以人们所能接受的形式返回。比如鼠标、键盘就是我们常见的输入设备，而显示器就是输出设备。<br>I/O设备，都是通过主板上面的南桥芯片组，来和CPU进行通讯的。</p>
-<h2 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h2><p>存储器是计算机的存储部件，用来存放程序和数据。<br>存储器分为主存储器和外部存储器。主存储器就是我们常说的内存，CPU可以直接访问，而外部存储器中的信息必须调入主存储器后，才能被CPU所访问。</p>
-<h3 id="主存储器的工作方式"><a href="#主存储器的工作方式" class="headerlink" title="主存储器的工作方式"></a>主存储器的工作方式</h3><p>按存储单元的地址进行存取，这种存取方式称为按地址存取方式（相连存储器是按内容访问的）</p>
-<h3 id="主存储器的基本组成"><a href="#主存储器的基本组成" class="headerlink" title="主存储器的基本组成"></a>主存储器的基本组成</h3><ol>
-<li>地址寄存器（MAR-Memory Address Register）<br>用于寻址，其位数对应着存储单元个数，MAR为N为，则有2^N个存储单元。</li>
-<li>数据寄存器（MDR-Memory Data Register）<br>MDR的位数与存储字长相等。一般为字节的二次幂的整数倍。</li>
-<li>存储体<br>存储体是由一个一个的存储单元构成的。一般以8位二进制（8bit）也就是一字节（1Byte）作为一个存储单元。一个存储单元所存储的二进制代码的组合叫做存储字。存储字的位数就称为存储字长。存储字长可以是1B(8bit)或是字节的偶数倍。</li>
-<li>译码器</li>
-<li>驱动器</li>
-</ol>
-<p>现代计算机。 地址寄存器和数据寄存器是放在CPU里的。分别通过地址总线和数据总线与内存通讯。</p>
-<h2 id="运算器"><a href="#运算器" class="headerlink" title="运算器"></a>运算器</h2><p>计算机的执行部件，用于算术运算和逻辑运算。核心为ALU（Arithmetic and Logical Unit，算数逻辑单元）。<br>包含若干个通用寄存器，用于暂存操作数和中间结果，如累加器（ACC），乘商寄存器（MQ）、操作数寄存器(X)等。<br>还有程序状态寄存器（PSW），也称标志寄存器，用于存放ALU运算得到的一些标志信息或者处理机的状态。如是否溢出，有无进位、结果是否为负数。</p>
-<h2 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h2><p>计算机的指挥中心。<br>CU 控制单元（Control Unit）<br>IR 指令寄存器，存放当前指令（InstructionRegister）。<br>PC （Program Counter，程序计数器） 存放指令的地址，并且可以自动加一</p>
-<p>一般运算器和控制器集成到一个芯片上，称为中央处理器（CPU）。</p>
-<p>指令是由操作码和地址码构成<br>CPU区分指令和数据的依据：指令周期的不同阶段。</p>
-<h1 id="四、计算机的性能指标"><a href="#四、计算机的性能指标" class="headerlink" title="四、计算机的性能指标"></a>四、计算机的性能指标</h1><h2 id="机器字长"><a href="#机器字长" class="headerlink" title="机器字长"></a>机器字长</h2><p>指计算机一次可以处理的二进制数，字数越长则计算机的处理速度越快，处理精度越高。（一般等于内部寄存器大小）。</p>
-<h2 id="运算速度"><a href="#运算速度" class="headerlink" title="运算速度"></a>运算速度</h2><p>每秒所能执行的指令数。单位为MIPS（Million Instructions Per Second，即百万条指令每秒）<br>FLOPS：每秒执行多少次浮点运算。</p>
-<h2 id="时钟频率"><a href="#时钟频率" class="headerlink" title="时钟频率"></a>时钟频率</h2><p>说到时钟频率，我们先来说一下频率这个概念。频率是单位时间内完成周期性变化的次数，是描述周期运动频繁程度的量。为了纪念物理学家赫兹，将频率单位定义为Hz。时钟周期时间为频率的倒数。<br><img src="https://s2.ax1x.com/2020/03/10/8CTH6f.png" alt="时钟周期时间与频率的关系"><br>CPU的执行时间 = CPU时钟周期数 <em> CPU时钟周期时间。<br>CPU时钟周期数 = 指令数 </em> 每条指令的平均时钟周期数（CPI）。</p>
-<h2 id="主存容量"><a href="#主存容量" class="headerlink" title="主存容量"></a>主存容量</h2><p>内存储器容量的大小反映了计算机即时存储信息的能力。</p>
-<p>下面还有几个重要的性能指标：</p>
-<p>数据通路带宽：数据总线一次能够并行传递信息的位数。</p>
-<p>吞吐量：系统在单位时间内处理请求的数量。（评价计算机系统性能的综合参数）</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2018/09/14/Mac iTerm2 快捷键/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Liam Li">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Liam Li">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/09/14/Mac iTerm2 快捷键/" class="post-title-link" itemprop="url">Mac iTerm2 快捷键</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-14 10:33:01" itemprop="dateCreated datePublished" datetime="2018-09-14T10:33:01+08:00">2018-09-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-11 23:53:41" itemprop="dateModified" datetime="2020-03-11T23:53:41+08:00">2020-03-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/小tips/" itemprop="url" rel="index">
-                    <span itemprop="name">小tips</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>总结一些iTerm2常用的快捷键(不断更新)</p>
-</blockquote>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>全屏 : command + enter<br>查找 : command + f<br>查看历史命令 : command + ;<br>删除当前行 : ctrl + u<br>到行首 : ctrl + a<br>到行尾 : ctrl + e<br>前进后退 : ctrl + f/b (相当于前进后退)<br>上一条命令 : ctrl + p<br>搜索历史命令 : ctrl + r<br>删除当前光标字符 : ctrl + d<br>删除光标之前的字符 : ctrl + h<br>删除光标之前的单词 : ctrl + w<br>删除到文本末尾: ctrl + k<br>交换当前光标和前一个文本: ctrl + t  </p>
-<p>清屏: command + r | ctrl + l  </p>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>新建标签 : command + t<br>关闭标签 : command + w<br>切换标签 : command + 数字 | command + 方向键<br>显示所有标签(可搜索): command + option + e   </p>
-<h2 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h2><p>垂直分屏 : command + d<br>水平分屏 : command + shift + d<br>切换屏幕 : command + option + 方向键 | command + [ 和 ]  </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1178,7 +1124,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1214,7 +1160,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

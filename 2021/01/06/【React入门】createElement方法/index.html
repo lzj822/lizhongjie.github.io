@@ -20,15 +20,19 @@
     var CONFIG = {"hostname":"lizhongjie.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Liam Li">
-<meta property="og:url" content="http://lizhongjie.com/tags/终端/index.html">
+  <meta name="description" content="我们来实现一下createElement这个方法。根据之前的文章，我们也介绍了。通过调用React.createElement这个方法，最终返回的是一个包含type和props属性的对象。我们需要接受一些参数，第一个就是要创建element的类型。第二个为这个这个element属性对象，之后就是这个element的子元素。123456789function createElement(type,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【React入门】createElement方法">
+<meta property="og:url" content="http://lizhongjie.com/2021/01/06/【React入门】createElement方法/index.html">
 <meta property="og:site_name" content="Liam Li">
+<meta property="og:description" content="我们来实现一下createElement这个方法。根据之前的文章，我们也介绍了。通过调用React.createElement这个方法，最终返回的是一个包含type和props属性的对象。我们需要接受一些参数，第一个就是要创建element的类型。第二个为这个这个element属性对象，之后就是这个element的子元素。123456789function createElement(type,">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-06T15:05:16.502Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Liam Li">
+<meta name="twitter:title" content="【React入门】createElement方法">
+<meta name="twitter:description" content="我们来实现一下createElement这个方法。根据之前的文章，我们也介绍了。通过调用React.createElement这个方法，最终返回的是一个包含type和props属性的对象。我们需要接受一些参数，第一个就是要创建element的类型。第二个为这个这个element属性对象，之后就是这个element的子元素。123456789function createElement(type,">
 
-<link rel="canonical" href="http://lizhongjie.com/tags/终端/">
+<link rel="canonical" href="http://lizhongjie.com/2021/01/06/【React入门】createElement方法/">
 
 
 <script id="page-configurations">
@@ -36,11 +40,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>标签: 终端 | Liam Li</title>
+  <title>【React入门】createElement方法 | Liam Li</title>
   
 
 
@@ -136,50 +140,105 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">终端
-          <small>标签</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2021/01/06/【React入门】createElement方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【React入门】createElement方法
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-06 23:04:48 / 修改时间：23:05:16" itemprop="dateCreated datePublished" datetime="2021-01-06T23:04:48+08:00">2021-01-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2018</h1>
+        <p>我们来实现一下createElement这个方法。<br>根据之前的文章，我们也介绍了。通过调用React.createElement这个方法，最终返回的是一个包含type和props属性的对象。<br>我们需要接受一些参数，第一个就是要创建element的类型。第二个为这个这个element属性对象，之后就是这个element的子元素。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">type, props, ...children</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        type,</span><br><span class="line">        props: &#123;</span><br><span class="line">            ...props,</span><br><span class="line">            children</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们使用解构参数的形式，来获取children参数。这样能保证children永远是一个数组。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">我们调用</span><br><span class="line">createElement(<span class="string">"div"</span>, <span class="literal">null</span>, a, b) </span><br><span class="line">返回</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"type"</span>: <span class="string">"div"</span>,</span><br><span class="line">  <span class="string">"props"</span>: &#123; <span class="string">"children"</span>: [a, b] &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有可能在children数组中包含基本数据类型，而并非一个对象，如string或者number。我们需要将这些转换成一个对象。我们改写一下上面的代码。</p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">type, props, ...children</span>) </span>{
+    <span class="keyword">return</span> {
+        type,
+        props: {
+            ...props,
+            children: children.map(<span class="function"><span class="params">child</span> =&gt;</span> {
+                <span class="keyword">return</span> <span class="keyword">typeof</span> child === <span class="string">'object'</span>
+                ? child
+                :  createTextElement(child)
+            })
+        }
+    }
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">createTextElement</span>(<span class="params">text</span>) </span>{
+    <span class="keyword">return</span> {
+        type: <span class="string">'TEXT_ELEMENT'</span>,
+        props: {
+            nodeValue: text,
+            children: [],
+        },
+    }
+}
+</code></pre>
+<p>至此我们就实现了createElement方法。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-09-14T10:33:01+08:00"
-              content="2018-09-14">
-          09-14
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2018/09/14/Mac iTerm2 快捷键/" itemprop="url">
-            <span itemprop="name">Mac iTerm2 快捷键</span>
-          </a>
-      </h2>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/06/正则表达式入门/" rel="prev" title="正则表达式入门">
+      <i class="fa fa-chevron-left"></i> 正则表达式入门
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>

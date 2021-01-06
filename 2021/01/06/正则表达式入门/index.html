@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lizhongjie.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。正则的语法就是两条斜线//中间是正则的主体。比如1/aaaa/ 匹配 aaaa 转义字符转义字符主要作用就是  匹配不方便显示的字符如\n 在正则中预设了一些特殊意义的字符。 让特殊意义的字符显示本身。举一些常见的例子。1234567891011121314151617\n  换行\r  回车\t  制表符也就是tab这些属于第一种，但感觉也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式入门">
+<meta property="og:url" content="http://lizhongjie.com/2021/01/06/正则表达式入门/index.html">
+<meta property="og:site_name" content="Liam Li">
+<meta property="og:description" content="之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。正则的语法就是两条斜线//中间是正则的主体。比如1/aaaa/ 匹配 aaaa 转义字符转义字符主要作用就是  匹配不方便显示的字符如\n 在正则中预设了一些特殊意义的字符。 让特殊意义的字符显示本身。举一些常见的例子。1234567891011121314151617\n  换行\r  回车\t  制表符也就是tab这些属于第一种，但感觉也">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-06T15:04:32.252Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式入门">
+<meta name="twitter:description" content="之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。正则的语法就是两条斜线//中间是正则的主体。比如1/aaaa/ 匹配 aaaa 转义字符转义字符主要作用就是  匹配不方便显示的字符如\n 在正则中预设了一些特殊意义的字符。 让特殊意义的字符显示本身。举一些常见的例子。1234567891011121314151617\n  换行\r  回车\t  制表符也就是tab这些属于第一种，但感觉也">
+
+<link rel="canonical" href="http://lizhongjie.com/2021/01/06/正则表达式入门/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>正则表达式入门 | Liam Li</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Liam Li</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2021/01/06/正则表达式入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          正则表达式入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-06 23:04:12 / 修改时间：23:04:32" itemprop="dateCreated datePublished" datetime="2021-01-06T23:04:12+08:00">2021-01-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。<br>正则的语法就是两条斜线<code>//</code>中间是正则的主体。比如<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/aaaa/ 匹配 aaaa</span><br></pre></td></tr></table></figure></p>
+<h1 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h1><p>转义字符主要作用就是</p>
+<ol>
+<li>匹配不方便显示的字符如\n</li>
+<li>在正则中预设了一些特殊意义的字符。</li>
+<li>让特殊意义的字符显示本身。<br>举一些常见的例子。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">\n  换行</span><br><span class="line">\r  回车</span><br><span class="line">\t  制表符也就是tab</span><br><span class="line">这些属于第一种，但感觉也不常用。平时开发没怎么用到</span><br><span class="line"></span><br><span class="line">\w  匹配任何一个字母或者数字或者下划线</span><br><span class="line">\W  除了\w以外的东西</span><br><span class="line">\s  匹配空白字符，如空格，tab等。</span><br><span class="line">\S  除了\s以外的东西</span><br><span class="line">\d  <span class="number">0</span><span class="number">-9</span></span><br><span class="line">\D  非数字字符</span><br><span class="line">\b  匹配单词的边界</span><br><span class="line">\b  匹配非单词的边界</span><br><span class="line">这些就是一些常见的预设特殊意义的字符</span><br><span class="line"></span><br><span class="line">如果你就想匹配\的话。就需要这样写</span><br><span class="line">\\</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="字符集合"><a href="#字符集合" class="headerlink" title="字符集合"></a>字符集合</h1><p>用一个中括号。表示里面的字符匹配都是或的关系。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[abc] a || b || c</span><br><span class="line">[0-9] 可以用-表示一个范围。 表示0-9中间任意一个</span><br><span class="line">[^abc] ^表示非 就是匹配abc之外的任意字符</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line"># 量词</span><br><span class="line">正则中量词有多个。</span><br><span class="line">1. ？匹配0次或者1次（也就是最多出现一次）</span><br><span class="line">2. \+ 匹配1-n次（至少出现一次）</span><br><span class="line">3. \* 匹配0-n次，优先匹配n次。</span><br><span class="line">4. &#123;n&#125; 匹配n次。</span><br><span class="line">5. &#123;m, n&#125; 匹配m-n次。</span><br><span class="line">6. &#123;m, &#125; 匹配m到无穷次。优先匹配无穷次。   </span><br><span class="line"></span><br><span class="line">正则默认是贪婪模式，就是凡事表示范围的，优先匹配上限而不是下限。就是说它会尽可能的往多里匹配。    </span><br><span class="line"></span><br><span class="line"># 字符边界</span><br><span class="line">1. ^ 表示匹配开头</span><br><span class="line">2. $ 表示匹配结尾</span><br><span class="line"></span><br><span class="line"># 选择表达式</span><br><span class="line">`123|456|789 //匹配123或456或789 `    </span><br><span class="line"></span><br><span class="line"># 分组与引用</span><br><span class="line">分组的功能就是匹配一组字符,如</span><br><span class="line">`(abc) 就是匹配abc这个整体`</span><br><span class="line"></span><br><span class="line">## 捕获分组和非捕获分组</span><br><span class="line">这块，知乎上有一个答案说的非常清楚。在此引用一下。</span><br><span class="line">&gt; 最近正在学习正则，也发现了捕获性分组和非捕获性分组，也在寻找答案。终于通过努力，研究懂了他们的区别到底在哪。我就不说术语了，直接用例子会表述的更清楚：        要在一篇文章中查找&quot;program&quot;和&quot;project&quot;两个单词，正则表达式可表示为/program|project/,也可表示为/pro(gram|ject)/，但是缓存子匹配(gramject)没有意义，就可以用/pro(?:gram|ject)/进行非捕获性匹配这样既可以简洁匹配又可不缓存无实际意义的字匹配    </span><br><span class="line">作者：冰冻三寸   </span><br><span class="line">链接：https://www.zhihu.com/question/19853431/answer/160306020    </span><br><span class="line">来源：知乎</span><br><span class="line"></span><br><span class="line"># 预搜索</span><br><span class="line">如果你想匹配xxx前不能是yyy，或者xxx后不能是yyy，那就要用到预搜索</span><br><span class="line"></span><br><span class="line">js只支持先行预搜索，也就是xxx前面必须是yyy，或者xxx前面不能是yyy</span><br></pre></td></tr></table></figure></p>
+<p>(?=1)2 // 可以匹配12，不能匹配22<br>(?!1)2 // 可有匹配22，不能匹配12<br><code>`</code></p>
+<h1 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h1><ol>
+<li>g 全局修饰符，一直匹配到结束</li>
+<li>i 忽略大小写</li>
+<li>m 匹配多行文本</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/30/【位运算】入门篇/" rel="prev" title="【位运算】入门篇">
+      <i class="fa fa-chevron-left"></i> 【位运算】入门篇
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/06/【React入门】createElement方法/" rel="next" title="【React入门】createElement方法">
+      【React入门】createElement方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#转义字符"><span class="nav-number">1.</span> <span class="nav-text">转义字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符集合"><span class="nav-number">2.</span> <span class="nav-text">字符集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修饰符"><span class="nav-number">3.</span> <span class="nav-text">修饰符</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Liam Li</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liam Li</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

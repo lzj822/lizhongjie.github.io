@@ -141,6 +141,165 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2021/01/06/【React入门】createElement方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/06/【React入门】createElement方法/" class="post-title-link" itemprop="url">【React入门】createElement方法</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-06 23:04:48 / 修改时间：23:05:16" itemprop="dateCreated datePublished" datetime="2021-01-06T23:04:48+08:00">2021-01-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我们来实现一下createElement这个方法。<br>根据之前的文章，我们也介绍了。通过调用React.createElement这个方法，最终返回的是一个包含type和props属性的对象。<br>我们需要接受一些参数，第一个就是要创建element的类型。第二个为这个这个element属性对象，之后就是这个element的子元素。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">type, props, ...children</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        type,</span><br><span class="line">        props: &#123;</span><br><span class="line">            ...props,</span><br><span class="line">            children</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们使用解构参数的形式，来获取children参数。这样能保证children永远是一个数组。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">我们调用</span><br><span class="line">createElement(<span class="string">"div"</span>, <span class="literal">null</span>, a, b) </span><br><span class="line">返回</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"type"</span>: <span class="string">"div"</span>,</span><br><span class="line">  <span class="string">"props"</span>: &#123; <span class="string">"children"</span>: [a, b] &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有可能在children数组中包含基本数据类型，而并非一个对象，如string或者number。我们需要将这些转换成一个对象。我们改写一下上面的代码。</p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">type, props, ...children</span>) </span>{
+    <span class="keyword">return</span> {
+        type,
+        props: {
+            ...props,
+            children: children.map(<span class="function"><span class="params">child</span> =&gt;</span> {
+                <span class="keyword">return</span> <span class="keyword">typeof</span> child === <span class="string">'object'</span>
+                ? child
+                :  createTextElement(child)
+            })
+        }
+    }
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">createTextElement</span>(<span class="params">text</span>) </span>{
+    <span class="keyword">return</span> {
+        type: <span class="string">'TEXT_ELEMENT'</span>,
+        props: {
+            nodeValue: text,
+            children: [],
+        },
+    }
+}
+</code></pre>
+<p>至此我们就实现了createElement方法。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2021/01/06/正则表达式入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/06/正则表达式入门/" class="post-title-link" itemprop="url">正则表达式入门</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-06 23:04:12 / 修改时间：23:04:32" itemprop="dateCreated datePublished" datetime="2021-01-06T23:04:12+08:00">2021-01-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>之前涉及到正则的时候全靠搜。现在记录一下，加深一下印象。<br>正则的语法就是两条斜线<code>//</code>中间是正则的主体。比如<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/aaaa/ 匹配 aaaa</span><br></pre></td></tr></table></figure></p>
+<h1 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h1><p>转义字符主要作用就是</p>
+<ol>
+<li>匹配不方便显示的字符如\n</li>
+<li>在正则中预设了一些特殊意义的字符。</li>
+<li>让特殊意义的字符显示本身。<br>举一些常见的例子。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">\n  换行</span><br><span class="line">\r  回车</span><br><span class="line">\t  制表符也就是tab</span><br><span class="line">这些属于第一种，但感觉也不常用。平时开发没怎么用到</span><br><span class="line"></span><br><span class="line">\w  匹配任何一个字母或者数字或者下划线</span><br><span class="line">\W  除了\w以外的东西</span><br><span class="line">\s  匹配空白字符，如空格，tab等。</span><br><span class="line">\S  除了\s以外的东西</span><br><span class="line">\d  <span class="number">0</span><span class="number">-9</span></span><br><span class="line">\D  非数字字符</span><br><span class="line">\b  匹配单词的边界</span><br><span class="line">\b  匹配非单词的边界</span><br><span class="line">这些就是一些常见的预设特殊意义的字符</span><br><span class="line"></span><br><span class="line">如果你就想匹配\的话。就需要这样写</span><br><span class="line">\\</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="字符集合"><a href="#字符集合" class="headerlink" title="字符集合"></a>字符集合</h1><p>用一个中括号。表示里面的字符匹配都是或的关系。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[abc] a || b || c</span><br><span class="line">[0-9] 可以用-表示一个范围。 表示0-9中间任意一个</span><br><span class="line">[^abc] ^表示非 就是匹配abc之外的任意字符</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line"># 量词</span><br><span class="line">正则中量词有多个。</span><br><span class="line">1. ？匹配0次或者1次（也就是最多出现一次）</span><br><span class="line">2. \+ 匹配1-n次（至少出现一次）</span><br><span class="line">3. \* 匹配0-n次，优先匹配n次。</span><br><span class="line">4. &#123;n&#125; 匹配n次。</span><br><span class="line">5. &#123;m, n&#125; 匹配m-n次。</span><br><span class="line">6. &#123;m, &#125; 匹配m到无穷次。优先匹配无穷次。   </span><br><span class="line"></span><br><span class="line">正则默认是贪婪模式，就是凡事表示范围的，优先匹配上限而不是下限。就是说它会尽可能的往多里匹配。    </span><br><span class="line"></span><br><span class="line"># 字符边界</span><br><span class="line">1. ^ 表示匹配开头</span><br><span class="line">2. $ 表示匹配结尾</span><br><span class="line"></span><br><span class="line"># 选择表达式</span><br><span class="line">`123|456|789 //匹配123或456或789 `    </span><br><span class="line"></span><br><span class="line"># 分组与引用</span><br><span class="line">分组的功能就是匹配一组字符,如</span><br><span class="line">`(abc) 就是匹配abc这个整体`</span><br><span class="line"></span><br><span class="line">## 捕获分组和非捕获分组</span><br><span class="line">这块，知乎上有一个答案说的非常清楚。在此引用一下。</span><br><span class="line">&gt; 最近正在学习正则，也发现了捕获性分组和非捕获性分组，也在寻找答案。终于通过努力，研究懂了他们的区别到底在哪。我就不说术语了，直接用例子会表述的更清楚：        要在一篇文章中查找&quot;program&quot;和&quot;project&quot;两个单词，正则表达式可表示为/program|project/,也可表示为/pro(gram|ject)/，但是缓存子匹配(gramject)没有意义，就可以用/pro(?:gram|ject)/进行非捕获性匹配这样既可以简洁匹配又可不缓存无实际意义的字匹配    </span><br><span class="line">作者：冰冻三寸   </span><br><span class="line">链接：https://www.zhihu.com/question/19853431/answer/160306020    </span><br><span class="line">来源：知乎</span><br><span class="line"></span><br><span class="line"># 预搜索</span><br><span class="line">如果你想匹配xxx前不能是yyy，或者xxx后不能是yyy，那就要用到预搜索</span><br><span class="line"></span><br><span class="line">js只支持先行预搜索，也就是xxx前面必须是yyy，或者xxx前面不能是yyy</span><br></pre></td></tr></table></figure></p>
+<p>(?=1)2 // 可以匹配12，不能匹配22<br>(?!1)2 // 可有匹配22，不能匹配12<br><code>`</code></p>
+<h1 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h1><ol>
+<li>g 全局修饰符，一直匹配到结束</li>
+<li>i 忽略大小写</li>
+<li>m 匹配多行文本</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/12/30/【位运算】入门篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -979,165 +1138,6 @@ root.appendChild(node);
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/16/React组件库实现——Button组件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Liam Li">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Liam Li">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/16/React组件库实现——Button组件/" class="post-title-link" itemprop="url">React组件库实现——Button组件</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-16 21:47:12 / 修改时间：22:01:38" itemprop="dateCreated datePublished" datetime="2020-06-16T21:47:12+08:00">2020-06-16</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我们以一个Button组件为例。尝试从设计到实现一个React组件。</p>
-<h1 id="按钮的设计"><a href="#按钮的设计" class="headerlink" title="按钮的设计"></a>按钮的设计</h1><h2 id="轮廓线-按钮的边框"><a href="#轮廓线-按钮的边框" class="headerlink" title="轮廓线(按钮的边框)"></a>轮廓线(按钮的边框)</h2><p>主要的作用就是按钮与背景色相近的时候让按钮更加的明显。<br>成像效果不好的显示器，显示效果会有偏差。加上轮廓线确保显示。</p>
-<h1 id="类型检测"><a href="#类型检测" class="headerlink" title="类型检测"></a>类型检测</h1><p>静态类型检测是写组件必不可少的。一方面是在开发时避免类型问题，它还可以通过IDE的智能提醒方便使用组件的开发者。将使用Typescript对组件进行类型检测声明。   </p>
-<h2 id="Props声明"><a href="#Props声明" class="headerlink" title="Props声明"></a>Props声明</h2><p>首先是Props声明，Props声明我们用<code>组件名后面跟Props</code>的形式来定义接口名称，并将它导出。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> BaseButtonProps &#123;</span><br><span class="line">    <span class="keyword">type</span>?: ButtonType;</span><br><span class="line">    children?: React.ReactNode;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在定义props的时候，我们要保持接口小，props数量要少。</p>
-<h2 id="组件声明"><a href="#组件声明" class="headerlink" title="组件声明"></a>组件声明</h2><p>在组件使用中，应该无状态组件&gt;有状态组件&gt;Class组件。尤其是在hook出现后，函数组件被React大肆推广。   </p>
-<h3 id="函数组件"><a href="#函数组件" class="headerlink" title="函数组件"></a>函数组件</h3><p>我们用FC来声明函数组件，FC就是FunctionComponent的缩写，我们可以通过源码看到，它的props默认定义了children。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ButtonBase:FC&lt;BaseButtonProps&gt; = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;&#123;props.children&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后将这个组件导出<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Button;</span><br></pre></td></tr></table></figure></p>
-<p>但是在之前FC类型来声明函数组件时并不能完美支持propsDefault（现在已经解决）。<br>一般用解构赋值的默认值来代替propsDefault</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BaseButton:FC&lt;BaseButtonProps&gt; = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; type = <span class="string">"default"</span> &#125; = props;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;&#123;props.children&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>也有直接使用普通函数来进行组件声明<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BaseButton = (props: BaseButtonProps): JSX.Element =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; type = <span class="string">"default"</span> &#125; = props;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;&#123;type&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>用普通函数来进行组件声明还有以下好处：</p>
-<ol>
-<li>React.FC隐式的提供了一个children props，如果你的组件不需要子组件，用普通函数组件也许是一个很好的选择</li>
-<li><p>支持泛型。例如</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">type OptionValue = string | number;</span><br><span class="line"></span><br><span class="line">type Option&lt;T extends OptionValue&gt; = &#123;</span><br><span class="line">  value: T;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = &lt;T extends OptionValue&gt;(props: Option&lt;T&gt;): JSX.Element =&gt; &lt;div&gt;&#123;props.value&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在使用defaultProps不会出错。</p>
-</li>
-</ol>
-<p>【注意】在使用普通函数来进行组件声明的时候，defaultProps的类型和组件本身的props没有关联性，会使得defaultProps无法得到类型约束。比如</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface ButtonProps &#123;</span><br><span class="line">    name: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Button = <span class="function">(<span class="params">props: ButtonProps</span>) =&gt;</span> &lt;div&gt;&#123;props.name&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">Button.defaultProps = &#123; name: 123 &#125; /</span><span class="regexp">/这样是不会报错的</span></span><br></pre></td></tr></table></figure>
-<p>我们需要改写成这样<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Partial&lt;T&gt; = &#123;</span><br><span class="line">    [P <span class="keyword">in</span> keyof T]?: T[P];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Button.defaultProps = &#123; name: <span class="string">'Liam'</span> &#125; <span class="keyword">as</span> Partial&lt;ButtonProps&gt;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/16/树、二叉树/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Liam Li">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Liam Li">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/16/树、二叉树/" class="post-title-link" itemprop="url">树、二叉树</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-16 21:45:51 / 修改时间：21:46:31" itemprop="dateCreated datePublished" datetime="2020-06-16T21:45:51+08:00">2020-06-16</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>树的结构就很像生活中的树，一个枝干上分出很多的树杈。 在数据结构中，我们将树中的每个元素称为节点。没有父节点的叫做根节点。没有子节点的节点叫做叶子节点。如果多个节点的父节点是同一个节点，那么我们就将它们称为兄弟节点。<br>树还有 高度、深度、层。这三个概念</p>
-<ul>
-<li>节点的高度： 节点到叶子节点的最长路径，也就是边数   </li>
-<li>节点的深度： 根节点到这个节点所经历的边的个数   </li>
-<li>节点的层数： 节点的深度+1   </li>
-<li>树的的高度： 根节点的高度   </li>
-</ul>
-<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>每个节点上最多有两个叉。   </p>
-<h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>除了叶子节点之外，每个节点都有左右两个子节点。   </p>
-<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>最后一层的叶子节点都靠左排列，并且除了最后一层，其他层的节点个数都要达到最大。</p>
-<h2 id="存储方式。"><a href="#存储方式。" class="headerlink" title="存储方式。"></a>存储方式。</h2><ol>
-<li>链式存储法。 每个节点有三个字段，一个存储数据，另外两个是指向左右节点的指针。</li>
-<li>数组存储法。根节点在i=1的位置，左节点存储在2 <em> i的位置，右节点存储在2 </em> i + 1的位置。反过来 i/2存储的就是父节点的位置。 如果是完全二叉树，数组存储方式是最不占空间的。堆就是一种完全二叉树。   </li>
-</ol>
-<h2 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h2><ul>
-<li>前序遍历是指，对于树中的任意节点来说，先打印这个节点，然后再打印它的左子树，最后打印它的右子树。</li>
-<li>中序遍历是指，对于树中的任意节点来说，先打印它的左子树，然后再打印它本身，最后打印它的右子树。</li>
-<li>后序遍历是指，对于树中的任意节点来说，先打印它的左子树，然后再打印它的右子树，最后打印这个节点本身。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1208,7 +1208,7 @@ root.appendChild(node);
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1244,7 +1244,7 @@ root.appendChild(node);
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
