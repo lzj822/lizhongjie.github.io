@@ -141,6 +141,77 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/08/12/Web语义化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/12/Web语义化/" class="post-title-link" itemprop="url">Web语义化</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-12 19:44:41 / 修改时间：19:47:32" itemprop="dateCreated datePublished" datetime="2020-08-12T19:44:41+08:00">2020-08-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="什么是语义化？"><a href="#什么是语义化？" class="headerlink" title="什么是语义化？"></a>什么是语义化？</h1><p>语义化说白了，它是给机器看的，就是让机器能读懂你的内容，让机器知道你哪里是标题，哪里是段落。正因为如此。语义化最大的优点就是利于搜索引擎的抓取和建立索引也就是俗称SEO。除此之外，正确的使用语义化标签能够清晰的展示网页的结构，对开发者也更加友好，除此之外语义化还可以支持读屏软件使一些视障人士也可以无障碍的使用我们的网站。   </p>
+<h1 id="语义化初步"><a href="#语义化初步" class="headerlink" title="语义化初步"></a>语义化初步</h1><p>我们来写一个最简单布局，这个布局就包括，头部，内容，和尾部从上到下依次排列。这也是最常见的网页布局。在没有语义化得时候，我们通常是使用div和给一个相对含义的className或者id的形式来布局<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"header&gt;&lt;/div&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;div class="</span><span class="attr">section</span>"&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"footer"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们用语义化的形式来改写它。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样看起来结构就清楚了很多。通过上面的例子我们也可以很容易看出，语义化可以使我们写出一致的代码。在不使用语义化标签的时候一个header就有很多种写法<code>&lt;div class=&quot;header&quot;&gt;</code>、<code>&lt;div id=&quot;header&quot;&gt;</code>等等，这完全取决于每个开发者个人的风格。而使用语义化标签后，就让代码一致性变得更加的容易。</p>
+<h1 id="语义化标签介绍"><a href="#语义化标签介绍" class="headerlink" title="语义化标签介绍"></a>语义化标签介绍</h1><h2 id="lt-header-gt-和-lt-hgroup-gt"><a href="#lt-header-gt-和-lt-hgroup-gt" class="headerlink" title="&lt;header&gt; 和 &lt;hgroup&gt;"></a>&lt;header&gt; 和 &lt;hgroup&gt;</h2><p>header标签很好理解，一般都在文档的最顶部。通常包含标题以及导航和搜索工具。它不一定非得是网页的头部，也可以是任意section或者article的头部部分。它也没有个数限制。<br>我们知道h1-h6是最基本的标题，表示文章中不同层级的标题。但有时候我们想让副标题在同一个层级中，这是我们就需要用到hgroup标签。hgroup标签实际就是一个标题组。</p>
+<h2 id="lt-nav-gt"><a href="#lt-nav-gt" class="headerlink" title="&lt;nav&gt;"></a>&lt;nav&gt;</h2><p>nav 元素代表页面的导航链接区域。用于定义页面的主要导航部分。导航部分的常见示例是菜单，目录和索引。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="lt-section-gt-和-lt-article-gt"><a href="#lt-section-gt-和-lt-article-gt" class="headerlink" title="&lt;section&gt; 和 &lt;article&gt;"></a>&lt;section&gt; 和 &lt;article&gt;</h2><p>article它表示具有一定独立性质的文章，它的特点就是独立和可重用。每个article里面都可以有自己的header、section、footer。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>你好，我是这边文章的标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>你好，我是文章的内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>最终解释权归XXX所有<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>section的主要作用是按主题分段。也就是说section中的内容跟大的主题是相关的。而且在section中会自动给标题h1-h6降级。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>web语义化<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>什么是语义化？<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>语义化详解<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>语义化就是。。。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>语义化特点<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>语义化特点就是。。。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="lt-aside-gt"><a href="#lt-aside-gt" class="headerlink" title="&lt;aside&gt;"></a>&lt;aside&gt;</h2><p>aside一般是跟文章主题不相关的部分，可能包含导航或者广告之类的东西。一般在aside中的nav多数是关联页面，它与header中的nav有些许不同。</p>
+<h2 id="lt-footer-gt"><a href="#lt-footer-gt" class="headerlink" title="&lt;footer&gt;"></a>&lt;footer&gt;</h2><p>一般有header标签，也会有footer标签。通常他都是在文档的最后，通常都是放一些作者信息，版权信息，友情链接之类的。</p>
+<h2 id="lt-small-gt"><a href="#lt-small-gt" class="headerlink" title="&lt;small&gt;"></a>&lt;small&gt;</h2><p>&lt;small&gt;标签呈现的小号字体的效果，表示注释和附属细则，一般在footer中，包裹着版权信息。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span><span class="tag">&lt;<span class="name">small</span>&gt;</span>&amp;copy;Company A<span class="tag">&lt;/<span class="name">small</span>&gt;</span> Date<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="lt-time-gt"><a href="#lt-time-gt" class="headerlink" title="&lt;time&gt;"></a>&lt;time&gt;</h2><p>在出现日期的地方，我们可以加上<time>标签，<time>标签可以加上一个明确的IOS 8601日期来让机器更好的理解，我们所正常阅读的时间。例如<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">time</span> <span class="attr">datetime</span>=<span class="string">"2020-11-08T11:21:00+08:00"</span>&gt;</span>2020年11月8日，星期二<span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br></pre></td></tr></table></figure></time></time></p>
+<h2 id="lt-figure-gt-和-lt-figcaption-gt"><a href="#lt-figure-gt-和-lt-figcaption-gt" class="headerlink" title="&lt;figure&gt; 和 &lt;figcaption&gt;"></a>&lt;figure&gt; 和 &lt;figcaption&gt;</h2><p>当图片不是独立的出现，当它与主文章相关，我们就可以使用figure标签。这种插入不限于图片，也可以是代码、表格等。figcaption表示内容的标题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">figure</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"#"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>title<span class="tag">&lt;/<span class="name">figcaption</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/06/16/React组件库实现——Button组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -980,80 +1051,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/03/11/webpack入门篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Liam Li">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Liam Li">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/11/webpack入门篇/" class="post-title-link" itemprop="url">webpack入门</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-11 23:53:41" itemprop="dateCreated datePublished" datetime="2020-03-11T23:53:41+08:00">2020-03-11</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>为什么需要构建工具？<br>主要是为了实现转换ES6语法、转换JSX、CSS前缀补全/预处理器、压缩混淆、图片压缩等功能。</p>
-</blockquote>
-<h1 id="webpack-安装"><a href="#webpack-安装" class="headerlink" title="webpack 安装"></a>webpack 安装</h1><p><code>npm install webpack webpack-cli --save-dev</code><br>安装完成后，我们可以通过<code>npx webpack -v</code>来检测webpack是否安装成功。</p>
-<h1 id="webpack-核心概念"><a href="#webpack-核心概念" class="headerlink" title="webpack 核心概念"></a>webpack 核心概念</h1><h2 id="webpack配置文件"><a href="#webpack配置文件" class="headerlink" title="webpack配置文件"></a>webpack配置文件</h2><p>webpack 默认配置文件： webpack.conf.js<br>可以通过 webpack –config 指定配置文件。</p>
-<h2 id="Entry-打包的入口文件"><a href="#Entry-打包的入口文件" class="headerlink" title="Entry 打包的入口文件"></a>Entry 打包的入口文件</h2><p>指定打包的入口，告诉webpack应该使用哪个模块，来作为入口文件，webpack会找出哪些模块库是入口的直接或间接依赖。</p>
-<p>默认入口是<code>./src/index/js</code>,我们也可以配置来指定一个或多个不同的入口。</p>
-<p>简单例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./path/to/my/entry/file.js'</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>这是作为单文件入口时，其实是下面的简写。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    main: <span class="string">'./path/to/my/entry/file.js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>entry</code>的值可以是一个字符串，也可以是一个数组，为数组时，表示有多个主入口，想要多个依赖文件一起注入时，可以用数组。<br>如果是多页应用的话，也就是多入口的话entry就得写成一个对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: <span class="string">'./path/to/my/entry/app.js'</span>,</span><br><span class="line">    adminApp: <span class="string">'./path/to/my/entry/adminApp.js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Output-打包的输出"><a href="#Output-打包的输出" class="headerlink" title="Output 打包的输出"></a>Output 打包的输出</h2><p>告诉webpack在哪里输出它所创建的 bundle，以及如何命名这些文件。主要输出文件的默认值是 <code>./dist/main.js</code>，其他生成文件默认放置在 <code>./dist</code> 文件夹中。我们也可以来配置。下面是官网给出的例子。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./path/to/my/entry/file.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename: <span class="string">'my-first-webpack.bundle.js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>这其中涉及到一些Node的知识，__dirname我们可以把它当做node的一个全局变量，它的值为当前目录。我们在最上面引入了path模块，调用了path中的resolve方法。这个方法主要是从左到右拼接出一个绝对路径。<code>注：若字符以 / 开头，不会拼接到前面的路径(因为拼接到此已经是一个绝对路径)</code>。<br>output中的path属性就是输出文件的地址，filename则是输出文件名。<br>如果entry是多入口配置的话，output就需要通过占位符确保文件名称的唯一。如下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">output: &#123;</span><br><span class="line">  filename: <span class="string">'[name].js'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h2><p>webpack 只能理解 JavaScript 和 JSON 文件。loader 让 webpack 能够去处理其他类型的文件，并将它们转换为有效 模块，以供应用程序使用，以及被添加到依赖图中。<br>我们来配置一下，让webpack支持TypeScript，老规矩先上代码。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'my-first-webpack.bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.tsx?$/</span>, <span class="attr">use</span>: <span class="string">'ts-loader'</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>在module对象中有一个rules属性，里面定义一个数组，数组中的对象的<code>test</code>属性，用于标识出应该被对应的 loader 进行转换的某个或某些文件。这里用正则表示所有ts或者tsx结尾的文件。<code>use</code>属性，表示进行转换时，应该使用哪个 loader，我们这里用的是<code>ts-loader</code>。现在我们就可以让webpack帮我们将TypeScript转为JavaScript。</p>
-<h2 id="Plugins-插件配置"><a href="#Plugins-插件配置" class="headerlink" title="Plugins 插件配置"></a>Plugins 插件配置</h2><p>loader 用于转换某些类型的模块，而插件则可以用于执行范围更广的任务,增强webpack。包括：打包优化，资源管理，注入环境变量。<br>我们如果使用一个插件，就需要require()它，然后把它添加到<code>plugins</code>数组中，如果我们想要多次用一个插件，这时我们就可以用new来创建一个它的实例。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>); <span class="comment">//installed via npm</span></span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>); <span class="comment">//to access built-in plugins</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.txt$/</span>, <span class="attr">use</span>: <span class="string">'raw-loader'</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;<span class="attr">template</span>: <span class="string">'./src/index.html'</span>&#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>上面插件的作用就是将生成的bundle注入到指定的HTML文件中。</p>
-<h2 id="Mode-环境"><a href="#Mode-环境" class="headerlink" title="Mode 环境"></a>Mode 环境</h2><p>webpack4新概念，通过选择 development, production 或 none 之中的一个，来设置 mode 参数，你可以启用 webpack 内置在相应环境下的优化。其默认值为 production。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  mode: <span class="string">'production'</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1124,7 +1121,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
