@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lizhongjie.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="判断奇偶我们看整数转为二进制数的时候，最后一位，如果是1必为奇数，如果是0则为偶数。所以我们用该数与1做与运算。结果为0则为偶，结果为1则为奇。 12345678910111213141516171819偶数 &amp;amp; 1 = 0奇数 &amp;amp; 1 = 1```     # 交换两个数这是用到了异或的性质。`a^b^a = 0^b = b`   ```javascriptlet a = 1;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【位运算】实战篇">
+<meta property="og:url" content="http://lizhongjie.com/2021/01/13/【位运算】实战篇/index.html">
+<meta property="og:site_name" content="Liam Li">
+<meta property="og:description" content="判断奇偶我们看整数转为二进制数的时候，最后一位，如果是1必为奇数，如果是0则为偶数。所以我们用该数与1做与运算。结果为0则为偶，结果为1则为奇。 12345678910111213141516171819偶数 &amp;amp; 1 = 0奇数 &amp;amp; 1 = 1```     # 交换两个数这是用到了异或的性质。`a^b^a = 0^b = b`   ```javascriptlet a = 1;l">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-12T22:55:41.657Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【位运算】实战篇">
+<meta name="twitter:description" content="判断奇偶我们看整数转为二进制数的时候，最后一位，如果是1必为奇数，如果是0则为偶数。所以我们用该数与1做与运算。结果为0则为偶，结果为1则为奇。 12345678910111213141516171819偶数 &amp;amp; 1 = 0奇数 &amp;amp; 1 = 1```     # 交换两个数这是用到了异或的性质。`a^b^a = 0^b = b`   ```javascriptlet a = 1;l">
+
+<link rel="canonical" href="http://lizhongjie.com/2021/01/13/【位运算】实战篇/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>【位运算】实战篇 | Liam Li</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Liam Li</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2021/01/13/【位运算】实战篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【位运算】实战篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-13 06:55:23 / 修改时间：06:55:41" itemprop="dateCreated datePublished" datetime="2021-01-13T06:55:23+08:00">2021-01-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="判断奇偶"><a href="#判断奇偶" class="headerlink" title="判断奇偶"></a>判断奇偶</h1><p>我们看整数转为二进制数的时候，最后一位，如果是1必为奇数，如果是0则为偶数。所以我们用该数与1做与运算。结果为0则为偶，结果为1则为奇。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">偶数 &amp; <span class="number">1</span> = <span class="number">0</span></span><br><span class="line">奇数 &amp; <span class="number">1</span> = <span class="number">1</span></span><br><span class="line"><span class="string">``</span><span class="string">`     </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 交换两个数</span></span><br><span class="line"><span class="string">这是用到了异或的性质。`</span>a^b^a = <span class="number">0</span>^b = b<span class="string">`   </span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">a = a^b;</span><br><span class="line">b = a^b; <span class="comment">// a^b^b = a;</span></span><br><span class="line">a = a^b; <span class="comment">// a^a^b = b;</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 取整</span></span><br><span class="line"><span class="string">由于js在做位运算的时候，是吧浮点数转为整数来计算。 我们可以用这个原理通过左移0位来进行整数转换。</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="number">0.1</span> &lt;&lt; <span class="number">0</span>  <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>同理用<code>&gt;&gt;0</code>也行但是<code>&gt;&gt;&gt;0</code>就不行。<br>还有根据<code>a|0=a</code>的原理<code>|0</code>也可以进行取整。    </p>
+<h1 id="权限验证"><a href="#权限验证" class="headerlink" title="权限验证"></a>权限验证</h1><p>这块就是最近工作中用到的。<br>位运算在权限系统中的使用。的保证每个权限码都是唯一的并且权限码的二进制数形式有且只有一位为1剩余的位为0(2^n)。    </p>
+<p>接下来我们就可以用</p>
+<ol>
+<li><code>|</code> 来赋予权限</li>
+<li><code>&amp;</code> 来验证权限    </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> r = <span class="number">0b100</span></span><br><span class="line"><span class="keyword">let</span> w = <span class="number">0b010</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">0b001</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 给用户赋 r w 两个权限</span></span><br><span class="line"><span class="keyword">let</span> user = r | w</span><br><span class="line"><span class="comment">// user = 6</span></span><br><span class="line"><span class="comment">// user = 0b110 (二进制)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log((user &amp; r) === r) <span class="comment">// true  有 r 权限</span></span><br><span class="line"><span class="built_in">console</span>.log((user &amp; w) === w) <span class="comment">// true  有 w 权限</span></span><br><span class="line"><span class="built_in">console</span>.log((user &amp; x) === x) <span class="comment">// false 没有 x 权限</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">如果想删除一个权限的话，最简单的方式就是用异或`</span>^<span class="string">`。但是异或是一个有则减，无则增的一个操作。   </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">那么如果单纯的想删除权限（而不是无则增，有则减）怎么办呢？答案是执行 `</span>&amp;(~code)<span class="string">`，先取反，再执行与操作    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">但是这种方法也有局限性。因为js操作最多只有32位。有一篇文章很好地解决了这个问题[局限性和解决办法](https://juejin.cn/post/6844903988945485837#heading-8)。    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 做字符串的加密    </span></span><br><span class="line"><span class="string">这部分参考这篇文章[深入研究js中的位运算及用法](https://www.cnblogs.com/mopagunda/p/11221928.html)     </span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">const</span> key = <span class="number">313</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encryption</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> s = <span class="string">''</span>;</span><br><span class="line">  str.split(<span class="string">''</span>).map(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    s += handle(item);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decryption</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line"><span class="keyword">let</span> s = <span class="string">''</span>;</span><br><span class="line">str.split(<span class="string">''</span>).map(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    s += handle(item);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/\d/</span>.test(str)) &#123;</span><br><span class="line">    <span class="keyword">return</span> str ^ key;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> code = str.charCodeAt();</span><br><span class="line">    <span class="keyword">let</span> newCode = code ^ key;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">String</span>.fromCharCode(newCode);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> init = <span class="string">'hello world 位运算'</span>;</span><br><span class="line"><span class="keyword">let</span> result = encryption(init);             <span class="comment">// őŜŕŕŖęŎŖŋŕŝę乴軩窮</span></span><br><span class="line"><span class="keyword">let</span> decodeResult = decryption(result);     <span class="comment">// hello world 位运算</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 用~~来取整</span></span><br><span class="line"><span class="string">我们先看效果</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line">~~<span class="number">1.1</span> <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">首先在js中位运算要转为整数，所以先对<span class="number">1</span>取反, 简单地用八位</span><br><span class="line"><span class="number">1</span>的源码 <span class="number">0000</span> <span class="number">0001</span></span><br><span class="line">然后取反 ~ <span class="number">0000</span> <span class="number">0001</span> = <span class="number">1111</span> <span class="number">1110</span></span><br><span class="line">发现符号位为负数。这里会将负数变为补码的形式，为了统一加法和减法，减法会变成加一个负数，而负数会以补码的形式存储。</span><br><span class="line"><span class="number">1111</span> <span class="number">1110</span> 的 补码为  反码 加 <span class="number">1</span>为</span><br><span class="line"><span class="number">1000</span> <span class="number">0010</span></span><br><span class="line">转为十进制，就成了<span class="number">-2</span>，然后再对<span class="number">-2</span>取反</span><br><span class="line">这时就将负数转为补码的形式</span><br><span class="line"><span class="number">1111</span> <span class="number">1110</span></span><br><span class="line">然后在取反。就为</span><br><span class="line"><span class="number">0000</span> <span class="number">0001</span> 转为十进制  就为 <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>我们其实可以看到，都是用补码来进行取反。（正数的补码是它本身，负数的补码为反码+1）    </p>
+<h1 id="判断边界"><a href="#判断边界" class="headerlink" title="判断边界"></a>判断边界</h1><p>做边界判断，总共有3种超出情况：右、上、左，并且可能会叠加，如鼠标在左上角的时候会导致左边和上面同时超出。需要记录超出的情况进行调整，用001表示右边超出，010表示上方超出，100表示左边超出，如下代码计算：</p>
+<pre><code class="javascript"><span class="keyword">let</span> postFlag = <span class="number">0</span>;
+<span class="comment">//右边超出</span>
+<span class="keyword">if</span>(pos.right &lt; maxLen) posFlag |= <span class="number">1</span>;
+<span class="comment">//上面超出</span>
+<span class="keyword">if</span>(pos.top &lt; maxLen) posFlag |= <span class="number">2</span>;
+<span class="comment">//左边超出</span>
+<span class="keyword">if</span>(pos.left &lt; maxLeftLen) posFlag |= <span class="number">4</span>;
+<span class="comment">//对超出的情况进行处理，代码略</span>
+<span class="keyword">switch</span>(posFlag){
+      <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">//右</span>
+      <span class="keyword">case</span> <span class="number">2</span>: <span class="comment">//上</span>
+      <span class="keyword">case</span> <span class="number">3</span>: <span class="comment">//右上</span>
+      <span class="keyword">case</span> <span class="number">4</span>: <span class="comment">//左</span>
+      <span class="keyword">case</span> <span class="number">6</span>: <span class="comment">//左上</span>
+}
+</code></pre>
+<h1 id="保留高位-低位"><a href="#保留高位-低位" class="headerlink" title="保留高位/低位"></a>保留高位/低位</h1><p>如想要保留后面四位  只需要用数跟 <code>&amp;0000 1111</code> 这样前四位都变为了0。保留低位同理。     </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/13/【React入门】并发模型/" rel="prev" title="【React入门】并发模型">
+      <i class="fa fa-chevron-left"></i> 【React入门】并发模型
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#判断奇偶"><span class="nav-number">1.</span> <span class="nav-text">判断奇偶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#权限验证"><span class="nav-number">2.</span> <span class="nav-text">权限验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判断边界"><span class="nav-number">3.</span> <span class="nav-text">判断边界</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#保留高位-低位"><span class="nav-number">4.</span> <span class="nav-text">保留高位/低位</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Liam Li</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liam Li</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

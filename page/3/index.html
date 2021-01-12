@@ -141,6 +141,228 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/03/11/使用Jest、Enzyme等工具进行单元测试(中)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/11/使用Jest、Enzyme等工具进行单元测试(中)/" class="post-title-link" itemprop="url">使用Jest、Enzyme等工具进行单元测试(中)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-11 23:53:41" itemprop="dateCreated datePublished" datetime="2020-03-11T23:53:41+08:00">2020-03-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-15 23:13:53" itemprop="dateModified" datetime="2020-03-15T23:13:53+08:00">2020-03-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Jest-钩子函数"><a href="#Jest-钩子函数" class="headerlink" title="Jest 钩子函数"></a>Jest 钩子函数</h2><p>我们如果有一些工作是在每次跑测试用例之前或者结束的时候要做的。我们就需要使用Jest提供的<code>beforeEach</code>和<code>afterEach</code>。<br>如果我们只想跑一次的话，那么我们就要用Jest提供的<code>beforeAll</code>和<code>afterAll</code>这两个函数会在所有测试用例开始之前，和全部结束之后调用。</p>
+<p>我们可以通过具体代码看一下。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'beforeEach'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">afterEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'afterEach'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">beforeAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'beforeAll'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">afterAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'afterAll'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">'test'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'test'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">'test1'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'test1'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">test(<span class="string">'test2'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'test2'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>输出结果<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">beforeAll</span><br><span class="line">beforeEach</span><br><span class="line">test</span><br><span class="line">afterEach</span><br><span class="line">beforeEach</span><br><span class="line">test1</span><br><span class="line">afterEach</span><br><span class="line">beforeEach</span><br><span class="line">test2</span><br><span class="line">afterEach</span><br><span class="line">afterAll</span><br></pre></td></tr></table></figure></p>
+<p>通过打印的内容我们就能很直观的看到，beforeAll和afterAll在整个测试文件的开头和结尾调用一次。beforeEach和afterEach会在每个测试用例的开始和结束都会调用。</p>
+<h2 id="Jest-作用域"><a href="#Jest-作用域" class="headerlink" title="Jest 作用域"></a>Jest 作用域</h2><p>我们可以用<code>describe</code>来将测试分组。当<code>after</code>和<code>before</code>在<code>describe</code>内部的时候，只适用于该<code>describe</code>内部的测试，但是顶级的<code>beforeEach</code>和<code>afterEach</code>也会作用在该<code>describe</code>内部的测试用例。但是顶部的<code>beforeEach</code>会比内部的先执行，顶部的<code>afterEach</code>会比内部的晚执行。具体可以看官网给的例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">beforeAll(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'1 - beforeAll'</span>));</span><br><span class="line">afterAll(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'1 - afterAll'</span>));</span><br><span class="line">beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'1 - beforeEach'</span>));</span><br><span class="line">afterEach(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'1 - afterEach'</span>));</span><br><span class="line">test(<span class="string">''</span>, () =&gt; <span class="built_in">console</span>.log(<span class="string">'1 - test'</span>));</span><br><span class="line">describe(<span class="string">'Scoped / Nested block'</span>, () =&gt; &#123;</span><br><span class="line">  beforeAll(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'2 - beforeAll'</span>));</span><br><span class="line">  afterAll(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'2 - afterAll'</span>));</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'2 - beforeEach'</span>));</span><br><span class="line">  afterEach(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'2 - afterEach'</span>));</span><br><span class="line">  test(<span class="string">''</span>, () =&gt; <span class="built_in">console</span>.log(<span class="string">'2 - test'</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1 - beforeAll</span></span><br><span class="line"><span class="comment">// 1 - beforeEach</span></span><br><span class="line"><span class="comment">// 1 - test</span></span><br><span class="line"><span class="comment">// 1 - afterEach</span></span><br><span class="line"><span class="comment">// 2 - beforeAll</span></span><br><span class="line"><span class="comment">// 1 - beforeEach</span></span><br><span class="line"><span class="comment">// 2 - beforeEach</span></span><br><span class="line"><span class="comment">// 2 - test</span></span><br><span class="line"><span class="comment">// 2 - afterEach</span></span><br><span class="line"><span class="comment">// 1 - afterEach</span></span><br><span class="line"><span class="comment">// 2 - afterAll</span></span><br><span class="line"><span class="comment">// 1 - afterAll</span></span><br></pre></td></tr></table></figure>
+<h2 id="describe-和-test-的执行顺序"><a href="#describe-和-test-的执行顺序" class="headerlink" title="describe 和 test 的执行顺序"></a>describe 和 test 的执行顺序</h2><p>Jest会在具体<code>test</code>代码块之前执行所有<code>describe</code>处理器部分，所以我们要将准备工作都放在before、after中。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'outer'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'describe outer-a'</span>);</span><br><span class="line"></span><br><span class="line">  describe(<span class="string">'describe inner 1'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'describe inner 1'</span>);</span><br><span class="line">    test(<span class="string">'test 1'</span>, () =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'test for describe inner 1'</span>);</span><br><span class="line">      expect(<span class="literal">true</span>).toEqual(<span class="literal">true</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'describe outer-b'</span>);</span><br><span class="line"></span><br><span class="line">  test(<span class="string">'test 1'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'test for describe outer'</span>);</span><br><span class="line">    expect(<span class="literal">true</span>).toEqual(<span class="literal">true</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  describe(<span class="string">'describe inner 2'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'describe inner 2'</span>);</span><br><span class="line">    test(<span class="string">'test for describe inner 2'</span>, () =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'test for describe inner 2'</span>);</span><br><span class="line">      expect(<span class="literal">false</span>).toEqual(<span class="literal">false</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'describe outer-c'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// describe outer-a</span></span><br><span class="line"><span class="comment">// describe inner 1</span></span><br><span class="line"><span class="comment">// describe outer-b</span></span><br><span class="line"><span class="comment">// describe inner 2</span></span><br><span class="line"><span class="comment">// describe outer-c</span></span><br><span class="line"><span class="comment">// test for describe inner 1</span></span><br><span class="line"><span class="comment">// test for describe outer</span></span><br><span class="line"><span class="comment">// test for describe inner 2</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Jest-Mock函数"><a href="#Jest-Mock函数" class="headerlink" title="Jest Mock函数"></a>Jest Mock函数</h2><p>在平时，我们需要测试一些回调函数是否被调用，而我们不关心调用内部的执行过程和结果，这时我们就需要<code>jest.fn</code>来mock一个函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mockCallback = jest.fn();</span><br><span class="line">forEach([<span class="number">0</span>, <span class="number">1</span>], mockCallback);</span><br><span class="line"></span><br><span class="line">test(<span class="string">'该模拟函数被调用了两次'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// 此模拟函数被调用了两次</span></span><br><span class="line">    expect(mockCallback.mock.calls.length).toBe(<span class="number">2</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看看.mock的属性都有哪些。</p>
+<ol>
+<li>calls: 每次调用传入的参数</li>
+<li>instances: 每次调用时this的值,</li>
+<li>invocationCallOrder: 每次调用的执行顺序</li>
+<li>results: 每次调用的返回值</li>
+</ol>
+<p>如果我们想要取调用的参数可以这样写<br><code>expect(mockCallback.mock.calls[0][0])</code>这是第一次调用的参数。</p>
+<p>还可以通过<code>mockReturnValueOnce()</code>和<code>mockReturnValue()</code>来控制返回值。</p>
+<p>对于API的调用，我们不必等待API的返回结果，因为这非常耗时，我们可以直接用<code>jest.mock()</code>来模拟<code>axios</code>模块，可为 <code>.get</code> 提供一个 <code>mockResolvedValue</code> ，它会返回假数据用于测试。 实际上，我们想让 axios.get(‘/users.json’) 有个假的 response。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>;</span><br><span class="line"><span class="keyword">import</span> Users <span class="keyword">from</span> <span class="string">'./users'</span>;</span><br><span class="line"></span><br><span class="line">jest.mock(<span class="string">'axios'</span>);</span><br><span class="line"></span><br><span class="line">test(<span class="string">'should fetch users'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> users = [&#123;<span class="attr">name</span>: <span class="string">'Bob'</span>&#125;];</span><br><span class="line">  <span class="keyword">const</span> resp = &#123;<span class="attr">data</span>: users&#125;;</span><br><span class="line">  axios.get.mockResolvedValue(resp);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// or you could use the following depending on your use case:</span></span><br><span class="line">  <span class="comment">// axios.get.mockImplementation(() =&gt; Promise.resolve(resp))</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Users.all().then(<span class="function"><span class="params">data</span> =&gt;</span> expect(data).toEqual(users));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Jest-Snapshot-快照"><a href="#Jest-Snapshot-快照" class="headerlink" title="Jest Snapshot 快照"></a>Jest Snapshot 快照</h2><p>快照是我个人觉得非常有用的功能，一般用于测试配置文件，UI有没有改动。<br>我们先通过测试配置文件来讲解测试快照。之后会具体讲使用snapshot来测试UI组件。</p>
+<p>snapshot的原理简单的来说，就是第一次测试的时候生成一个快照文件，第二次跑测试用例的时候，会与这个快照进行对比，如果有变化则测试不通过，当然你也可以更新快照，这时快照的内容就是你最新的改变。</p>
+<h2 id="Jest-VSCode插件"><a href="#Jest-VSCode插件" class="headerlink" title="Jest VSCode插件"></a>Jest VSCode插件</h2><p>推荐使用 Facebook官方出的  vscode-jest 插件。 安装完插件后，不用每次都手动输入jest命令。每次回自动执行测试用例。并在通过的测试用例前用绿色的小点表示，失败的为红色小点。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/03/11/使用Jest、Enzyme等工具进行单元测试(上)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liam Li">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liam Li">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/11/使用Jest、Enzyme等工具进行单元测试(上)/" class="post-title-link" itemprop="url">使用Jest、Enzyme等工具进行单元测试(上)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-11 23:53:41" itemprop="dateCreated datePublished" datetime="2020-03-11T23:53:41+08:00">2020-03-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-05 17:59:36" itemprop="dateModified" datetime="2020-04-05T17:59:36+08:00">2020-04-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h1><p>Jest是Facebook开源的测试框架，几乎是0配置直接进行单元测试，相对其他测试框架，其一大特点就是内置了常用的测试工具，比如自带断言、测试覆盖率等工具。Jest还有很多好处这里就不一一介绍了，详情可以到Jest官网查看<a href="https://jestjs.io/" target="_blank" rel="noopener">https://jestjs.io/</a>。  </p>
+<h2 id="Jest-安装"><a href="#Jest-安装" class="headerlink" title="Jest 安装"></a>Jest 安装</h2><p>这里默认安装了node。 如果没有安装的，可自行到Node官网进行下载安装<a href="https://nodejs.org/" target="_blank" rel="noopener">https://nodejs.org/</a>。安装好Node后是默认自带NPM包管理工具的。我们可以通过 <code>node -v</code> 和 <code>npm -v</code> 来检测node、和npm是否安装成功，如果都成功的显示了版本号，就说明node和npm都安装成功了。下面我们就可以对Jest来进行安装。   </p>
+<p>Jest的安装十分简单，就一行命令    </p>
+<p><code>npm install --save-dev jest</code>   </p>
+<p>因为只有在开发的时候我们才去运行测试用例，所以我们在安装Jest的时候加上<code>--save-dev</code>。安装完成后我们就可以进行Jest的学习了。</p>
+<h2 id="Jest初体验"><a href="#Jest初体验" class="headerlink" title="Jest初体验"></a>Jest初体验</h2><p>我们可以根据Jest官网给的简单的例子，来体验一下Jest。   </p>
+<p>我们写一个需要被测试的函数，这个函数就是做一个简单的两个数相加的运算然后返回结果。首先我们先创建一个名为 <code>sum.js</code> 的js文件:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = sum;</span><br></pre></td></tr></table></figure></p>
+<p>我们用module.exports将这个函数导出<br>然后我们创建一个名为 <code>sum.test.js</code>的js文件，这个文件里写我们真正的测试代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sum = <span class="built_in">require</span>(<span class="string">'./sum'</span>);</span><br><span class="line"></span><br><span class="line">test(<span class="string">'adds 1 + 2 to equal 3'</span>, () =&gt; &#123;</span><br><span class="line">  expect(sum(<span class="number">1</span>, <span class="number">2</span>)).toBe(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>然后我们修改 <code>package.json</code> 文件，使得我们输入 <code>npm test</code> 的时候就可以运行我们的测试用例:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"jest"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后我们输入<code>npm run test</code>来运行我们的测试用例，并可以看到Jest打印的信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PASS  ./sum.test.js</span><br><span class="line">✓ adds 1 + 2 to equal 3 (5ms)</span><br></pre></td></tr></table></figure></p>
+<p>至此我们就成功的用Jest写了第一个测试用例。</p>
+<p>我们可以看到这段测试代码的核心就两条语句</p>
+<ol>
+<li>调用一个test方法，第一个参数是对这个测试用例的描述，第二参数是一个回调函数，里面是具体的测试方法。</li>
+<li><code>expect(resultValue).toBe(actualValue)</code> 这行代码，我们可以看做，当expect方法中的传入的这个值和toBe这个方法中的值完全相等。这条测试用例就算通过（例子中，resultValue是调用sum函数的返回值，actualValue是我们认为函数运行正确应该返回的值）</li>
+</ol>
+<p>我们可以简单地试着实现一下这两行代码，这样能更好的理解。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">expect</span>(<span class="params">resultValue</span>) </span>&#123; <span class="comment">//函数的返回值</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">//返回一个对象，其中有toBe方法，toBe方法接收真实值。</span></span><br><span class="line">    toBe: <span class="function"><span class="keyword">function</span>(<span class="params">actualValue</span>) </span>&#123;</span><br><span class="line">      <span class="comment">//判断函数的返回值，与真实值是否相等，如果不相等，抛出错误。</span></span><br><span class="line">      <span class="keyword">if</span> (resultValue !== actualValue) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Error'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">description: string, fn: Function</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    fn(); <span class="comment">//执行函数fn，如果没有抛出错误，输出PASS</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`PASS`</span>); </span><br><span class="line">  &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">    <span class="comment">//如果fn抛出错误，将在这里捕获，并输出错误信息。</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;description&#125;</span> : <span class="subst">$&#123;e&#125;</span>`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以简单的理解为，<code>expect(resultValue).toBe(actualValue)</code> 就是对上述代码的简化。它的实质其实就是比较。expect函数中resultValue和toBe函数中actualValue是否完全相等。之后会介绍Jest中更多的方法。</p>
+<h2 id="配置你的Jest"><a href="#配置你的Jest" class="headerlink" title="配置你的Jest"></a>配置你的Jest</h2><p>首先 我们输入下面命令，来生成Jest的配置文件。<br><code>npx jest --init</code>   </p>
+<blockquote>
+<p>注意，我们这里使用的是npx，不是npm，npx的意思是运行的时候，会到 <code>node_modules/.bin</code> 路径和环境变量  <code>$PATH</code> 里面，检查命令是否存在。 而不是去全局环境查找命令。</p>
+</blockquote>
+<p>输入完命令后会有几个问题让你回答，来创建基本的配置文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Would you like to use Jest when running &quot;test&quot; script in &quot;package.json&quot;? › (Y/n)</span><br><span class="line">这个就是帮你配置package.json当，npm test的时候执行Jest。</span><br><span class="line"></span><br><span class="line">Choose the test environment that will be used for testing › - Use arrow-keys. Return to submit.</span><br><span class="line">❯   node</span><br><span class="line">    jsdom (browser-like)</span><br><span class="line">选择node环境还是浏览器环境</span><br><span class="line"></span><br><span class="line">Do you want Jest to add coverage reports? › (y/N)</span><br><span class="line">是否增加测试覆盖率报告</span><br><span class="line"></span><br><span class="line">Automatically clear mock calls and instances between every test? › (y/N)</span><br><span class="line">每次运行测试时自动清除所有mock</span><br></pre></td></tr></table></figure></p>
+<p>回答完问题之后，会生成一个 <code>jest.config.js</code> 的配置文件。我们可以在里面进行Jest更多的配置。我们将会在之后专门来讲Jest的配置，以及通过babel支持TypeScript和ES Modules。   </p>
+<h2 id="Jest-–watch-监视模式运行"><a href="#Jest-–watch-监视模式运行" class="headerlink" title="Jest –watch 监视模式运行"></a>Jest –watch 监视模式运行</h2><ul>
+<li><code>--watch</code> 监听变化的测试用例，如果想一个文件改变而运行全部测试用例的话需要使用<code>--watchAll</code></li>
+</ul>
+<h2 id="Jest-Matchers-常用匹配器"><a href="#Jest-Matchers-常用匹配器" class="headerlink" title="Jest Matchers 常用匹配器"></a>Jest Matchers 常用匹配器</h2><p>匹配器（Matchers）是Jest中非常重要的一个概念，它可以提供很多种方式来让你去验证你所测试的返回值</p>
+<h3 id="Truthiness"><a href="#Truthiness" class="headerlink" title="Truthiness"></a>Truthiness</h3><ul>
+<li><code>toBe</code> 匹配器：相当于 Object.is 或者 ===</li>
+<li><code>toEqual</code> 匹配器： 只匹配内容，不匹配引用。</li>
+<li><code>toBeNull</code> 匹配器： 内容是否等于Null</li>
+<li><code>toBeUndefined</code> 匹配器： 内容是否等于undefined</li>
+<li><code>toBeDefined</code> 匹配器： 希望内容是定义过的。</li>
+<li><code>toBeTruthy</code> 匹配器： 内容是否为true。</li>
+<li><code>toBeFalsy</code> 匹配器： 内容是否为false。</li>
+<li><code>not</code> 匹配器： 在其他匹配器之前，相当于取反操作   </li>
+</ul>
+<h3 id="与数字相关"><a href="#与数字相关" class="headerlink" title="与数字相关"></a>与数字相关</h3><ul>
+<li><code>toBeGreaterThan</code> 匹配器： 输入的数字是否大于</li>
+<li><code>toBeGreaterThanOrEqual</code>  匹配器： 输入的数字是否大于等于</li>
+<li><code>toBeLessThan</code> 匹配器： 输入的数字是否小于</li>
+<li><code>toBeLessThanOrEqual</code>  匹配器： 输入的数字是否小于等于</li>
+<li>对于浮点数判断相等，为了解决浮点数的bug。要用<code>toBeCloseTo</code>匹配器。   </li>
+</ul>
+<h3 id="与String相关"><a href="#与String相关" class="headerlink" title="与String相关"></a>与String相关</h3><ul>
+<li><code>toMatch</code> 匹配器： 结果中是否包含内容，可以是String也可以是正则   </li>
+</ul>
+<h3 id="与Array相关"><a href="#与Array相关" class="headerlink" title="与Array相关"></a>与Array相关</h3><ul>
+<li><code>toContain</code> 匹配器： 判断元素是否存在数组中。   </li>
+</ul>
+<h3 id="与异常相关"><a href="#与异常相关" class="headerlink" title="与异常相关"></a>与异常相关</h3><ul>
+<li>用<code>toThrow</code>匹配器来判断在调用一个函数出现异常时，这个函数是否抛出了异常。   </li>
+</ul>
+<h2 id="Jest测试异步函数"><a href="#Jest测试异步函数" class="headerlink" title="Jest测试异步函数"></a>Jest测试异步函数</h2><h3 id="callback"><a href="#callback" class="headerlink" title="callback"></a>callback</h3><p>我们先看下面的测试用例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    expect(data).toBe(<span class="string">'success'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fetchData(callback);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在上面这个函数中，fetchData是一个异步的方法，去请求数据，当数据返回时调用，callback函数。我们期望这个异步函数的返回值是”success“。但是Jest并不知道这个异步函数什么时候返回。Jest仅仅只是从头执行到尾。这样这个测试用例是无效的。</p>
+<p>为了解决这个问题。Jest提供了一个 <code>done</code> 参数，这个参数通过test函数的回调方法传进去，<code>done</code> 是一个不接受任何参数的方法。具体怎么用我们来看代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code with done'</span>, done =&gt; &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    expect(data).toBe(<span class="string">'success'</span>);</span><br><span class="line">    done();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fetchData(callback);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>我们对比两个代码可以看出，下面这块代买仅仅是在回调函数中多执行了一句<code>done()</code>它的意思就是告诉Jest，只有运行到了<code>done()</code>这个命令的时候，这个test才算完事。如果一直不调用<code>done()</code>的话会报出超时错误。<br>但是这里还有点问题。就是当测试不通过的时候，会到的done不被调用。这时我们还需要改写一下代码，用try/catch 来捕获expect错误从而实现我们这个需求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code with done'</span>, done =&gt; &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      expect(data).toBe(<span class="string">'success'</span>);</span><br><span class="line">      done();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      done(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fetchData(callback);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Promises"><a href="#Promises" class="headerlink" title="Promises"></a>Promises</h3><p>如果使用Promise，会简单很多。我们只需要把 promise返回， Jest会等待promise resolve。 如果  rejected 的话，这条测试用例会自动不通过。代码如下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> fetchData().then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">    expect(data).toBe(<span class="string">'success'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>如果你用catch捕获了rejected。 那就一定要添加assertions匹配器，assertions匹配器接收一个参数，这个参数表示expect的次数，如果没有出现指定的次数，就会报错。我们改写一下上面的方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'the fetch fails with an error'</span>, () =&gt; &#123;</span><br><span class="line">  expect.assertions(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> fetchData().catch(<span class="function"><span class="params">e</span> =&gt;</span> expect(e).toMatch(<span class="string">'error'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="resolves-rejects-匹配器"><a href="#resolves-rejects-匹配器" class="headerlink" title="resolves / rejects 匹配器"></a>resolves / rejects 匹配器</h3><p>我们也可以用 resolves和rejects匹配器。我们直接看代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'testing asynchronous code'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> expect(fetchData()).resolves.toBe(<span class="string">'success'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">'the fetch fails with an error'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> expect(fetchData()).rejects.toMatch(<span class="string">'error'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Async-Await"><a href="#Async-Await" class="headerlink" title="Async/Await"></a>Async/Await</h3><p>最后我们可以用，Await来等待异步函数执行完成，我们只需要把test中的回调函数改写成async/await形式即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'the data is peanut butter'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> fetchData();</span><br><span class="line">  expect(data).toBe(<span class="string">'peanut butter'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">'the fetch fails with an error'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  expect.assertions(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> fetchData();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    expect(e).toMatch(<span class="string">'error'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>至此我们简单的介绍了Jest的基本用法。更多的用法我们会在下节讲到。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://lizhongjie.com/2020/03/11/webpack入门篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -921,7 +1143,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
